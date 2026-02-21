@@ -495,7 +495,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .about-value p { color: var(--medium); font-size: 0.9rem; }
 
 /* --- Footer --- */
-.footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 60px 0 0; }
+.footer { background: var(--blue-institutional); color: rgba(255,255,255,0.7); padding: 60px 0 0; }
 .footer-grid {
   display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 40px; padding-bottom: 40px;
