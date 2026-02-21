@@ -1,0 +1,112 @@
+backend:
+  name: github
+  repo: Wouree/orion-energy
+  branch: main
+  base_url: https://auth.orionenergycmr.com
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "site_settings"
+    label: "Paramètres du site"
+    files:
+      - name: "general"
+        label: "Informations générales"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Nom du site", name: "name", widget: "string" }
+          - { label: "Slogan", name: "tagline", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "URL du site", name: "url", widget: "string" }
+          - { label: "Téléphone", name: "phone", widget: "string" }
+          - { label: "Téléphone (format international)", name: "phoneClean", widget: "string" }
+          - { label: "WhatsApp", name: "whatsapp", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Adresse", name: "address", widget: "string" }
+          - { label: "URL du formulaire (Google Apps Script)", name: "formEndpoint", widget: "string" }
+          - label: "Réseaux sociaux"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Facebook", name: "facebook", widget: "string", required: false }
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+          - label: "Horaires"
+            name: "hours"
+            widget: "object"
+            fields:
+              - { label: "Bureau", name: "office", widget: "string" }
+              - { label: "Installations", name: "installations", widget: "string" }
+          - { label: "Villes desservies", name: "cities", widget: "list" }
+          - { label: "ID Google Analytics", name: "analyticsId", widget: "string", required: false }
+          - { label: "ID Facebook Pixel", name: "fbPixelId", widget: "string", required: false }
+
+  - name: "faq"
+    label: "FAQ"
+    file: "src/_data/faq.json"
+    fields:
+      - label: "Sections"
+        name: "sections"
+        widget: "list"
+        fields:
+          - { label: "Titre de la section", name: "section", widget: "string" }
+          - label: "Questions"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Réponse", name: "answer", widget: "text" }
+
+  - name: "services"
+    label: "Services"
+    file: "src/_data/services.json"
+    fields:
+      - label: "Services"
+        name: "services"
+        widget: "list"
+        fields:
+          - { label: "Identifiant URL", name: "slug", widget: "string" }
+          - { label: "Titre", name: "title", widget: "string" }
+          - { label: "Sous-titre", name: "subtitle", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+          - { label: "Image", name: "image", widget: "image", required: false }
+          - { label: "Type de CTA", name: "ctaType", widget: "string" }
+          - { label: "Texte du CTA", name: "ctaLabel", widget: "string" }
+
+  - name: "trust"
+    label: "Barre de confiance"
+    file: "src/_data/trust.json"
+    fields:
+      - label: "Éléments"
+        name: "items"
+        widget: "list"
+        fields:
+          - { label: "Texte", name: "label", widget: "string" }
+          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+
+  - name: "process"
+    label: "Étapes du processus"
+    file: "src/_data/process.json"
+    fields:
+      - label: "Étapes"
+        name: "steps"
+        widget: "list"
+        fields:
+          - { label: "Numéro", name: "number", widget: "number" }
+          - { label: "Titre", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+
+  - name: "values"
+    label: "Valeurs / Pourquoi ORION"
+    file: "src/_data/values.json"
+    fields:
+      - label: "Valeurs"
+        name: "values"
+        widget: "list"
+        fields:
+          - { label: "Titre", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Icône (Lucide)", name: "icon", widget: "string" }

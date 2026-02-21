@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Expertise certifiée",
+    "description": "Nos ingénieurs électriciens sont formés et certifiés aux normes internationales. Chaque installation est réalisée avec rigueur et professionnalisme.",
+    "icon": "award"
+  },
+  {
+    "title": "Normes internationales",
+    "description": "Tous nos équipements sont conformes aux normes IEC 61851 et aux codes de sécurité électrique locaux. Aucun compromis sur la qualité.",
+    "icon": "shield-check"
+  },
+  {
+    "title": "Énergie solaire",
+    "description": "Nos installations sont compatibles avec les systèmes solaires pour une autonomie énergétique maximale, même en cas de coupure.",
+    "icon": "sun"
+  },
+  {
+    "title": "Service réactif",
+    "description": "Ligne dédiée et WhatsApp. Nous garantissons une réponse sous 24 heures et une intervention rapide en cas de besoin.",
+    "icon": "headphones"
+  },
+  {
+    "title": "Garantie complète",
+    "description": "Garantie sur les équipements et la main-d'œuvre. Nous assurons le suivi et la maintenance de votre installation.",
+    "icon": "badge-check"
+  },
+  {
+    "title": "Technologie connectée",
+    "description": "Suivez vos sessions de recharge, votre consommation d'énergie et vos coûts en temps réel via l'application.",
+    "icon": "smartphone"
+  }
+]

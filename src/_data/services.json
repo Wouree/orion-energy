@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "recharge-domicile",
+    "title": "Chez Vous",
+    "subtitle": "Recharge à Domicile",
+    "description": "Installation professionnelle de bornes de recharge à votre domicile. Rechargez votre véhicule électrique en toute sécurité, pendant la nuit.",
+    "icon": "home",
+    "image": "/images/placeholder-home-charging.jpg",
+    "ctaType": "visite",
+    "ctaLabel": "Réserver une visite"
+  },
+  {
+    "slug": "bornes-publiques",
+    "title": "Sur La Route",
+    "subtitle": "Bornes Publiques",
+    "description": "Un réseau de bornes de recharge rapide dans les lieux stratégiques de Douala et Yaoundé. Rechargez en toute confiance, où que vous soyez.",
+    "icon": "map-pin",
+    "image": "/images/placeholder-public-station.jpg",
+    "ctaType": "contact",
+    "ctaLabel": "En savoir plus"
+  },
+  {
+    "slug": "entreprises",
+    "title": "Entreprises",
+    "subtitle": "Solutions Professionnelles",
+    "description": "Solutions de recharge pour flottes, hôtels, centres commerciaux et entreprises. Accompagnement complet de la conception à l'installation.",
+    "icon": "building-2",
+    "image": "/images/placeholder-commercial.jpg",
+    "ctaType": "devis",
+    "ctaLabel": "Demander un devis"
+  }
+]

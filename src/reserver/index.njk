@@ -1,0 +1,184 @@
+---
+layout: base.njk
+pageTitle: "Réserver"
+pageDescription: "Réservez une visite d'évaluation à domicile ou demandez un rappel. Gratuit et sans engagement."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Prenez Rendez-Vous</span>
+    <h1>Réservez ou Demandez un Rappel</h1>
+    <p>Choisissez l'option qui vous convient. Notre équipe vous contacte sous 24 heures.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="form-grid">
+
+      {# LEFT: Book a Home Visit #}
+      <div class="form-panel">
+        <h3>Réserver une visite à domicile</h3>
+        <p>Un ingénieur se déplace chez vous pour évaluer votre installation. Gratuit et sans engagement. Disponible du mardi au samedi.</p>
+
+        <form data-orion-form>
+          <input type="hidden" name="form_type" value="visite">
+
+          <div class="form-group">
+            <label>Nom complet *</label>
+            <input type="text" name="name" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Téléphone *</label>
+              <input type="tel" name="phone" placeholder="+237" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Ce numéro est aussi votre WhatsApp ?</label>
+            <div class="form-radio-group">
+              <label class="form-radio"><input type="radio" name="whatsapp_same" value="oui" checked> Oui</label>
+              <label class="form-radio"><input type="radio" name="whatsapp_same" value="non"> Non, autre numéro</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville *</label>
+              <select name="city" required>
+                <option value="">Choisir...</option>
+                <option value="Douala">Douala</option>
+                <option value="Yaoundé">Yaoundé</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quartier / Adresse</label>
+              <input type="text" name="address" placeholder="Ex: Bonanjo">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type de propriété</label>
+              <select name="property_type">
+                <option value="">Choisir...</option>
+                <option value="Maison individuelle">Maison individuelle</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Commerce">Commerce / Bureau</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Véhicule électrique ?</label>
+              <select name="ev_ownership">
+                <option value="">Choisir...</option>
+                <option value="oui">Oui, j'en possède un</option>
+                <option value="bientot">J'envisage d'en acheter</option>
+                <option value="non">Non, je me renseigne</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date souhaitée (Mar–Sam) *</label>
+              <input type="date" name="preferred_date" class="inline-date-picker" required>
+            </div>
+            <div class="form-group">
+              <label>Créneau préféré</label>
+              <select name="preferred_time">
+                <option value="matin">Matin (8h–12h)</option>
+                <option value="apres-midi">Après-midi (13h–17h)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Message (optionnel)</label>
+            <textarea name="message" rows="3" placeholder="Précisions sur votre projet, questions..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Confirmer ma demande</button>
+        </form>
+      </div>
+
+      {# RIGHT: Request a Callback #}
+      <div class="form-panel">
+        <h3>Demander un rappel</h3>
+        <p>Vous préférez qu'on vous appelle ? Indiquez le créneau qui vous convient et nous vous rappelons.</p>
+
+        <form data-orion-form>
+          <input type="hidden" name="form_type" value="rappel">
+
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Téléphone *</label>
+            <input type="tel" name="phone" placeholder="+237" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Jour préféré</label>
+              <select name="callback_day">
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+                <option value="Samedi">Samedi</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Créneau préféré</label>
+              <select name="callback_time">
+                <option value="Matin">Matin (8h–12h)</option>
+                <option value="Après-midi">Après-midi (13h–17h)</option>
+                <option value="Soirée">Soirée (17h–20h)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Sujet</label>
+            <select name="topic">
+              <option value="Recharge à domicile">Recharge à domicile</option>
+              <option value="Bornes publiques">Bornes publiques</option>
+              <option value="Solutions entreprises">Solutions entreprises</option>
+              <option value="Question générale">Question générale</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Demander un rappel</button>
+        </form>
+
+        {# Reassurance below callback form #}
+        <div class="form-reassurance mt-2">
+          <p><strong>Pas d'engagement. Évaluation gratuite. Réponse sous 24h.</strong></p>
+          <div class="form-reassurance-icons">
+            <div class="form-reassurance-item">
+              <i data-lucide="award" style="width:16px;height:16px;"></i> Ingénieurs certifiés
+            </div>
+            <div class="form-reassurance-item">
+              <i data-lucide="shield-check" style="width:16px;height:16px;"></i> Normes internationales
+            </div>
+            <div class="form-reassurance-item">
+              <i data-lucide="heart" style="width:16px;height:16px;"></i> Visite gratuite
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

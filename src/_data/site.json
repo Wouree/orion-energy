@@ -1,0 +1,25 @@
+{
+  "name": "ORION Energy",
+  "tagline": "L'énergie de demain, chez vous aujourd'hui",
+  "description": "Solutions de recharge pour véhicules électriques au Cameroun — installation à domicile, bornes publiques et solutions entreprises.",
+  "url": "https://www.orionenergycmr.com",
+  "phone": "+237 6XX XXX XXX",
+  "phoneClean": "+2376XXXXXXXX",
+  "whatsapp": "+2376XXXXXXXX",
+  "email": "contact@orionenergycmr.com",
+  "address": "Douala, Cameroun",
+  "formEndpoint": "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE",
+  "social": {
+    "facebook": "https://facebook.com/orionenergycmr",
+    "instagram": "https://instagram.com/orionenergycmr",
+    "linkedin": "https://linkedin.com/company/orionenergycmr"
+  },
+  "hours": {
+    "office": "Lundi – Samedi, 8h – 18h",
+    "installations": "Mardi – Samedi, 8h – 17h"
+  },
+  "cities": ["Douala", "Yaoundé"],
+  "cloudinary": "https://res.cloudinary.com/woureesystems/image/upload",
+  "analyticsId": "",
+  "fbPixelId": ""
+}

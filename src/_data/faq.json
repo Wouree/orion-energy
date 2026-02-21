@@ -1,0 +1,90 @@
+[
+  {
+    "section": "La Recharge Électrique",
+    "items": [
+      {
+        "question": "La recharge à domicile est-elle sûre ?",
+        "answer": "Absolument. Nos installations respectent les normes internationales IEC 61851 et incluent des protections multiples : disjoncteur différentiel, protection contre les surtensions, surveillance thermique et arrêt automatique en cas d'anomalie. La recharge d'un véhicule électrique est aussi sûre que l'utilisation de tout autre appareil électrique domestique — à condition que l'installation soit réalisée par des professionnels certifiés."
+      },
+      {
+        "question": "Combien de temps faut-il pour recharger un véhicule ?",
+        "answer": "Avec une borne domestique de 7 kW, comptez 6 à 8 heures pour une charge complète — idéal pour une recharge nocturne. Une borne de 11 kW réduit ce temps à 4-5 heures. Sur nos bornes publiques rapides, vous pouvez récupérer 80% de charge en 30 à 60 minutes selon le véhicule."
+      },
+      {
+        "question": "Puis-je recharger pendant les coupures d'électricité ?",
+        "answer": "Oui, si votre installation inclut des panneaux solaires avec stockage par batterie. ORION Energy propose des solutions de recharge solaire qui vous permettent de recharger votre véhicule même en cas de coupure du réseau. C'est l'un des avantages majeurs de la recharge à domicile au Cameroun."
+      },
+      {
+        "question": "Quels véhicules sont compatibles ?",
+        "answer": "Nos bornes sont compatibles avec tous les véhicules électriques et hybrides rechargeables disponibles sur le marché, incluant les connecteurs Type 2 (standard européen) et Type 1. Lors de la visite d'évaluation, notre ingénieur vérifiera la compatibilité avec votre véhicule spécifique."
+      },
+      {
+        "question": "La recharge coûte-t-elle cher en électricité ?",
+        "answer": "La recharge électrique coûte significativement moins cher que le carburant. En moyenne, recharger un véhicule électrique revient à environ 1/5 du coût d'un plein d'essence pour la même distance. Avec l'option solaire, ce coût peut être réduit encore davantage."
+      }
+    ]
+  },
+  {
+    "section": "L'Installation",
+    "items": [
+      {
+        "question": "Que comprend la visite d'évaluation ?",
+        "answer": "Notre ingénieur examine votre tableau électrique (capacité, état), le parcours de câblage optimal, la puissance de votre compteur, la qualité de la mise à la terre, l'emplacement idéal pour la borne, et le potentiel d'intégration solaire. La visite dure environ 1 heure et est entièrement gratuite et sans engagement."
+      },
+      {
+        "question": "Combien de temps dure l'installation ?",
+        "answer": "Pour une installation résidentielle standard, comptez 1 journée de travail. Les installations plus complexes (longue distance de câblage, mise à niveau du tableau électrique) peuvent nécessiter 2 jours. Vous recevrez un planning précis dans votre devis personnalisé."
+      },
+      {
+        "question": "Faut-il mettre à niveau mon tableau électrique ?",
+        "answer": "Pas nécessairement. Lors de la visite d'évaluation, notre ingénieur vérifiera si votre tableau actuel peut supporter la charge supplémentaire. Si une mise à niveau est nécessaire, elle sera incluse dans le devis avec une explication claire des travaux."
+      },
+      {
+        "question": "J'habite en appartement — est-ce possible ?",
+        "answer": "Oui, sous certaines conditions. Il faut l'accord du propriétaire ou du syndic, et un accès à un emplacement de stationnement avec possibilité de raccordement électrique. Notre équipe vous accompagne dans les démarches et étudie la faisabilité technique lors de la visite."
+      },
+      {
+        "question": "Puis-je déplacer la borne si je déménage ?",
+        "answer": "Oui. Nos bornes peuvent être démontées et réinstallées à votre nouvelle adresse. ORION Energy propose un service de dépose et repose pour garantir que l'installation reste conforme aux normes de sécurité."
+      }
+    ]
+  },
+  {
+    "section": "Les Coûts",
+    "items": [
+      {
+        "question": "Combien coûte l'installation d'une borne à domicile ?",
+        "answer": "Le coût varie selon la puissance de la borne choisie, la distance de câblage, et l'état de votre installation électrique. C'est pourquoi nous proposons une visite d'évaluation gratuite suivie d'un devis détaillé et personnalisé, sans surprise ni frais cachés."
+      },
+      {
+        "question": "Y a-t-il des frais mensuels ?",
+        "answer": "Il n'y a pas de frais mensuels pour la borne elle-même. Vous ne payez que l'électricité consommée, qui apparaît sur votre facture habituelle. Si vous optez pour un service de maintenance préventive, un forfait annuel optionnel est disponible."
+      },
+      {
+        "question": "Proposez-vous des facilités de paiement ?",
+        "answer": "Oui. Nous comprenons que l'investissement initial peut être important. Contactez-nous pour discuter des options de paiement échelonné adaptées à votre situation."
+      }
+    ]
+  },
+  {
+    "section": "ORION Energy",
+    "items": [
+      {
+        "question": "Êtes-vous agréés et certifiés ?",
+        "answer": "Oui. ORION Energy emploie des ingénieurs électriciens certifiés et utilise exclusivement des équipements conformes aux normes internationales IEC. Chaque installation fait l'objet d'un contrôle qualité rigoureux."
+      },
+      {
+        "question": "Quelles zones desservez-vous ?",
+        "answer": "Nous intervenons actuellement à Douala et Yaoundé. Notre réseau s'étend progressivement à d'autres villes du Cameroun. Contactez-nous pour vérifier la disponibilité dans votre zone."
+      },
+      {
+        "question": "Quelle garantie offrez-vous ?",
+        "answer": "Nos installations bénéficient d'une garantie sur les équipements (selon le fabricant, généralement 2 à 5 ans) et sur la main-d'œuvre. Les détails complets de la garantie sont inclus dans chaque devis."
+      },
+      {
+        "question": "Comment contacter le support ?",
+        "answer": "Par téléphone, WhatsApp ou email. Notre équipe est disponible du lundi au samedi, de 8h à 18h. En cas d'urgence technique, un numéro dédié est fourni à chaque client après l'installation."
+      }
+    ]
+  }
+]

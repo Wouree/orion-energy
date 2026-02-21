@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle }} — {{ site.name }}</title>
+  <meta name="description" content="{{ pageDescription or site.description }}">
+  <meta name="form-endpoint" content="{{ site.formEndpoint }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ pageTitle }} — {{ site.name }}">
+  <meta property="og:description" content="{{ pageDescription or site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  {% if site.analyticsId %}
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analyticsId }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analyticsId }}');</script>
+  {% endif %}
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="https://res.cloudinary.com/woureesystems/image/upload/v1771707241/orionenergy/logo_type_sunbeam.svg" alt="{{ site.name }}" style="height:48px;width:auto;">
+      </a>
+
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Accueil</a></li>
+        <li><a href="/services/recharge-domicile/" {% if "recharge-domicile" in page.url %}class="active"{% endif %}>Chez Vous</a></li>
+        <li><a href="/services/bornes-publiques/" {% if "bornes-publiques" in page.url %}class="active"{% endif %}>Sur La Route</a></li>
+        <li><a href="/services/entreprises/" {% if "entreprises" in page.url %}class="active"{% endif %}>Entreprises</a></li>
+        <li><a href="/comment-ca-marche/" {% if "comment-ca-marche" in page.url %}class="active"{% endif %}>Comment Ça Marche</a></li>
+        <li><a href="/securite/" {% if "securite" in page.url %}class="active"{% endif %}>Sécurité</a></li>
+        <li><a href="/faq/" {% if "faq" in page.url %}class="active"{% endif %}>FAQ</a></li>
+        <li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/">
+            <img src="https://res.cloudinary.com/woureesystems/image/upload/v1771707241/orionenergy/logo_type_sunbeam.svg" alt="{{ site.name }}" style="height:44px;width:auto;filter:brightness(0) invert(1);">
+          </a>
+          <p>Solutions de recharge pour véhicules électriques au Cameroun. Installation à domicile, bornes publiques et solutions entreprises.</p>
+        </div>
+
+        <div>
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/recharge-domicile/">Recharge à domicile</a></li>
+            <li><a href="/services/bornes-publiques/">Bornes publiques</a></li>
+            <li><a href="/services/entreprises/">Entreprises</a></li>
+            <li><a href="/comment-ca-marche/">Comment ça marche</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Informations</h4>
+          <ul class="footer-links">
+            <li><a href="/a-propos/">À propos</a></li>
+            <li><a href="/securite/">Sécurité & Normes</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <div class="footer-contact-item">
+            <i data-lucide="phone"></i>
+            <a href="tel:{{ site.phoneClean }}" style="color:rgba(255,255,255,0.7);">{{ site.phone }}</a>
+          </div>
+          <div class="footer-contact-item">
+            <i data-lucide="message-circle"></i>
+            <a href="https://wa.me/{{ site.whatsapp }}" style="color:rgba(255,255,255,0.7);">WhatsApp</a>
+          </div>
+          <div class="footer-contact-item">
+            <i data-lucide="mail"></i>
+            <a href="mailto:{{ site.email }}" style="color:rgba(255,255,255,0.7);">{{ site.email }}</a>
+          </div>
+          <div class="footer-contact-item">
+            <i data-lucide="map-pin"></i>
+            <span>{{ site.address }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; {{ "now" | date("Y") }} {{ site.name }}. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/{{ site.whatsapp }}?text=Bonjour%20ORION%20Energy%2C%20je%20souhaite%20des%20informations%20sur%20vos%20services." class="whatsapp-float" aria-label="WhatsApp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.111.547 4.099 1.504 5.831L0 24l6.335-1.652A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.883 0-3.677-.508-5.25-1.451l-.375-.225-3.9 1.017 1.05-3.825-.248-.394A9.705 9.705 0 012.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75z"/></svg>
+  </a>
+
+  <!-- Form Modal -->
+  <div class="modal-overlay" id="formModal">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modalTitle">Contactez-nous</h3>
+        <button class="modal-close" aria-label="Fermer">
+          <i data-lucide="x" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="modalForm" data-orion-form>
+          <input type="hidden" name="form_type" value="">
+
+          <div data-field="name" class="form-group">
+            <label>Nom complet *</label>
+            <input type="text" name="name" required>
+          </div>
+
+          <div data-field="company" class="form-group hidden">
+            <label>Entreprise</label>
+            <input type="text" name="company">
+          </div>
+
+          <div data-field="phone" class="form-group">
+            <label>Téléphone *</label>
+            <input type="tel" name="phone" placeholder="+237" required>
+          </div>
+
+          <div data-field="whatsapp" class="form-group">
+            <label>Ce numéro est aussi votre WhatsApp ?</label>
+            <div class="form-radio-group">
+              <label class="form-radio"><input type="radio" name="whatsapp_same" value="oui" checked> Oui</label>
+              <label class="form-radio"><input type="radio" name="whatsapp_same" value="non"> Non, autre numéro</label>
+            </div>
+          </div>
+
+          <div data-field="email" class="form-group">
+            <label>Email</label>
+            <input type="email" name="email">
+          </div>
+
+          <div data-field="city" class="form-group">
+            <label>Ville *</label>
+            <select name="city" required>
+              <option value="">Choisir...</option>
+              <option value="Douala">Douala</option>
+              <option value="Yaoundé">Yaoundé</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+
+          <div data-field="address" class="form-group">
+            <label>Quartier / Adresse</label>
+            <input type="text" name="address" placeholder="Ex: Bonanjo, Douala">
+          </div>
+
+          <div data-field="property" class="form-group">
+            <label>Type de propriété</label>
+            <select name="property_type">
+              <option value="">Choisir...</option>
+              <option value="Maison individuelle">Maison individuelle</option>
+              <option value="Appartement">Appartement</option>
+              <option value="Commerce">Commerce / Bureau</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+
+          <div data-field="ev" class="form-group">
+            <label>Possédez-vous un véhicule électrique ?</label>
+            <div class="form-radio-group">
+              <label class="form-radio"><input type="radio" name="ev_ownership" value="oui"> Oui</label>
+              <label class="form-radio"><input type="radio" name="ev_ownership" value="bientot"> J'envisage d'en acheter</label>
+              <label class="form-radio"><input type="radio" name="ev_ownership" value="non"> Non, je me renseigne</label>
+            </div>
+          </div>
+
+          <div data-field="date" class="form-group">
+            <label>Date souhaitée (Mar–Sam) *</label>
+            <input type="date" name="preferred_date">
+          </div>
+
+          <div data-field="time" class="form-group">
+            <label>Créneau préféré</label>
+            <div class="form-radio-group">
+              <label class="form-radio"><input type="radio" name="preferred_time" value="matin" checked> Matin (8h–12h)</label>
+              <label class="form-radio"><input type="radio" name="preferred_time" value="apres-midi"> Après-midi (13h–17h)</label>
+            </div>
+          </div>
+
+          <div data-field="day" class="form-group hidden">
+            <label>Jour préféré pour le rappel</label>
+            <select name="callback_day">
+              <option value="Lundi">Lundi</option>
+              <option value="Mardi">Mardi</option>
+              <option value="Mercredi">Mercredi</option>
+              <option value="Jeudi">Jeudi</option>
+              <option value="Vendredi">Vendredi</option>
+              <option value="Samedi">Samedi</option>
+            </select>
+          </div>
+
+          <div data-field="timeslot" class="form-group hidden">
+            <label>Créneau préféré</label>
+            <select name="callback_time">
+              <option value="Matin">Matin (8h–12h)</option>
+              <option value="Après-midi">Après-midi (13h–17h)</option>
+              <option value="Soirée">Soirée (17h–20h)</option>
+            </select>
+          </div>
+
+          <div data-field="topic" class="form-group hidden">
+            <label>Sujet</label>
+            <select name="topic">
+              <option value="Recharge à domicile">Recharge à domicile</option>
+              <option value="Bornes publiques">Bornes publiques</option>
+              <option value="Solutions entreprises">Solutions entreprises</option>
+              <option value="Question générale">Question générale</option>
+            </select>
+          </div>
+
+          <div data-field="fleet" class="form-group hidden">
+            <label>Taille de la flotte (nombre de véhicules)</label>
+            <input type="number" name="fleet_size" min="1">
+          </div>
+
+          <div data-field="location" class="form-group hidden">
+            <label>Localisation proposée</label>
+            <input type="text" name="partner_location" placeholder="Adresse du site">
+          </div>
+
+          <div data-field="premises" class="form-group hidden">
+            <label>Type d'établissement</label>
+            <select name="premises_type">
+              <option value="">Choisir...</option>
+              <option value="Hôtel">Hôtel</option>
+              <option value="Restaurant">Restaurant</option>
+              <option value="Centre commercial">Centre commercial</option>
+              <option value="Station-service">Station-service</option>
+              <option value="Parking">Parking</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+
+          <div data-field="subject" class="form-group hidden">
+            <label>Sujet</label>
+            <input type="text" name="subject">
+          </div>
+
+          <div data-field="message" class="form-group">
+            <label>Message (optionnel)</label>
+            <textarea name="message" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

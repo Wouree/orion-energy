@@ -1,0 +1,26 @@
+[
+  {
+    "number": 1,
+    "title": "Contactez-nous",
+    "description": "Réservez en ligne, appelez-nous ou envoyez un message WhatsApp. Notre équipe vous répond sous 24 heures.",
+    "icon": "phone"
+  },
+  {
+    "number": 2,
+    "title": "Visite d'évaluation",
+    "description": "Notre ingénieur se déplace chez vous pour évaluer votre installation électrique et définir la solution optimale.",
+    "icon": "clipboard-check"
+  },
+  {
+    "number": 3,
+    "title": "Installation",
+    "description": "Pose professionnelle par nos techniciens certifiés, dans le respect des normes internationales de sécurité.",
+    "icon": "wrench"
+  },
+  {
+    "number": 4,
+    "title": "Rechargez",
+    "description": "Votre borne est opérationnelle. Rechargez votre véhicule en toute sérénité, avec notre suivi et assistance.",
+    "icon": "zap"
+  }
+]

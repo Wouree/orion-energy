@@ -1,0 +1,146 @@
+---
+layout: base.njk
+pageTitle: "Recharge Véhicules Électriques au Cameroun"
+pageDescription: "ORION Energy — Solutions de recharge pour véhicules électriques au Cameroun. Installation à domicile, bornes publiques et solutions entreprises."
+---
+
+{# ===== HERO ===== #}
+<section class="hero">
+  <div class="hero-bg" style="background-image: url('/images/hero-home.jpg');"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-sunburst">
+    <img src="https://res.cloudinary.com/woureesystems/image/upload/v1771707240/orionenergy/icon.svg" alt="" style="width:100%;height:100%;opacity:0.5;filter:brightness(0) invert(1);">
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <i data-lucide="zap" style="width:16px;height:16px;"></i>
+      Pionnier de la recharge électrique au Cameroun
+    </div>
+    <h1>L'énergie de demain, chez vous aujourd'hui</h1>
+    <p>ORION Energy installe des bornes de recharge pour véhicules électriques à votre domicile et déploie un réseau de stations publiques à travers le Cameroun. Sûr. Professionnel. Alimenté par le soleil.</p>
+    <div class="hero-buttons">
+      <a href="/reserver/" class="btn btn-primary" data-form-type="visite">
+        <i data-lucide="calendar" style="width:18px;height:18px;"></i>
+        Réserver une visite
+      </a>
+      <a href="#" class="btn btn-secondary" data-form-type="rappel">
+        <i data-lucide="phone" style="width:18px;height:18px;"></i>
+        Demander un rappel
+      </a>
+    </div>
+  </div>
+</section>
+
+{# ===== TRUST BAR ===== #}
+<section class="trust-bar">
+  <div class="container">
+    <div class="trust-bar-inner">
+      {% for item in trust %}
+      <div class="trust-item">
+        <i data-lucide="{{ item.icon }}" style="width:20px;height:20px;"></i>
+        <span>{{ item.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ===== SERVICES ===== #}
+<section class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Nos Services</span>
+      <h2>Des solutions de recharge adaptées à chaque besoin</h2>
+      <p>De votre domicile aux grands axes routiers, ORION Energy vous accompagne dans la transition vers la mobilité électrique.</p>
+    </div>
+    <div class="card-grid">
+      {% for service in services %}
+      <div class="card animate">
+        <div class="card-image">
+          <div class="card-image-placeholder">
+            <i data-lucide="{{ service.icon }}"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>{{ service.title }}</h3>
+          <p class="card-subtitle">{{ service.subtitle }}</p>
+          <p>{{ service.description }}</p>
+          <a href="/services/{{ service.slug }}/" class="card-link">
+            En savoir plus <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ===== HOW IT WORKS ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Comment Ça Marche</span>
+      <h2>Du premier contact à la recharge : 4 étapes simples</h2>
+    </div>
+    <div class="process-grid">
+      {% for step in process %}
+      <div class="process-step animate">
+        <div class="process-number">{{ step.number }}</div>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-2">
+      <a href="/comment-ca-marche/" class="btn btn-outline">
+        En savoir plus <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+{# ===== WHY ORION ===== #}
+<section class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Pourquoi ORION</span>
+      <h2>La confiance d'une expertise certifiée</h2>
+      <p>Chaque installation ORION Energy est réalisée selon les plus hauts standards internationaux de sécurité et de qualité.</p>
+    </div>
+    <div class="values-grid">
+      {% for value in values %}
+      <div class="value-card animate">
+        <div class="value-icon">
+          <i data-lucide="{{ value.icon }}"></i>
+        </div>
+        <div class="value-content">
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ===== QUOTE ===== #}
+<section class="quote-section">
+  <div class="container">
+    <div class="animate">
+      <p class="quote-text">« Le Cameroun mérite une infrastructure de recharge à la hauteur de ses ambitions. Nous construisons aujourd'hui le réseau qui alimentera la mobilité de demain. »</p>
+      <p class="quote-author">— L'équipe ORION Energy</p>
+    </div>
+  </div>
+</section>
+
+{# ===== CTA BANNER ===== #}
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Prêt à passer à l'électrique ?</h2>
+    <p>Nos experts viennent chez vous. Évaluation gratuite, sans engagement.</p>
+    <div class="btn-group">
+      <a href="/reserver/" class="btn btn-primary" data-form-type="visite">Réserver une visite</a>
+      <a href="#" class="btn btn-secondary" data-form-type="rappel">Demander un rappel</a>
+    </div>
+  </div>
+</section>
