@@ -429,10 +429,10 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 }
 
 /* --- Service Detail Pages --- */
-.service-content { max-width: 800px; }
-.service-content h2 { margin: 48px 0 16px; font-size: 1.5rem; }
-.service-content p { color: var(--medium); margin-bottom: 16px; }
-.service-content ul { margin: 12px 0 20px 20px; }
+.service-content { }
+.service-content h2 { margin: 48px 0 16px; font-size: 1.5rem; max-width: 800px; }
+.service-content p { color: var(--medium); margin-bottom: 16px; max-width: 800px; }
+.service-content ul { margin: 12px 0 20px 20px; max-width: 800px; }
 .service-content li { color: var(--medium); margin-bottom: 8px; line-height: 1.6; }
 
 .service-features {
