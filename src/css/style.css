@@ -106,12 +106,10 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .nav-links a.active::after { width: 100%; }
 
 .nav-cta {
-  background: linear-gradient(135deg, var(--blue-energy), var(--blue-tech));
-  color: var(--white) !important;
-  padding: 10px 20px; border-radius: var(--radius);
+  background: var(--green); color: var(--white) !important;
+  padding: 10px 20px; border-radius: 50px;
   font-weight: 600; font-size: 0.9rem;
   transition: all var(--transition);
-  box-shadow: 0 2px 12px rgba(15,121,242,0.3);
 }
 .nav-cta:hover { background: linear-gradient(135deg, var(--blue), var(--blue-energy)); color: var(--white) !important; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15,121,242,0.4); }
 .nav-cta::after { display: none !important; }
@@ -298,9 +296,9 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .value-content p { color: var(--medium); font-size: 0.9rem; line-height: 1.6; }
 
 /* --- CTA Banner --- */
-.cta-banner { background: linear-gradient(135deg, var(--blue-institutional), var(--blue), var(--blue-tech)); padding: 60px 0; text-align: center; }
-.cta-banner h2 { color: var(--white); margin-bottom: 12px; }
-.cta-banner p { color: rgba(255,255,255,0.8); margin-bottom: 28px; font-size: 1.05rem; }
+.cta-banner { background: var(--white); padding: 60px 0; text-align: center; border-top: 1px solid var(--border); }
+.cta-banner h2 { color: var(--dark); margin-bottom: 12px; }
+.cta-banner p { color: var(--medium); margin-bottom: 28px; font-size: 1.05rem; }
 .cta-banner .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
 /* --- Quote Section --- */
