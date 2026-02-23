@@ -524,7 +524,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 
 .footer h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 16px; }
 .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 12px; }
-.footer-brand img { height: 40px; }
+/*.footer-brand img { height: 40px; }*/
 .footer-links { list-style: none; }
 .footer-links li { margin-bottom: 10px; }
 .footer-links a { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
