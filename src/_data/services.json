@@ -5,7 +5,7 @@
     "subtitle": "Recharge à Domicile",
     "description": "Installation professionnelle de bornes de recharge à votre domicile. Rechargez votre véhicule électrique en toute sécurité, pendant la nuit.",
     "icon": "home",
-    "image": "/images/placeholder-home-charging.jpg",
+    "image": "https://res.cloudinary.com/woureesystems/image/upload/w_800,f_auto,q_auto/v1771872058/orionenergy/webimages/recharge-domicile-hero-03-OrionEnergyCameroon.png",
     "ctaType": "visite",
     "ctaLabel": "Réserver une visite"
   },
@@ -15,7 +15,7 @@
     "subtitle": "Bornes Publiques",
     "description": "Un réseau de bornes de recharge rapide dans les lieux stratégiques de Douala et Yaoundé. Rechargez en toute confiance, où que vous soyez.",
     "icon": "map-pin",
-    "image": "/images/placeholder-public-station.jpg",
+    "image": "https://res.cloudinary.com/woureesystems/image/upload/w_800,f_auto,q_auto/v1771872061/orionenergy/webimages/recharge-publique-hero-06-OrionEnergyCameroon.png",
     "ctaType": "contact",
     "ctaLabel": "En savoir plus"
   },
@@ -25,7 +25,7 @@
     "subtitle": "Solutions Professionnelles",
     "description": "Solutions de recharge pour flottes, hôtels, centres commerciaux et entreprises. Accompagnement complet de la conception à l'installation.",
     "icon": "building-2",
-    "image": "/images/placeholder-commercial.jpg",
+    "image": "https://res.cloudinary.com/woureesystems/image/upload/w_800,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-entreprise-OrionEnergyCameroon.jpg",
     "ctaType": "devis",
     "ctaLabel": "Demander un devis"
   }
