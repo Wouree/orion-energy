@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Close modal
-  document.querySelectorAll('.modal-close, .modal-overlay').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (e.target === el) closeModal();
+  document.querySelectorAll('.modal-close').forEach(el => {
+    el.addEventListener('click', () => closeModal());
+  });
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
     });
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+  }
 
   // --- Date Picker (Tue-Sat, 48h advance) ---
   function setupDatePicker() {
