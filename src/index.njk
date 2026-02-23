@@ -6,7 +6,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
 
 {# ===== HERO ===== #}
 <section class="hero">
-  <div class="hero-bg" style="background-image: url('/images/hero-home.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('https://res.cloudinary.com/woureesystems/image/upload/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png');"></div>
   <div class="hero-overlay"></div>
   <div class="hero-sunburst">
     <img src="https://res.cloudinary.com/woureesystems/image/upload/v1771707240/orionenergy/icon.svg" alt="" style="width:100%;height:100%;opacity:0.5;filter:brightness(0) invert(1);">
@@ -56,10 +56,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
     <div class="card-grid">
       {% for service in services %}
       <div class="card animate">
-        <div class="card-image">
-          <div class="card-image-placeholder">
-            <i data-lucide="{{ service.icon }}"></i>
-          </div>
+        <div class="card-image" style="background-image: url('{{ service.image }}');">
         </div>
         <div class="card-body">
           <h3>{{ service.title }}</h3>
