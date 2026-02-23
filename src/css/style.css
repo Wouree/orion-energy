@@ -105,7 +105,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
-.nav-links .nav-cta {
+.nav-cta {
   background: var(--green);
   color: var(--white) !important;
   padding: 12px 28px;
@@ -116,18 +116,18 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 2px 8px rgba(72,217,81,0.3);
 }
-.nav-links .nav-cta:hover {
+.nav-cta:hover {
   background: var(--green-dark);
   color: var(--white) !important;
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 6px 20px rgba(72,217,81,0.4);
 }
-.nav-links .nav-cta:active {
+.nav-cta:active {
   transform: translateY(0) scale(0.97);
   box-shadow: 0 2px 6px rgba(72,217,81,0.3);
   transition: all 0.1s ease;
 }
-.nav-links .nav-cta::after { display: none !important; }
+.nav-cta::after { display: none !important; }
 
 /* Hamburger */
 .nav-toggle {
@@ -187,7 +187,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 }
 .hero-bg {
   position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0.15;
+  opacity: 0.35;
 }
 .hero-overlay {
   position: absolute; inset: 0;
@@ -222,7 +222,13 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .page-hero {
   background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-institutional) 40%, var(--blue) 100%);
   margin-top: var(--nav-height); padding: 60px 0 50px; text-align: center;
+  position: relative; overflow: hidden;
 }
+.page-hero-bg {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.25;
+}
+.page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 { color: var(--white); margin-bottom: 12px; }
 .page-hero p { color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
@@ -518,7 +524,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 
 .footer h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 16px; }
 .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 12px; }
-/* .footer-brand img { height: 40px; } */
+.footer-brand img { height: 40px; }
 .footer-links { list-style: none; }
 .footer-links li { margin-bottom: 10px; }
 .footer-links a { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
