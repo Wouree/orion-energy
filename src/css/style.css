@@ -883,11 +883,35 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 }
 .lp-solar::before {
   content: '';
-  position: absolute; top: -100px; right: -100px;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(211,217,54,0.08) 0%, transparent 70%);
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg, rgba(211,217,54,0.04) 15deg,
+    transparent 30deg, rgba(72,217,81,0.03) 45deg,
+    transparent 60deg, rgba(211,217,54,0.04) 75deg,
+    transparent 90deg, rgba(72,217,81,0.03) 105deg,
+    transparent 120deg, rgba(211,217,54,0.04) 135deg,
+    transparent 150deg, rgba(72,217,81,0.03) 165deg,
+    transparent 180deg, rgba(211,217,54,0.04) 195deg,
+    transparent 210deg, rgba(72,217,81,0.03) 225deg,
+    transparent 240deg, rgba(211,217,54,0.04) 255deg,
+    transparent 270deg, rgba(72,217,81,0.03) 285deg,
+    transparent 300deg, rgba(211,217,54,0.04) 315deg,
+    transparent 330deg, rgba(72,217,81,0.03) 345deg,
+    transparent 360deg
+  );
   border-radius: 50%;
+  animation: solarSunburstSpin 30s linear infinite;
+  opacity: 0.8;
 }
+
+@keyframes solarSunburstSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 .lp-solar-inner {
   display: flex; gap: 48px; align-items: flex-start;
 }
@@ -920,7 +944,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   animation: solarPulse 4s ease infinite;
   z-index: -1;
 }
-.lp-solar-icon i { color: var(--lime); position: relative; z-index: 1; }
+.lp-solar-icon i { color: var(--lime); position: relative; z-index: 1; filter: drop-shadow(0 0 8px rgba(211,217,54,0.4)); }
 
 @keyframes solarPulse {
   0% { background-position: 0% 50%; }
@@ -950,9 +974,9 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   transition: background var(--transition);
 }
 .lp-solar-benefit:hover { background: rgba(255,255,255,0.1); }
-.lp-solar-benefit i { color: var(--green); flex-shrink: 0; margin-top: 2px; }
-.lp-solar-benefit strong { color: var(--white); display: block; font-size: 0.95rem; margin-bottom: 2px; }
-.lp-solar-benefit span { color: rgba(255,255,255,0.65); font-size: 0.85rem; }
+.lp-solar-benefit i { color: var(--lime); flex-shrink: 0; margin-top: 2px; }
+.lp-solar-benefit strong { color: var(--white); display: block; font-size: 1.05rem; margin-bottom: 2px; }
+.lp-solar-benefit span { color: rgba(255,255,255,0.75); font-size: 0.88rem; }
 
 
 /* --- Why ORION Grid --- */
