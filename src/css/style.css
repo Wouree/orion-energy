@@ -954,9 +954,11 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .lp-why-card p { font-size: 0.9rem; color: var(--medium); line-height: 1.6; }
 
 
-/* --- LP CTA Section --- */
+/* --- LP CTA Section (animated charging gradient) --- */
 .lp-cta-section {
-  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-institutional) 50%, var(--blue) 100%);
+  background: linear-gradient(270deg, var(--blue-dark), var(--blue-institutional), var(--blue-tech), var(--green), var(--blue-tech), var(--blue-institutional), var(--blue-dark));
+  background-size: 400% 100%;
+  animation: chargingGradient 12s ease infinite;
   position: relative;
   overflow: hidden;
 }
@@ -964,8 +966,14 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   content: '';
   position: absolute; bottom: -80px; left: -80px;
   width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(72,217,81,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(72,217,81,0.08) 0%, transparent 70%);
   border-radius: 50%;
+}
+
+@keyframes chargingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 .lp-cta-card {
   max-width: 720px;
