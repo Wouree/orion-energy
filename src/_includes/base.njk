@@ -33,7 +33,7 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav{% if landingPage %} nav-centered{% endif %}">
     <div class="nav-inner">
       <a href="/" class="nav-logo">
         <img src="https://res.cloudinary.com/woureesystems/image/upload/v1771707241/orionenergy/logo_type_only.svg" alt="{{ site.name }}" style="height:48px;width:auto;">
@@ -51,7 +51,9 @@
         <li><a href="/comment-ca-marche/" {% if "comment-ca-marche" in page.url %}class="active"{% endif %}>Comment Ça Marche</a></li>
         <li><a href="/securite/" {% if "securite" in page.url %}class="active"{% endif %}>Sécurité</a></li>
         <li><a href="/faq/" {% if "faq" in page.url %}class="active"{% endif %}>FAQ</a></li>
-        <li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
+        {% if not landingPage %}
+		<li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
+		{% endif %}
       </ul>
     </div>
   </nav>
