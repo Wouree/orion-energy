@@ -895,11 +895,42 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   flex-shrink: 0;
   width: 88px; height: 88px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(211,217,54,0.2), rgba(72,217,81,0.15));
-  border: 1px solid rgba(211,217,54,0.25);
+  background: linear-gradient(135deg, rgba(211,217,54,0.25), rgba(72,217,81,0.15), rgba(19,131,242,0.2), rgba(211,217,54,0.25));
+  background-size: 200% 200%;
+  animation: solarPulse 4s ease infinite;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
   display: flex; align-items: center; justify-content: center;
 }
-.lp-solar-icon i { color: var(--lime); }
+.lp-solar-icon::before {
+  content: '';
+  position: absolute; inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--green-dark), var(--lime), var(--green), transparent 60%, var(--green-dark));
+  animation: borderSpin 3s linear infinite;
+  z-index: -1;
+}
+.lp-solar-icon::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(211,217,54,0.25), rgba(72,217,81,0.15), rgba(19,131,242,0.2), rgba(211,217,54,0.25));
+  background-size: 200% 200%;
+  animation: solarPulse 4s ease infinite;
+  z-index: -1;
+}
+.lp-solar-icon i { color: var(--lime); position: relative; z-index: 1; }
+
+@keyframes solarPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes borderSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
 .lp-solar-content { flex: 1; }
 .lp-solar-content h2 { color: var(--white); margin-bottom: 16px; }
