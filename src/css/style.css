@@ -888,23 +888,23 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   width: 800px; height: 800px;
   background: conic-gradient(
     from 0deg,
-    transparent 0deg, rgba(211,217,54,0.04) 15deg,
-    transparent 30deg, rgba(72,217,81,0.03) 45deg,
-    transparent 60deg, rgba(211,217,54,0.04) 75deg,
-    transparent 90deg, rgba(72,217,81,0.03) 105deg,
-    transparent 120deg, rgba(211,217,54,0.04) 135deg,
-    transparent 150deg, rgba(72,217,81,0.03) 165deg,
-    transparent 180deg, rgba(211,217,54,0.04) 195deg,
-    transparent 210deg, rgba(72,217,81,0.03) 225deg,
-    transparent 240deg, rgba(211,217,54,0.04) 255deg,
-    transparent 270deg, rgba(72,217,81,0.03) 285deg,
-    transparent 300deg, rgba(211,217,54,0.04) 315deg,
-    transparent 330deg, rgba(72,217,81,0.03) 345deg,
+    transparent 0deg, rgba(211,217,54,0.12) 15deg,
+    transparent 30deg, rgba(72,217,81,0.08) 45deg,
+    transparent 60deg, rgba(211,217,54,0.12) 75deg,
+    transparent 90deg, rgba(72,217,81,0.08) 105deg,
+    transparent 120deg, rgba(211,217,54,0.12) 135deg,
+    transparent 150deg, rgba(72,217,81,0.08) 165deg,
+    transparent 180deg, rgba(211,217,54,0.12) 195deg,
+    transparent 210deg, rgba(72,217,81,0.08) 225deg,
+    transparent 240deg, rgba(211,217,54,0.12) 255deg,
+    transparent 270deg, rgba(72,217,81,0.08) 285deg,
+    transparent 300deg, rgba(211,217,54,0.12) 315deg,
+    transparent 330deg, rgba(72,217,81,0.08) 345deg,
     transparent 360deg
   );
   border-radius: 50%;
   animation: solarSunburstSpin 30s linear infinite;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 @keyframes solarSunburstSpin {
@@ -944,7 +944,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   animation: solarPulse 4s ease infinite;
   z-index: -1;
 }
-.lp-solar-icon i { color: var(--lime); position: relative; z-index: 1; filter: drop-shadow(0 0 8px rgba(211,217,54,0.4)); }
+.lp-solar-icon i, .lp-solar-icon svg { color: var(--lime); position: relative; z-index: 1; filter: drop-shadow(0 0 8px rgba(211,217,54,0.4)); }
 
 @keyframes solarPulse {
   0% { background-position: 0% 50%; }
@@ -974,7 +974,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   transition: background var(--transition);
 }
 .lp-solar-benefit:hover { background: rgba(255,255,255,0.1); }
-.lp-solar-benefit i { color: var(--lime); flex-shrink: 0; margin-top: 2px; }
+.lp-solar-benefit i, .lp-solar-benefit svg { color: var(--lime); flex-shrink: 0; margin-top: 2px; }
 .lp-solar-benefit strong { color: var(--white); display: block; font-size: 1.05rem; margin-bottom: 2px; }
 .lp-solar-benefit span { color: rgba(255,255,255,0.75); font-size: 0.88rem; }
 
