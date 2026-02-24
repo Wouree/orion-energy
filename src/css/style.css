@@ -579,7 +579,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
    ============================================ */
 
 /* --- Nav centered variant (no CTA) --- */
-.nav-centered .nav-inner { justify-content: center; }
+.nav-centered .nav-inner { justify-content: center; gap: 40px; }
 .nav-centered .nav-links { margin-left: 0; }
 
 /* --- LP Hero (Full-height service hero) --- */
