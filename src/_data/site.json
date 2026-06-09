@@ -3,7 +3,7 @@
   "tagline": "L'énergie de demain, chez vous aujourd'hui",
   "description": "Solutions de recharge pour véhicules électriques au Cameroun — installation à domicile, bornes publiques et solutions entreprises.",
   "url": "https://www.orionenergycmr.com",
-  "phone": "+237 6XX XXX XXX",
+  "phone": "+237 692 439 292",
   "phoneClean": "+237 692 439 292",
   "whatsapp": "+237 692 439 292",
   "email": "contact@orionenergycmr.com",
@@ -18,8 +18,11 @@
     "office": "Lundi – Samedi, 8h – 18h",
     "installations": "Mardi – Samedi, 8h – 17h"
   },
-  "cities": ["Douala", "Yaoundé"],
-  "cloudinary": "https://res.cloudinary.com/woureesystems/image/upload",
+  "cities": [
+    "Douala",
+    "Yaoundé"
+  ],
   "analyticsId": "",
-  "fbPixelId": ""
+  "fbPixelId": "",
+  "cloudinary": "https://res.cloudinary.com/woureesystems/image/upload"
 }
