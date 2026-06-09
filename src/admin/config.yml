@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Wouree/orion-energy
   branch: main
-  base_url: https://auth.orionenergycmr.com
+  base_url: https://auth.wouree.com
 
 media_folder: "src/images"
 public_folder: "/images"
