@@ -44,69 +44,84 @@ collections:
 
   - name: "faq"
     label: "FAQ"
-    file: "src/_data/faq.json"
-    fields:
-      - label: "Sections"
-        name: "sections"
-        widget: "list"
+    files:
+      - name: "faq"
+        label: "FAQ"
+        file: "src/_data/faq.json"
         fields:
-          - { label: "Titre de la section", name: "section", widget: "string" }
-          - label: "Questions"
-            name: "items"
+          - label: "Sections"
+            name: "sections"
             widget: "list"
             fields:
-              - { label: "Question", name: "question", widget: "string" }
-              - { label: "Réponse", name: "answer", widget: "text" }
+              - { label: "Titre de la section", name: "section", widget: "string" }
+              - label: "Questions"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Question", name: "question", widget: "string" }
+                  - { label: "Réponse", name: "answer", widget: "text" }
 
   - name: "services"
     label: "Services"
-    file: "src/_data/services.json"
-    fields:
-      - label: "Services"
-        name: "services"
-        widget: "list"
+    files:
+      - name: "services"
+        label: "Services"
+        file: "src/_data/services.json"
         fields:
-          - { label: "Identifiant URL", name: "slug", widget: "string" }
-          - { label: "Titre", name: "title", widget: "string" }
-          - { label: "Sous-titre", name: "subtitle", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
-          - { label: "Image", name: "image", widget: "image", required: false }
-          - { label: "Type de CTA", name: "ctaType", widget: "string" }
-          - { label: "Texte du CTA", name: "ctaLabel", widget: "string" }
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Identifiant URL", name: "slug", widget: "string" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Sous-titre", name: "subtitle", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Type de CTA", name: "ctaType", widget: "string" }
+              - { label: "Texte du CTA", name: "ctaLabel", widget: "string" }
 
   - name: "trust"
     label: "Barre de confiance"
-    file: "src/_data/trust.json"
-    fields:
-      - label: "Éléments"
-        name: "items"
-        widget: "list"
+    files:
+      - name: "trust"
+        label: "Barre de confiance"
+        file: "src/_data/trust.json"
         fields:
-          - { label: "Texte", name: "label", widget: "string" }
-          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+          - label: "Éléments"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Texte", name: "label", widget: "string" }
+              - { label: "Icône (Lucide)", name: "icon", widget: "string" }
 
   - name: "process"
     label: "Étapes du processus"
-    file: "src/_data/process.json"
-    fields:
-      - label: "Étapes"
-        name: "steps"
-        widget: "list"
+    files:
+      - name: "process"
+        label: "Étapes du processus"
+        file: "src/_data/process.json"
         fields:
-          - { label: "Numéro", name: "number", widget: "number" }
-          - { label: "Titre", name: "title", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+          - label: "Étapes"
+            name: "steps"
+            widget: "list"
+            fields:
+              - { label: "Numéro", name: "number", widget: "number" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Icône (Lucide)", name: "icon", widget: "string" }
 
   - name: "values"
     label: "Valeurs / Pourquoi ORION"
-    file: "src/_data/values.json"
-    fields:
-      - label: "Valeurs"
-        name: "values"
-        widget: "list"
+    files:
+      - name: "values"
+        label: "Valeurs / Pourquoi ORION"
+        file: "src/_data/values.json"
         fields:
-          - { label: "Titre", name: "title", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Icône (Lucide)", name: "icon", widget: "string" }
+          - label: "Valeurs"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Icône (Lucide)", name: "icon", widget: "string" }
