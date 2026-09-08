@@ -1,0 +1,157 @@
+---
+pageTitle: "Matériel"
+pageDescription: "Les quatre modèles de bornes ORION : puissance, connecteur, indices de protection, garantie et disponibilité. Caractéristiques constructeur, sans arrondi."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Technologie</span>
+    <h1>Le matériel, sans arrondi</h1>
+    <p>Quatre modèles. Voici leurs caractéristiques telles que le constructeur les donne, y compris celles qui ne nous arrangent pas.</p>
+  </div>
+</section>
+
+{# ===== FULL SPEC TABLE ===== #}
+<section class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Catalogue</span>
+      <h2>Les quatre modèles</h2>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Référence</th>
+            <th scope="col">Type</th>
+            <th scope="col">Puissance</th>
+            <th scope="col">Connecteur</th>
+            <th scope="col">IP / IK</th>
+            <th scope="col">Garantie</th>
+            <th scope="col">Disponibilité</th>
+            <th scope="col">Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in orion.product | sortByOrder %}
+          <tr>
+            <td><strong>{{ p.model }}</strong></td>
+            <td>{% if p.type == "ac_wallbox" %}Borne murale AC{% elif p.type == "ac_pedestal" %}Borne sur pied AC{% else %}Borne rapide DC{% endif %}</td>
+            <td>{{ p.power_kw }} kW</td>
+            <td>{{ p.connector }}</td>
+            <td>{{ p.ip_rating }} / {{ p.ik_rating }}</td>
+            <td>{{ p.warranty_months }} mois</td>
+            <td>{% if p.availability == "en_stock" %}En stock{% else %}Sur commande — {{ p.lead_time_weeks }} semaines{% endif %}</td>
+            <td>{% if p.use_case %}{{ p.use_case }}{% else %}<span style="color:var(--light-text);">—</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="service-content">
+      <p class="claim-cite">Caractéristiques fournies par le constructeur. Matériel d'origine chinoise, fourni par Eagle South Capital.</p>
+      <p>La case vide dans la colonne « usage » n'est pas un oubli. Le constructeur n'a pas précisé l'usage recommandé du modèle sur pied, et nous n'allons pas en inventer un pour remplir un tableau.</p>
+    </div>
+  </div>
+</section>
+
+{# ===== CONNECTORS ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="service-content">
+      <h2>Les connecteurs</h2>
+      <p><strong>Nos quatre modèles sont équipés d'un connecteur GB/T.</strong></p>
+      <p>C'est le standard chinois. Il est différent des Type 2 et CCS2 que l'on trouve sur les véhicules conçus pour les marchés européen, japonais et coréen. Le connecteur de la borne doit correspondre à la prise de votre véhicule : c'est la première chose à vérifier, avant la puissance, avant le prix, avant tout le reste.</p>
+      <p>Regardez la trappe de recharge de votre voiture, ou envoyez-nous une photo. Nous le vérifions pendant la visite d'évaluation, avant tout engagement de votre part.</p>
+
+      {# PENDING_DATA: positionnement commercial sur la compatibilité des connecteurs — le client n'a pas
+         arrêté la manière de présenter le GB/T face aux véhicules équipés en Type 2 ou CCS2. Aucune
+         solution d'adaptation, aucun adaptateur et aucune compatibilité élargie ne sont annoncés ici
+         tant que cette décision n'est pas prise. Voir docs/PENDING.md #}
+    </div>
+  </div>
+</section>
+
+{# ===== HOW TO READ THE SPECS ===== #}
+<section class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Décoder</span>
+      <h2>Comment lire ces caractéristiques</h2>
+      <p>Ces indices sont normalisés. Ils veulent dire quelque chose de précis, et il est utile de savoir quoi.</p>
+    </div>
+
+    <div class="safety-grid">
+      <div class="safety-card animate">
+        <h3><i data-lucide="droplets"></i> IP54</h3>
+        <p>Le premier chiffre concerne les corps solides, le second l'eau. <strong>5</strong> : protégé contre la poussière, sans être totalement étanche à celle-ci. <strong>4</strong> : protégé contre les projections d'eau venant de toutes les directions.</p>
+        <p>En pratique : une borne IP54 supporte la pluie, y compris une pluie tropicale battante. Elle ne supporte pas l'immersion. Ne l'installez pas dans une zone qui peut être inondée.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="hammer"></i> IK08 et IK10</h3>
+        <p>L'indice IK mesure la résistance aux chocs mécaniques. <strong>IK08</strong> correspond à un impact de 5 joules, <strong>IK10</strong> à 20 joules — quatre fois plus.</p>
+        <p>Concrètement : IK08 convient à un emplacement abrité ou surveillé ; IK10 est celui à choisir pour une borne exposée sur un parking public, où elle peut être heurtée.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="zap"></i> AC et DC</h3>
+        <p>Une borne <strong>AC</strong> fournit du courant alternatif : c'est le chargeur embarqué du véhicule qui le convertit, et c'est lui qui fixe la vitesse maximale. Une borne AC plus puissante ne fera pas charger plus vite un véhicule dont le chargeur embarqué est limité.</p>
+        <p>Une borne <strong>DC</strong> fait la conversion elle-même et alimente la batterie directement. Elle est plus rapide, plus chère, et demande un raccordement plus important.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="badge-check"></i> CE et RoHS</h3>
+        <p><strong>CE</strong> atteste la conformité aux directives européennes de sécurité, de santé et d'environnement. <strong>RoHS</strong> limite les substances dangereuses — plomb, mercure, cadmium — dans les équipements électriques.</p>
+        <p>Ce sont les deux certifications que ce matériel détient. Nous n'en revendiquons pas d'autres.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ===== PER-MODEL ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Modèle par modèle</span>
+      <h2>Lequel pour quel usage</h2>
+    </div>
+    <div class="card-grid">
+      {% for p in orion.product | sortByOrder %}
+      <div class="card-body animate" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
+        <span class="card-subtitle">{{ p.power_kw }} kW · {{ p.connector }}</span>
+        <h3>{{ p.model }}</h3>
+        {% if p.body %}{{ p.body | markdown | safe }}{% endif %}
+        <p class="claim-cite">
+          {{ p.ip_rating }} / {{ p.ik_rating }} · garantie {{ p.warranty_months }} mois ·
+          {% if p.availability == "en_stock" %}en stock{% else %}sur commande, {{ p.lead_time_weeks }} semaines{% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ===== LEAD TIME ===== #}
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>Disponibilité et délais</h2>
+      <p>Un seul modèle est tenu en stock : la borne murale 7 kW, celle des installations résidentielles. Les trois autres sont commandés à réception de votre accord.</p>
+      <p><strong>{% claim "delai-approvisionnement" %}</strong> pour un modèle sur commande, auquel s'ajoute le temps de préparation du chantier.</p>
+      {{ "delai-approvisionnement" | claimCite | safe }}
+      <p class="mt-2">Nous le disons d'emblée parce que c'est la première contrainte d'un calendrier de projet, et parce que la découvrir après signature n'arrange personne.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Quel modèle pour votre cas ?</h2>
+    <p>Cela dépend de votre véhicule, de votre installation et du temps dont vous disposez. Nous le déterminons pendant la visite.</p>
+    <div class="btn-group">
+      <a href="/reserver/" class="btn btn-primary" data-form-type="visite">Réserver une visite</a>
+      <a href="/technologie/solaire-et-stockage/" class="btn btn-outline">Solaire et stockage</a>
+    </div>
+  </div>
+</section>

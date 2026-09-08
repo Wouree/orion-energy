@@ -50,6 +50,7 @@ module.exports = {
       links: [
         { label: 'Recharge à domicile', href: '/services/recharge-domicile/' },
         { label: 'Comment ça marche', href: '/comment-ca-marche/' },
+        { label: 'Coupures et surtensions', href: '/securite/coupures-et-surtensions/' },
         { label: 'Réserver une visite', href: '/reserver/' },
         { label: 'FAQ', href: '/faq/' },
       ],
@@ -69,6 +70,8 @@ module.exports = {
       links: [
         { label: 'À propos', href: '/a-propos/' },
         { label: 'Sécurité & normes', href: '/securite/' },
+        { label: 'Matériel', href: '/technologie/materiel/' },
+        { label: 'Solaire et stockage', href: '/technologie/solaire-et-stockage/' },
         { label: 'Bornes publiques', href: '/services/bornes-publiques/' },
         { label: 'Contact', href: '/contact/' },
       ],

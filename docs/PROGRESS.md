@@ -11,9 +11,9 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 1 | Content model + foundations | **DONE** | `3a34dd9` | 14 collections live, 43 items, 3 withheld by governance. D-04/05/06 fixed. i18n wired, `en` unbuilt. |
 | 2 | Phase 0 remediation | **DONE** | `103c6b6` `3834db5` `cd3c4c1` `3f2cda6` `aa70d4a` | All five parts. ~53 claim strings removed. 21 CTAs wired. Verified in Chromium. |
 | 3 | Site partner funnel | **DONE** | `d58aa90` | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
-| 4 | Business hub + fiscal | **DONE** | | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
-| 5 | Safety + hardware | **IN PROGRESS** | | |
-| 6 | Residential | TODO | | |
+| 4 | Business hub + fiscal | **DONE** | `5b60f50` | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
+| 5 | Safety + hardware | **DONE** | | Safety cluster (3 pages + hub), hardware catalogue, solar. All forward links now resolve. |
+| 6 | Residential | **IN PROGRESS** | | |
 | 7 | Forms + calculators | TODO | | |
 | 8 | Sweep + verify | TODO | | |
 

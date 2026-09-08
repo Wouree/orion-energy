@@ -1,0 +1,96 @@
+---
+layout: base.njk
+pageTitle: "Garantie"
+pageDescription: "Douze mois sur le matériel, douze mois sur l'installation, pièces et main-d'œuvre. Ce qui est couvert, ce qui ne l'est pas, et ce que nous ne savons pas encore."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872057/orionenergy/webimages/recharge-chez-nous-04-OrionEnergyCameroon.jpg');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Sécurité</span>
+    <h1>Garantie</h1>
+    <p>Ce qui est couvert, ce qui ne l'est pas, et — plus rare sur ce genre de page — ce que nous ne pouvons pas encore vous dire.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>Les durées</h2>
+      <p><strong>{% claim "garantie-complete-12-12" %}.</strong></p>
+      {{ "garantie-complete-12-12" | claimCite | safe }}
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Objet</th>
+            <th scope="col">Durée</th>
+            <th scope="col">Couvre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Matériel</strong></td>
+            <td>12 mois</td>
+            <td>Le remplacement d'une borne défaillante.</td>
+          </tr>
+          <tr>
+            <td><strong>Installation</strong></td>
+            <td>12 mois</td>
+            <td>Pièces et main-d'œuvre sur le travail que nous avons réalisé.</td>
+          </tr>
+          <tr>
+            <td><strong>Borne rapide 60 kW (TA-DC-DD60kW)</strong></td>
+            <td>26 mois</td>
+            <td>Garantie constructeur, plus longue que les autres modèles.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="service-content">
+      <h2>Ce qui n'est pas couvert</h2>
+      <p><strong>Le déplacement.</strong> Une intervention sous garantie couvre la pièce et la main-d'œuvre, pas le trajet pour venir jusqu'à vous. C'est la seule exclusion que nous puissions énoncer avec certitude aujourd'hui, et nous préférons l'écrire ici plutôt que de vous la faire découvrir sur une facture.</p>
+
+      <div class="notice">
+        <strong>Ce que nous ne savons pas encore.</strong> La liste complète des exclusions et la portée territoriale de la garantie ne sont pas arrêtées à ce jour. Nous ne les inventerons pas pour meubler cette page. Elles vous seront communiquées par écrit avec votre devis, avant toute signature — et si elles ne le sont pas, réclamez-les.
+      </div>
+
+      {# PENDING_DATA: liste complète des exclusions de garantie et portée territoriale.
+         Non confirmées par le client. Aucune exclusion n'est inventée ni suggérée ici.
+         Voir docs/PENDING.md #}
+
+      <h2>Ce qu'une garantie ne couvre jamais, nulle part</h2>
+      <p>Indépendamment de nos conditions particulières, ces situations ne relèvent d'aucune garantie constructeur ni installateur. Autant les connaître :</p>
+      <ul>
+        <li>un dommage causé par une intervention d'un tiers sur l'installation ;</li>
+        <li>un choc, un acte de vandalisme ou un vol ;</li>
+        <li>un dégât résultant d'un défaut de l'installation électrique <em>en amont</em> que nous avions signalé et que vous avez choisi de ne pas traiter ;</li>
+        <li>l'usure normale d'un câble ou d'un connecteur soumis à un usage intensif.</li>
+      </ul>
+      <p>Le troisième point mérite une précision, parce qu'il est la cause de la plupart des litiges dans ce métier : si notre relevé indique une terre insuffisante et que l'installation est faite malgré tout à votre demande, les dommages qui en découlent ne sont pas couverts. C'est aussi pourquoi nous refusons ces chantiers plutôt que de les accepter avec une réserve écrite.</p>
+
+      <h2>Comment faire jouer la garantie</h2>
+      <ol>
+        <li>Écrivez-nous en décrivant le symptôme et, si possible, le comportement des voyants de la borne.</li>
+        <li>Nous établissons un premier diagnostic à distance. Une partie des cas se règlent là.</li>
+        <li>Si une intervention est nécessaire, nous nous déplaçons.</li>
+        <li>Gardez votre relevé de mesures : il sert de référence pour établir ce qui a changé.</li>
+      </ol>
+      <p>Nous ne publions aucun délai d'intervention. Nos engagements de délai sont en cours de révision, et annoncer un chiffre que nous ne pourrions pas tenir serait pire que de n'en annoncer aucun.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Une question sur votre installation ?</h2>
+    <p>Écrivez-nous. Nous répondons.</p>
+    <div class="btn-group">
+      <a href="{{ wa.href }}" class="btn btn-primary" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+      <a href="/contact/" class="btn btn-outline">Nous contacter</a>
+    </div>
+  </div>
+</section>

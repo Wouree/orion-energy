@@ -1,0 +1,123 @@
+---
+layout: base.njk
+pageTitle: "Protocole d'installation"
+pageDescription: "Ce qui est mesuré, testé et contrôlé avant qu'une installation de recharge vous soit remise — et ce que contient le relevé que nous laissons."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872058/orionenergy/webimages/recharge-domicile-hero-03-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Sécurité</span>
+    <h1>Ce que nous testons avant de partir</h1>
+    <p>Une installation n'est pas terminée quand la borne s'allume. Elle est terminée quand elle a été mesurée.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>Avant la pose</h2>
+      <p>Ces relevés décident si le chantier est possible, et à quelles conditions. Ils sont faits pendant la visite d'évaluation, avant tout devis.</p>
+      <ul>
+        <li><strong>Résistance de la prise de terre.</strong> Mesurée, pas supposée. C'est le relevé qui peut arrêter un projet.</li>
+        <li><strong>Puissance disponible</strong> au compteur et au tableau, comparée à ce que la borne demandera en plus du reste.</li>
+        <li><strong>État du tableau</strong> : place disponible, état des protections existantes, serrage des connexions.</li>
+        <li><strong>Continuité et section des conducteurs</strong> sur le trajet envisagé.</li>
+        <li><strong>Tracé du câble</strong> et distance réelle, qui déterminent la section nécessaire et le coût.</li>
+        <li><strong>Emplacement de la borne</strong> : accessibilité, exposition, longueur de câble jusqu'au véhicule.</li>
+      </ul>
+    </div>
+
+    <div class="safety-grid mt-2">
+      <div class="safety-card animate">
+        <h3><i data-lucide="anchor"></i> La terre d'abord</h3>
+        <p>Si la mesure de terre est mauvaise, nous la reprenons — piquet, boucle, ou reprise complète selon le cas — avant de poser quoi que ce soit.</p>
+        <p>Nous ne posons pas de borne sur une terre défaillante, même si le client le demande, même si cela fait perdre le chantier. Une borne raccordée à une terre absente met en danger la personne qui branche son véhicule.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="git-branch"></i> Un circuit dédié</h3>
+        <p>La borne dispose de son propre départ au tableau, de sa propre protection et de son propre conducteur. Elle ne partage rien avec l'éclairage ni avec les prises.</p>
+        <p>Cela isole les défauts dans les deux sens : un problème sur la borne ne coupe pas la maison, un défaut dans la maison n'atteint pas le véhicule.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="shield-check"></i> Protection différentielle dédiée</h3>
+        <p>Un dispositif différentiel réservé à la borne, du type adapté à la recharge de véhicules. Il détecte une fuite de courant et coupe avant qu'elle ne devienne dangereuse.</p>
+      </div>
+      <div class="safety-card animate">
+        <h3><i data-lucide="zap-off"></i> Protection contre les surtensions</h3>
+        <p>Un parafoudre, raccordé à la terre que nous venons de mesurer. Sans cette terre, il ne servirait à rien — c'est expliqué en détail sur la page <a href="/securite/coupures-et-surtensions/">coupures et surtensions</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="service-content">
+      <h2>Après la pose : les tests de réception</h2>
+      <p>Chaque installation subit la même série de contrôles, quel que soit le client et quelle que soit la taille du chantier.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th scope="col">Contrôle</th>
+              <th scope="col">Ce qu'il vérifie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mesure de terre</strong></td>
+              <td>Que la valeur relevée après travaux est bien celle attendue.</td>
+            </tr>
+            <tr>
+              <td><strong>Mesure d'isolement</strong></td>
+              <td>Qu'aucun conducteur ne présente de défaut d'isolation sur le circuit posé.</td>
+            </tr>
+            <tr>
+              <td><strong>Test du différentiel</strong></td>
+              <td>Que le dispositif déclenche réellement, et dans le temps prévu.</td>
+            </tr>
+            <tr>
+              <td><strong>Continuité des protections</strong></td>
+              <td>Que le conducteur de protection est continu de la borne jusqu'à la terre.</td>
+            </tr>
+            <tr>
+              <td><strong>Test de charge réel</strong></td>
+              <td>Que la borne délivre sa puissance sans échauffement anormal, sur une durée représentative.</td>
+            </tr>
+            <tr>
+              <td><strong>Contrôle de serrage</strong></td>
+              <td>Que chaque connexion est au couple. Une connexion desserrée chauffe et finit par brûler.</td>
+            </tr>
+            <tr>
+              <td><strong>Essai de coupure et reprise</strong></td>
+              <td>Que la recharge s'interrompt proprement et redémarre seule au retour du courant.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Ce que nous vous laissons</h2>
+      <ul>
+        <li>Le <strong>relevé des mesures</strong> effectuées, avec les valeurs — pas une simple attestation de conformité.</li>
+        <li>Le <strong>schéma</strong> du circuit posé et l'emplacement des protections.</li>
+        <li>La <strong>documentation</strong> du matériel installé.</li>
+        <li>Les <strong>conditions de garantie</strong>, exclusions comprises. Elles sont détaillées sur <a href="/securite/garantie/">la page garantie</a>.</li>
+        <li>Le <strong>contact</strong> à joindre en cas de problème.</li>
+      </ul>
+      <p>Le relevé de mesures compte plus que le reste : c'est le seul document qui vous permet, dans deux ans, de comparer et de constater une dérive.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Faire évaluer votre installation</h2>
+    <p>Les relevés préalables sont faits pendant la visite. Gratuite, sans engagement.</p>
+    <div class="btn-group">
+      <a href="/reserver/" class="btn btn-primary" data-form-type="visite">Réserver une visite</a>
+      <a href="/securite/garantie/" class="btn btn-outline">Voir la garantie</a>
+    </div>
+  </div>
+</section>

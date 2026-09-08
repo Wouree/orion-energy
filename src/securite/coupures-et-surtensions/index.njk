@@ -1,0 +1,104 @@
+---
+layout: base.njk
+pageTitle: "Coupures et surtensions"
+pageDescription: "Pourquoi le réseau camerounais abîme les équipements électriques, ce qui protège réellement une borne de recharge, et comment vérifier votre propre installation."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872061/orionenergy/webimages/recharge-chez-nous-03-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Sécurité</span>
+    <h1>Coupures et surtensions</h1>
+    <p>Le problème n'est presque jamais la coupure elle-même. C'est ce qui se passe au moment où le courant revient.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>Ce qui abîme réellement vos équipements</h2>
+      <p>Une coupure, en soi, ne détruit rien. Un appareil qui s'arrête faute de courant s'arrête, voilà tout.</p>
+      <p>Le dégât se produit au <strong>retour</strong> du courant. La tension ne remonte pas proprement à sa valeur nominale : elle dépasse, oscille, redescend, parfois plusieurs fois en quelques secondes. C'est cette surtension transitoire qui fait vieillir les alimentations à découpage, claquer les condensateurs et griller les cartes électroniques.</p>
+      <p>C'est pour cette raison qu'un équipement survit à cent coupures et meurt à la cent-unième sans que rien de particulier ne se soit produit : les dégâts s'accumulent bien avant la panne visible.</p>
+
+      <h2>Les quatre phénomènes à distinguer</h2>
+      <p>On les confond souvent sous le mot « coupure ». Ils n'ont ni les mêmes causes ni les mêmes remèdes.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th scope="col">Phénomène</th>
+              <th scope="col">Ce qui se passe</th>
+              <th scope="col">Ce qui protège</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Coupure franche</strong></td>
+              <td>Plus de tension du tout, de quelques secondes à plusieurs heures.</td>
+              <td>Rien à protéger. Le risque est au retour.</td>
+            </tr>
+            <tr>
+              <td><strong>Surtension transitoire</strong></td>
+              <td>Une pointe de tension très brève, au retour du courant ou lors d'un orage.</td>
+              <td>Un parafoudre, correctement raccordé à une terre correcte.</td>
+            </tr>
+            <tr>
+              <td><strong>Sous-tension prolongée</strong></td>
+              <td>La tension reste basse. Les moteurs forcent, les alimentations chauffent.</td>
+              <td>Un relais de contrôle de tension qui coupe en deçà d'un seuil.</td>
+            </tr>
+            <tr>
+              <td><strong>Déséquilibre entre phases</strong></td>
+              <td>En triphasé, les phases ne portent pas la même tension.</td>
+              <td>Une protection de déséquilibre, et un raccordement réparti correctement.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Le parafoudre ne sert à rien sans la terre</h2>
+      <p>C'est le point le plus mal compris de toute l'installation électrique domestique, et celui qui rend inutile la plupart des protections achetées de bonne foi.</p>
+      <p>Un parafoudre fonctionne en <strong>dérivant</strong> la surtension vers la terre. Si la terre est absente, coupée, ou de mauvaise qualité, la surtension n'a nulle part où aller : elle traverse le parafoudre puis vos appareils, exactement comme s'il n'était pas là.</p>
+      <p>Un parafoudre posé sur une installation sans terre est un composant décoratif. Il coûte de l'argent, il rassure, et il ne protège rien.</p>
+
+      <div class="notice">
+        <strong>Vérifiez-le vous-même.</strong> Regardez votre tableau électrique : voyez-vous un conducteur vert et jaune qui part vers l'extérieur, vers un piquet ou une boucle enterrée ? Si vous ne le trouvez pas, vous n'avez probablement pas de terre — quel que soit ce qui est écrit sur vos prises.
+      </div>
+
+      <h2>Ce que cela implique pour une borne de recharge</h2>
+      <p>Une borne est raccordée à votre véhicule, qui est l'objet le plus cher de votre installation. Elle tire une forte puissance pendant plusieurs heures d'affilée, souvent la nuit, souvent sans surveillance.</p>
+      <p>Trois conséquences pratiques :</p>
+      <ul>
+        <li><strong>La terre passe avant tout le reste.</strong> Nous la mesurons avant la pose. Si elle est mauvaise, nous la reprenons ou nous ne posons pas.</li>
+        <li><strong>Le circuit doit être dédié.</strong> Une borne partageant son circuit avec le reste du logement expose l'un aux défauts de l'autre.</li>
+        <li><strong>La reprise après coupure doit être propre.</strong> La recharge s'interrompt et redémarre d'elle-même au retour du courant, sans intervention et sans à-coup sur le véhicule.</li>
+      </ul>
+
+      <h2>Le solaire change le problème</h2>
+      <p>Une installation solaire avec stockage ne se contente pas de réduire la facture : elle place une batterie entre le réseau et vos équipements.</p>
+      <p>Pendant une coupure, la recharge continue sur le stockage. Et surtout, l'onduleur découple votre installation des allers-retours de tension du réseau — ce qui traite la cause des dégâts, pas seulement leurs effets.</p>
+      <p>C'est la raison pour laquelle nous parlons de solaire sur un site de recharge au Cameroun, et pas seulement d'économies. <a href="/technologie/solaire-et-stockage/">Le détail est ici</a>.</p>
+
+      <h2>Ce que vous pouvez faire sans nous</h2>
+      <ul>
+        <li>Localisez votre conducteur de terre. S'il n'existe pas, c'est le premier chantier, avant toute borne.</li>
+        <li>Regardez si un parafoudre est présent dans votre tableau, et depuis quand — un parafoudre ayant absorbé une forte surtension est à remplacer.</li>
+        <li>Notez la fréquence et la durée de vos coupures pendant un mois. Cette information vaut de l'or au moment de dimensionner un stockage.</li>
+        <li>Ne branchez jamais un équipement de forte puissance sur une multiprise ou une rallonge.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Faire vérifier votre installation</h2>
+    <p>La visite d'évaluation mesure la terre, contrôle les protections et relève ce que votre tableau peut réellement supporter. Gratuite, sans engagement.</p>
+    <div class="btn-group">
+      <a href="/reserver/" class="btn btn-primary" data-form-type="visite">Réserver une visite</a>
+      <a href="/securite/protocole-installation/" class="btn btn-outline">Voir notre protocole</a>
+    </div>
+  </div>
+</section>
