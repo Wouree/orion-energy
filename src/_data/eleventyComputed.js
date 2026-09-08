@@ -14,8 +14,21 @@
  */
 
 const i18n = require('./i18n.js');
+const whatsapp = require('./whatsapp.js');
 
 module.exports = {
+  // The WhatsApp deep link for this page: the confirmed number plus a pre-filled message composed from
+  // where the visitor actually is. A page may override the message with `whatsappText` in front matter.
+  wa: (data) => {
+    const base = whatsapp.forUrl((data.page && data.page.url) || '/');
+    if (!data.whatsappText) return base;
+    return {
+      ...base,
+      text: data.whatsappText,
+      href: `https://wa.me/${base.number}?text=${encodeURIComponent(data.whatsappText)}`,
+    };
+  },
+
   lang: (data) => data.lang || i18n.localeFromUrl(data.page && data.page.url),
 
   ref: (data) => data.ref || i18n.refFromUrl(data.page && data.page.url),
