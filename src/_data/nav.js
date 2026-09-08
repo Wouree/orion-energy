@@ -17,8 +17,8 @@ module.exports = {
     { label: 'Accueil', href: '/', match: ['/'], exact: true },
     {
       label: 'Particuliers',
-      href: '/services/recharge-domicile/',
-      match: ['/services/recharge-domicile/', '/particuliers/', '/comment-ca-marche/', '/reserver/'],
+      href: '/particuliers/',
+      match: ['/particuliers/', '/services/recharge-domicile/', '/comment-ca-marche/', '/reserver/', '/guide-puissance/'],
     },
     {
       label: 'Entreprises',
@@ -48,9 +48,10 @@ module.exports = {
     {
       heading: 'Particuliers',
       links: [
-        { label: 'Recharge à domicile', href: '/services/recharge-domicile/' },
-        { label: 'Comment ça marche', href: '/comment-ca-marche/' },
-        { label: 'Coupures et surtensions', href: '/securite/coupures-et-surtensions/' },
+        { label: 'Recharge à domicile', href: '/particuliers/' },
+        { label: 'Avant d’acheter', href: '/particuliers/avant-achat/' },
+        { label: 'Tarifs d’installation', href: '/particuliers/tarifs-installation/' },
+        { label: 'Quelle puissance choisir', href: '/guide-puissance/' },
         { label: 'Réserver une visite', href: '/reserver/' },
         { label: 'FAQ', href: '/faq/' },
       ],

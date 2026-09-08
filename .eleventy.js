@@ -153,6 +153,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/js');
   eleventyConfig.addPassthroughCopy('src/images');
   eleventyConfig.addPassthroughCopy('src/admin');
+  // Cloudflare Pages reads _redirects from the output root.
+  eleventyConfig.addPassthroughCopy({ 'src/_redirects': '_redirects' });
 
   eleventyConfig.addWatchTarget('src/css/');
   eleventyConfig.addWatchTarget('src/js/');

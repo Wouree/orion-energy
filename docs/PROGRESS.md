@@ -12,9 +12,9 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 2 | Phase 0 remediation | **DONE** | `103c6b6` `3834db5` `cd3c4c1` `3f2cda6` `aa70d4a` | All five parts. ~53 claim strings removed. 21 CTAs wired. Verified in Chromium. |
 | 3 | Site partner funnel | **DONE** | `d58aa90` | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
 | 4 | Business hub + fiscal | **DONE** | `5b60f50` | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
-| 5 | Safety + hardware | **DONE** | | Safety cluster (3 pages + hub), hardware catalogue, solar. All forward links now resolve. |
-| 6 | Residential | **IN PROGRESS** | | |
-| 7 | Forms + calculators | TODO | | |
+| 5 | Safety + hardware | **DONE** | `a088722` | Safety cluster (3 pages + hub), hardware catalogue, solar. All forward links now resolve. |
+| 6 | Residential | **DONE** | | Hub, avant-achat, tarifs, guide-puissance. `/particuliers/recharge-domicile/` → 301 via `_redirects`. No compatibility checker (GB/T). |
+| 7 | Forms + calculators | **IN PROGRESS** | | |
 | 8 | Sweep + verify | TODO | | |
 
 ## Architecture (established Lot 1)
