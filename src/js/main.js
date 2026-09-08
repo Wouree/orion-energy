@@ -111,6 +111,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /**
+   * Field-level validation message. Replaces two blocking alert() calls (D-08): a modal dialog is the
+   * wrong instrument for "that day is not available", and it freezes any browser-automation run.
+   */
+  function setFieldNotice(input, message) {
+    let notice = input.parentElement?.querySelector('.field-notice');
+    if (!message) {
+      if (notice) notice.remove();
+      input.removeAttribute('aria-invalid');
+      return;
+    }
+    if (!notice) {
+      notice = document.createElement('p');
+      notice.className = 'field-notice';
+      notice.setAttribute('role', 'status');
+      input.parentElement?.appendChild(notice);
+    }
+    notice.textContent = message;
+    input.setAttribute('aria-invalid', 'true');
+  }
+
   // --- Date Picker (Tue-Sat, 48h advance) ---
   function setupDatePicker() {
     const dateInput = modalForm?.querySelector('input[name="preferred_date"]');
@@ -133,8 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const selected = new Date(dateInput.value + 'T12:00:00');
       const day = selected.getDay();
       if (![2,3,4,5,6].includes(day)) {
-        alert('Veuillez choisir un jour du mardi au samedi.');
         dateInput.value = formatDate(minDate);
+        setFieldNotice(dateInput, 'Les visites ont lieu du mardi au samedi. Nous avons sélectionné la prochaine date disponible.');
+      } else {
+        setFieldNotice(dateInput, '');
       }
     });
   }
@@ -157,56 +180,135 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('input', () => {
       const selected = new Date(input.value + 'T12:00:00');
       if (![2,3,4,5,6].includes(selected.getDay())) {
-        alert('Veuillez choisir un jour du mardi au samedi.');
         input.value = formatDate(minDate);
+        setFieldNotice(input, 'Les visites ont lieu du mardi au samedi. Nous avons sélectionné la prochaine date disponible.');
+      } else {
+        setFieldNotice(input, '');
       }
     });
   });
 
-  // --- Form Submission ---
+  /* ============================================
+     Form submission
+
+     Two rules govern this whole section.
+
+     1. Google Apps Script ALWAYS returns HTTP 200 — including when it failed. `response.ok` is therefore
+        meaningless here and must never be the success test. The only truth is `result.ok` in the parsed
+        JSON body. The previous implementation posted with `mode: 'no-cors'`, which makes the response
+        opaque and `result.ok` unreadable by construction, then called the success handler unconditionally.
+        Every failed submission was reported to the user as sent.
+
+     2. A form that cannot submit says so. When no endpoint is configured, the previous code showed the
+        success message and discarded the submission — so every form on the live site was a no-op that
+        thanked the user for a request nobody received. It now shows an error and a WhatsApp fallback that
+        actually reaches someone.
+
+     The POST is sent as text/plain so the browser issues no CORS preflight — Apps Script does not answer
+     OPTIONS. The body is still JSON; only the Content-Type differs.
+     ============================================ */
+
+  const WHATSAPP_NUMBER = document.querySelector('meta[name="whatsapp-number"]')?.content || '';
+
+  function whatsappFallbackLink(text) {
+    if (!WHATSAPP_NUMBER) return '';
+    return `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">WhatsApp</a>`;
+  }
+
   async function handleSubmit(form) {
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(new FormData(form));
     const endpoint = document.querySelector('meta[name="form-endpoint"]')?.content;
 
-    if (!endpoint || endpoint === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-      showFormSuccess(form);
+    clearFormError(form);
+
+    if (!endpoint) {
+      // Not configured. Say so plainly rather than pretending the request went somewhere.
+      showFormError(
+        form,
+        "Le formulaire n'est pas encore relié à notre système d'enregistrement. " +
+          'Votre message ne serait pas reçu. Écrivez-nous directement — ' +
+          (whatsappFallbackLink(
+            'Bonjour ORION Energy, je souhaite vous joindre (le formulaire du site est indisponible).'
+          ) || 'par email') +
+          ' — nous vous répondrons.'
+      );
       return;
     }
 
     const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Envoi en cours...';
-    submitBtn.disabled = true;
+    const originalText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.textContent = 'Envoi en cours…';
+      submitBtn.disabled = true;
+    }
 
     try {
-      await fetch(endpoint, {
+      const response = await fetch(endpoint, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        // text/plain avoids a CORS preflight; Apps Script does not answer OPTIONS.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(data)
       });
+
+      // Apps Script answers 200 even on failure, so response.ok proves nothing. Read the body.
+      let result;
+      try {
+        result = JSON.parse(await response.text());
+      } catch (parseError) {
+        throw new Error('reponse-illisible');
+      }
+
+      if (!result || result.ok !== true) {
+        throw new Error(result && result.error ? result.error : 'echec-enregistrement');
+      }
+
       showFormSuccess(form);
     } catch (err) {
-      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
+      showFormError(
+        form,
+        "Votre demande n'a pas pu être enregistrée. Réessayez dans un instant, ou écrivez-nous sur " +
+          (whatsappFallbackLink(
+            'Bonjour ORION Energy, je n’ai pas réussi à envoyer le formulaire du site.'
+          ) || 'WhatsApp') +
+          '.'
+      );
     } finally {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     }
   }
 
   function showFormSuccess(form) {
-    const groups = form.querySelectorAll('.form-group, .form-row, button[type="submit"], [data-field]');
-    groups.forEach(el => el.style.display = 'none');
+    form.querySelectorAll('.form-group, .form-row, button[type="submit"], [data-field]')
+      .forEach(el => { el.style.display = 'none'; });
 
     const success = document.createElement('div');
     success.className = 'form-success';
+    success.setAttribute('role', 'status');
+    // No response-time figure. The client's commitment is under review and no number may be published.
     success.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#598435" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      <h3>Demande envoyée !</h3>
-      <p>Merci pour votre confiance. Notre équipe vous contactera sous 24 heures.</p>
+      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3>Demande envoyée</h3>
+      <p>Merci. Votre demande est bien enregistrée et notre équipe revient vers vous.</p>
     `;
     form.appendChild(success);
+  }
+
+  function showFormError(form, html) {
+    clearFormError(form);
+    const error = document.createElement('div');
+    error.className = 'form-error';
+    error.setAttribute('role', 'alert');
+    error.innerHTML = html;
+    form.appendChild(error);
+    error.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function clearFormError(form) {
+    const existing = form.querySelector('.form-error');
+    if (existing) existing.remove();
   }
 
   // Bind all forms

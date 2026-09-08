@@ -6,6 +6,7 @@
   <title>{{ pageTitle }} — {{ site.name }}</title>
   <meta name="description" content="{{ pageDescription or site.description }}">
   <meta name="form-endpoint" content="{{ site.form_endpoint }}">
+  <meta name="whatsapp-number" content="{{ site.whatsapp }}">
 
   {# Canonical: previously absent entirely (D-10). #}
   {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}

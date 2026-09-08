@@ -1,7 +1,7 @@
 /* ============================================
    ORION ENERGY — Design System
-   Brand: Deep Blue #275A7D | Green #598435
-   Forest #487357 | Sage #B6BF93 | Off-White #F2F2F2
+   Jetons de marque — brand.orionenergycmr.com. Valeurs exactes, jamais approximées.
+   Ne jamais échantillonner une couleur depuis un fichier logo : la compression JPEG/WebP décale les valeurs.
    ============================================ */
 
 /* --- Reset & Base --- */
@@ -1119,3 +1119,48 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   .lp-hero h1 { font-size: 2rem; }
   .lp-hero-trust { flex-direction: column; gap: 12px; }
 }
+
+
+/* ============================================
+   Statuts — hors palette de marque
+
+   CLAUDE.md : les couleurs de statut (erreurs, statuts de station, badges) se situent en dehors de la
+   palette de marque, pour qu'une station ouverte ne se lise jamais comme un bouton principal.
+   ============================================ */
+:root {
+  --status-error: #C42B2B;
+  --status-error-bg: #FDF2F2;
+  --status-warn: #B47A05;
+  --status-warn-bg: #FDF8EC;
+  --status-ok: #1F7A46;
+  --status-ok-bg: #F0F8F3;
+}
+
+/* Message d'erreur de formulaire. Remplace le faux message de succès : un formulaire qui n'a pas pu
+   envoyer le dit, avec un moyen de nous joindre qui, lui, fonctionne. */
+.form-error {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--status-error);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: var(--status-error-bg);
+  color: var(--status-error);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.form-error a {
+  color: var(--status-error);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Message de validation au niveau du champ. Remplace deux alert() bloquants. */
+.field-notice {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--status-warn);
+}
+
+.form-success svg { color: var(--green); }

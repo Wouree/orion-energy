@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
-  <text x="10" y="38" font-family="Montserrat, sans-serif" font-weight="700" font-size="32" fill="#275A7D">ORION</text>
-  <text x="138" y="38" font-family="Montserrat, sans-serif" font-weight="600" font-size="16" fill="#598435">energy</text>
+<!-- Fallback wordmark. The live logotype is served from Cloudinary; this asset exists for contexts that
+     cannot reach it. Colours are the exact brand tokens (brand.orionenergycmr.com) — Institutional Blue
+     #14328C and Primary Green #48D951 — not sampled from a compressed logo file. It previously carried
+     #275A7D / #598435, a pre-rebrand palette belonging to no current token (D-07). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60" role="img" aria-label="ORION energy">
+  <text x="10" y="38" font-family="Montserrat, sans-serif" font-weight="700" font-size="32" fill="#14328C">ORION</text>
+  <text x="138" y="38" font-family="Montserrat, sans-serif" font-weight="600" font-size="16" fill="#48D951">energy</text>
 </svg>
