@@ -1,34 +1,34 @@
 {
   "values": [
     {
-      "title": "Expertise certifiée",
-      "description": "Nos ingénieurs électriciens sont formés et certifiés aux normes internationales. Chaque installation est réalisée avec rigueur et professionnalisme.",
-      "icon": "award"
+      "title": "Une équipe interne",
+      "description": "Dix personnes, aucune sous-traitance. La personne qui évalue votre installation appartient à la même équipe que celle qui la pose et celle qui en assure le suivi.",
+      "icon": "users"
     },
     {
-      "title": "Normes internationales",
-      "description": "Tous nos équipements sont conformes aux normes IEC 61851 et aux codes de sécurité électrique locaux. Aucun compromis sur la qualité.",
+      "title": "Matériel certifié CE et RoHS",
+      "description": "Nos bornes portent les marquages CE et RoHS. Nous indiquons pour chaque modèle sa puissance, son connecteur, ses indices de protection et sa garantie — sans arrondir.",
       "icon": "shield-check"
     },
     {
+      "title": "Pensé pour un réseau instable",
+      "description": "Coupures et surtensions font partie du quotidien électrique camerounais. Nos installations sont conçues avec cette réalité comme point de départ, pas comme exception.",
+      "icon": "zap"
+    },
+    {
       "title": "Énergie solaire",
-      "description": "Nos installations sont compatibles avec les systèmes solaires pour une autonomie énergétique maximale, même en cas de coupure.",
+      "description": "Nos installations sont compatibles avec les systèmes solaires, pour continuer à recharger quand le réseau s'arrête.",
       "icon": "sun"
     },
     {
-      "title": "Service réactif",
-      "description": "Ligne dédiée et WhatsApp. Nous garantissons une réponse sous 24 heures et une intervention rapide en cas de besoin.",
-      "icon": "headphones"
-    },
-    {
-      "title": "Garantie complète",
-      "description": "Garantie sur les équipements et la main-d'œuvre. Nous assurons le suivi et la maintenance de votre installation.",
+      "title": "Garantie 12 mois, pièces et main-d'œuvre",
+      "description": "Douze mois sur le matériel et douze mois sur l'installation, pièces et main-d'œuvre comprises. Le déplacement n'est pas couvert.",
       "icon": "badge-check"
     },
     {
-      "title": "Technologie connectée",
-      "description": "Suivez vos sessions de recharge, votre consommation d'énergie et vos coûts en temps réel via l'application.",
-      "icon": "smartphone"
+      "title": "De l'audit à la maintenance",
+      "description": "Nous concevons, installons, alimentons et exploitons. Un seul interlocuteur du premier relevé jusqu'à l'entretien courant.",
+      "icon": "route"
     }
   ]
 }

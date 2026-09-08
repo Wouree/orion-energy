@@ -1,5 +1,10 @@
 const content = require('./src/_data/orion.js');
 const i18n = require('./src/_data/i18n.js');
+const markdownIt = require('markdown-it');
+
+// Collection bodies are Markdown and must be rendered as such — otherwise a list renders as hyphens and
+// emphasis as literal asterisks. Bundled with Eleventy, so no new dependency.
+const md = markdownIt({ html: true, breaks: false, linkify: true, typographer: true });
 
 module.exports = function (eleventyConfig) {
   /* ------------------------------------------------------------------ *
@@ -107,6 +112,9 @@ module.exports = function (eleventyConfig) {
 
   // URL-encode for WhatsApp deep links and mailto bodies.
   eleventyConfig.addFilter('urlencode', (s) => encodeURIComponent(String(s === undefined ? '' : s)));
+
+  eleventyConfig.addFilter('markdown', (value) => (value ? md.render(String(value)) : ''));
+  eleventyConfig.addFilter('markdownInline', (value) => (value ? md.renderInline(String(value)) : ''));
 
   /* ------------------------------------------------------------------ *
    * Assets

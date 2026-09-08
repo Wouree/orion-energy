@@ -3,7 +3,13 @@ slug: y-a-t-il-des-frais-mensuels
 question: "Y a-t-il des frais mensuels ?"
 category: "Les Coûts"
 category_order: 3
-order: 301
+order: 320
 ---
 
-Il n'y a pas de frais mensuels pour la borne elle-même. Vous ne payez que l'électricité consommée, qui apparaît sur votre facture habituelle. Si vous optez pour un service de maintenance préventive, un forfait annuel optionnel est disponible.
+Non. La borne installée chez vous vous appartient : il n'y a ni abonnement ni frais récurrent pour l'équipement.
+
+Vous ne payez que l'électricité consommée, sur votre facture habituelle.
+
+Un contrat de maintenance préventive est possible, mais il est optionnel et distinct.
+
+{# PENDING_DATA: tarif du contrat de maintenance préventive — non confirmé, voir docs/PENDING.md #}

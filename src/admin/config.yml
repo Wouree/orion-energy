@@ -169,7 +169,7 @@ collections:
         name: "certifications"
         widget: "list"
         required: false
-        hint: "CE et RoHS uniquement. Toute mention d'une norme IEC fait échouer le build."
+        hint: "CE et RoHS uniquement. Toute autre norme saisie ici fait échouer le build."
       - { label: "Usage", name: "use_case", widget: "string", required: false }
       - { label: "Origine", name: "origin", widget: "string", required: false }
       - { label: "Fournisseur", name: "supplier", widget: "string", required: false }

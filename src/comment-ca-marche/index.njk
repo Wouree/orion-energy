@@ -21,7 +21,7 @@ pageDescription: "Découvrez le processus d'installation d'une borne de recharge
         <div class="detail-step-number">1</div>
         <div class="detail-step-content">
           <h3>Prenez contact</h3>
-          <p>Réservez votre visite d'évaluation en ligne, par téléphone ou via WhatsApp. C'est gratuit et sans engagement. Notre équipe vous répond sous 24 heures pour confirmer le rendez-vous.</p>
+          <p>Réservez votre visite d'évaluation en ligne ou via WhatsApp. C'est gratuit et sans engagement. Notre équipe revient vers vous pour confirmer le rendez-vous.</p>
           <p>Informations utiles à préparer : votre adresse, le type de votre logement, et si vous possédez déjà un véhicule électrique (ou prévoyez d'en acquérir un).</p>
         </div>
       </div>
@@ -46,7 +46,10 @@ pageDescription: "Découvrez le processus d'installation d'une borne de recharge
         <div class="detail-step-number">3</div>
         <div class="detail-step-content">
           <h3>Proposition personnalisée</h3>
-          <p>Sous 48 heures, vous recevez un devis détaillé et personnalisé comprenant :</p>
+          <p>Vous recevez ensuite un devis détaillé et personnalisé comprenant :</p>
+
+          {# PENDING_DATA: délai d'émission du devis — l'ancien « sous 48 heures » n'était adossé à aucun
+             engagement confirmé. Le client révise ses délais ; aucun chiffre n'est publié. Voir docs/PENDING.md #}
           <ul>
             <li>L'équipement recommandé avec ses caractéristiques</li>
             <li>Le détail des travaux d'installation</li>
@@ -80,9 +83,8 @@ pageDescription: "Découvrez le processus d'installation d'une borne de recharge
           <p>L'installation terminée, notre ingénieur procède aux tests complets du système : vérification des protections, test de charge, mesures de sécurité. Puis il vous forme :</p>
           <ul>
             <li>Fonctionnement de la borne et de ses indicateurs</li>
-            <li>Configuration de l'application de suivi sur votre téléphone</li>
             <li>Bonnes pratiques de recharge</li>
-            <li>Remise du dossier complet : certificat d'installation, garantie, contacts support</li>
+            <li>Remise du dossier complet : relevé de contrôle, garantie, contacts support</li>
           </ul>
         </div>
       </div>
@@ -93,10 +95,9 @@ pageDescription: "Découvrez le processus d'installation d'une borne de recharge
           <h3>Assistance continue</h3>
           <p>Notre relation ne s'arrête pas à l'installation. Vous bénéficiez de :</p>
           <ul>
-            <li><strong>Garantie complète</strong> — équipements et main-d'œuvre couverts</li>
-            <li><strong>Support technique</strong> — par téléphone, WhatsApp ou email, du lundi au samedi</li>
+            <li><strong>{% claim "garantie-complete-12-12" %}</strong></li>
+            <li><strong>Support technique</strong> — par WhatsApp ou email, du lundi au samedi</li>
             <li><strong>Maintenance préventive</strong> — vérifications périodiques optionnelles pour une longévité maximale</li>
-            <li><strong>Mises à jour</strong> — les bornes connectées reçoivent automatiquement les améliorations logicielles</li>
           </ul>
         </div>
       </div>

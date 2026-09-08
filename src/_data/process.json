@@ -3,25 +3,25 @@
     {
       "number": 1,
       "title": "Contactez-nous",
-      "description": "Réservez en ligne, appelez-nous ou envoyez un message WhatsApp. Notre équipe vous répond sous 24 heures.",
+      "description": "Réservez en ligne, écrivez-nous ou envoyez un message WhatsApp. Notre équipe revient vers vous pour convenir d'un rendez-vous.",
       "icon": "phone"
     },
     {
       "number": 2,
       "title": "Visite d'évaluation",
-      "description": "Notre ingénieur se déplace chez vous pour évaluer votre installation électrique et définir la solution optimale.",
+      "description": "Un technicien se déplace chez vous pour examiner votre installation électrique, définir le parcours de câblage et déterminer la solution adaptée.",
       "icon": "clipboard-check"
     },
     {
       "number": 3,
       "title": "Installation",
-      "description": "Pose professionnelle par nos techniciens certifiés, dans le respect des normes internationales de sécurité.",
+      "description": "Pose par notre équipe interne : câblage, protections, montage, raccordement et mise en service. Aucune sous-traitance.",
       "icon": "wrench"
     },
     {
       "number": 4,
       "title": "Rechargez",
-      "description": "Votre borne est opérationnelle. Rechargez votre véhicule en toute sérénité, avec notre suivi et assistance.",
+      "description": "Votre borne est opérationnelle. Douze mois de garantie sur le matériel et sur l'installation, pièces et main-d'œuvre.",
       "icon": "zap"
     }
   ]

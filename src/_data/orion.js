@@ -191,12 +191,28 @@ function readCollection(name) {
     .map((file) => {
       const raw = fs.readFileSync(path.join(dir, file), 'utf8');
       const { data, content } = matter(raw);
+      const where = `content/${name}/${file}`;
+
+      // PENDING_DATA markers are the record of a fact we do not have. CLAUDE.md requires that the slot
+      // render *nothing* — not a placeholder, not "à partir de X". So the marker is lifted out of the
+      // body here: it stays in the source file as the note to the next person, is collected for
+      // docs/PENDING.md, and never reaches the page.
+      const pending = [];
+      const body = content
+        .replace(/\{#\s*PENDING_DATA:\s*([\s\S]*?)#\}/g, (_, note) => {
+          pending.push({ note: note.replace(/\s+/g, ' ').trim(), where });
+          return '';
+        })
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
       return {
         ...data,
         slug: data.slug || file.replace(/\.md$/, ''),
         lang: data.lang || 'fr',
-        body: content.trim(),
-        _file: `content/${name}/${file}`,
+        body,
+        pending,
+        _file: where,
       };
     });
 }
@@ -285,6 +301,11 @@ for (const [name, schema] of Object.entries(COLLECTIONS)) {
 content.claimBySlug = Object.fromEntries(content.claim.map((c) => [c.slug, c]));
 content.productBySlug = Object.fromEntries(content.product.map((p) => [p.slug, p]));
 
+content._pending = Object.values(content)
+  .filter(Array.isArray)
+  .flat()
+  .flatMap((i) => (i && i.pending) || []);
+
 content._gated = gated;
 content._broken = broken;
 content._counts = Object.fromEntries(
@@ -305,6 +326,7 @@ const withheld = Object.entries(content._counts)
 
 console.log(
   `[content] ${Object.values(content._counts).reduce((a, c) => a + c.published, 0)} items published` +
+    (content._pending.length ? ` · ${content._pending.length} PENDING_DATA slot(s)` : '') +
     (withheld.length ? ` · withheld by governance: ${withheld.join(', ')}` : '') +
     (broken.length ? ` · ${broken.length} broken ref(s)` : '')
 );

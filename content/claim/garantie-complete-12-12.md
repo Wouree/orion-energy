@@ -6,5 +6,5 @@ evidence_url: internal:ORION-20260809-4M59
 evidence_date: 2026-08-09
 owner: ORION Energy
 approved: true
-note: "Formulation de remplacement approuvée par le client pour « Garantie complète »."
+note: "Formulation de remplacement approuvée par le client, en substitution de l'ancienne mention de garantie non bornée retirée en lot 2c."
 ---

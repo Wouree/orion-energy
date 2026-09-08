@@ -1,9 +1,15 @@
 ---
 slug: la-recharge-coute-t-elle-cher-en-electricite
 question: "La recharge coûte-t-elle cher en électricité ?"
-category: "La Recharge Électrique"
-category_order: 1
-order: 104
+category: "Les Coûts"
+category_order: 3
+order: 310
 ---
 
-La recharge électrique coûte significativement moins cher que le carburant. En moyenne, recharger un véhicule électrique revient à environ 1/5 du coût d'un plein d'essence pour la même distance. Avec l'option solaire, ce coût peut être réduit encore davantage.
+Là aussi, le calcul est à votre portée, et il vaut mieux que n'importe quelle moyenne que nous pourrions avancer.
+
+**Consommation de votre véhicule (kWh aux 100 km) × votre tarif du kWh = coût aux 100 km.**
+
+Comparez le résultat à ce que vous coûtent aujourd'hui 100 km de carburant. Les deux termes du calcul dépendent de votre véhicule et de votre tarif : c'est pourquoi nous préférons vous donner la méthode plutôt qu'un ratio moyen qui ne serait celui de personne.
+
+L'option solaire déplace une partie de cette consommation hors de votre facture, à hauteur de ce que produit l'installation.

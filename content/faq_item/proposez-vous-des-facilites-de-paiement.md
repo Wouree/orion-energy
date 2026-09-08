@@ -3,7 +3,10 @@ slug: proposez-vous-des-facilites-de-paiement
 question: "Proposez-vous des facilités de paiement ?"
 category: "Les Coûts"
 category_order: 3
-order: 302
+order: 330
 ---
 
-Oui. Nous comprenons que l'investissement initial peut être important. Contactez-nous pour discuter des options de paiement échelonné adaptées à votre situation.
+Écrivez-nous pour en discuter. Nous examinons chaque situation, et nous vous dirons franchement ce qui est possible et ce qui ne l'est pas.
+
+{# PENDING_DATA: modalités de paiement échelonné — aucune offre confirmée à ce jour.
+   Aucune facilité n'est annoncée tant que les conditions ne sont pas arrêtées. Voir docs/PENDING.md #}
