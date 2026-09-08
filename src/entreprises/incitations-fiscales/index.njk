@@ -1,0 +1,186 @@
+---
+pageTitle: "Incitations fiscales pour les véhicules électriques au Cameroun"
+pageDescription: "Ce que les lois de finances 2025 et 2026 changent pour une entreprise qui électrifie sa flotte : exonération de droit d'accise, abattement de 50 % couvrant les bornes de recharge, et le renchérissement des véhicules d'occasion anciens."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-entreprise-OrionEnergyCameroon.jpg');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Entreprises</span>
+    <h1>Ce que la fiscalité change<br>pour votre flotte</h1>
+    <p>Deux lois de finances ont modifié l'équation en dix-huit mois. L'une allège le véhicule électrique et, explicitement, la borne qui le recharge. L'autre alourdit le véhicule d'occasion ancien. Voici les textes, leurs chiffres, et d'où ils viennent.</p>
+  </div>
+</section>
+
+{# ===== THE POINT ===== #}
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>L'essentiel en trois lignes</h2>
+      <ul>
+        <li>Le véhicule électrique neuf importé est <strong>exonéré de droit d'accise</strong> et bénéficie d'un <strong>abattement de 50 % sur sa valeur imposable</strong>.</li>
+        <li>Cet abattement <strong>couvre aussi les batteries et les bornes de recharge</strong>. C'est le point que la plupart des lecteurs manquent, et c'est celui qui compte pour un projet d'infrastructure.</li>
+        <li>Dans le même temps, le véhicule d'occasion de plus de douze ans devient <strong>plus cher à importer</strong>.</li>
+      </ul>
+      <p>L'écart entre les deux se creuse donc par les deux bouts.</p>
+    </div>
+  </div>
+</section>
+
+{# ===== 2025 ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="service-content">
+      <span class="section-label">Loi de finances 2025</span>
+      <h2>L'allègement sur l'électrique</h2>
+
+      <h3>Exonération du droit d'accise</h3>
+      <p>{% claim "lf2025-exoneration-accise-ve" %}.</p>
+      {{ "lf2025-exoneration-accise-ve" | claimCite | safe }}
+
+      <div class="notice">
+        <strong>Ce que nous ne publions pas ici :</strong> le taux d'accise qui s'appliquait <em>avant</em> cette exonération. Deux sources sérieuses le donnent différemment, et nous n'avons pas tranché. L'exonération elle-même n'est contestée par aucune des deux.
+      </div>
+
+      <h3>Abattement de 50 % sur la valeur imposable</h3>
+      <p>{% claim "lf2025-abattement-50" %}.</p>
+      {{ "lf2025-abattement-50" | claimCite | safe }}
+
+      <p class="mt-2">Lisez la fin de cette phrase deux fois : <strong>« ainsi que de leurs batteries et de leurs bornes de recharge »</strong>. L'abattement ne s'arrête pas au véhicule. Il s'étend à l'infrastructure qui le fait rouler.</p>
+      <p>Pour une entreprise qui électrifie une flotte, cela veut dire que l'allègement porte sur les deux lignes du budget — les véhicules <em>et</em> les points de charge — et pas seulement sur la plus visible.</p>
+
+      <div class="notice">
+        <strong>Une durée, et une date que nous ne connaissons pas.</strong> La mesure est instituée pour vingt-quatre mois. Les sources s'accordent sur cette durée, mais aucune ne donne la date exacte à laquelle le compteur s'arrête. Si votre décision dépend de cette échéance, faites-la confirmer par votre conseil fiscal ou par les services des douanes avant de vous engager. Nous ne publierons pas une date que nous n'avons pas.
+      </div>
+
+      {# PENDING_DATA: date exacte d'expiration de l'abattement de 50 % institué par la loi de finances 2025.
+         Durée de 24 mois confirmée par deux sources ; point de départ et date de fin non confirmés.
+         Aucune date n'est publiée. Voir docs/PENDING.md #}
+    </div>
+  </div>
+</section>
+
+{# ===== 2026 ===== #}
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <span class="section-label">Loi de finances 2026</span>
+      <h2>Le renchérissement de l'occasion ancienne</h2>
+      <p>La loi de finances 2026 remplace le taux unique qui s'appliquait à toute la tranche de 0 à 15 ans par une grille par âge. Le véhicule récent y gagne, l'ancien y perd.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <caption class="claim-cite" style="text-align:left;caption-side:bottom;">
+            Droit d'accise à l'importation, loi de finances 2026.
+            {{ "lf2026-accise-20-ans" | claimCite | safe }}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Âge du véhicule importé</th>
+              <th scope="col">Droit d'accise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Moins de 12 ans</td>
+              <td><strong>{{ "lf2026-accise-moins-12-ans" | claimValue }} %</strong> — exonération totale</td>
+            </tr>
+            <tr>
+              <td>Plus de 12 ans, jusqu'à 20 ans</td>
+              <td><strong>{{ "lf2026-accise-12-20-ans" | claimValue }} %</strong></td>
+            </tr>
+            <tr>
+              <td>Plus de 20 ans</td>
+              <td><strong>{{ "lf2026-accise-20-ans" | claimValue }} %</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Cette mesure ne vise pas l'électrique. Elle vise le parc ancien. Mais son effet sur un arbitrage de flotte est direct : le renouvellement par l'occasion importée ancienne, longtemps l'option la moins chère à l'achat, l'est moins qu'avant.</p>
+    </div>
+  </div>
+</section>
+
+{# ===== WHAT IT MEANS ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="service-content">
+      <h2>Ce que cela veut dire pour un arbitrage de flotte</h2>
+      <p>Un renouvellement de flotte se décide sur le coût total de possession, pas sur le prix d'achat. Ces deux textes déplacent plusieurs termes de ce calcul à la fois :</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th scope="col">Terme du calcul</th>
+              <th scope="col">Ce qui a changé</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Acquisition — électrique neuf</strong></td>
+              <td>Allégé : exonération d'accise et abattement de 50 % sur la valeur imposable.</td>
+            </tr>
+            <tr>
+              <td><strong>Infrastructure de recharge</strong></td>
+              <td>Allégée par le même abattement, qui couvre explicitement les bornes.</td>
+            </tr>
+            <tr>
+              <td><strong>Acquisition — occasion de plus de 12 ans</strong></td>
+              <td>Alourdie : 12,5 % ou 25 % selon l'âge, là où le taux était unique.</td>
+            </tr>
+            <tr>
+              <td><strong>Énergie</strong></td>
+              <td>Dépend de votre tarif d'électricité et de votre consommation. Aucun texte fiscal ne la modifie.</td>
+            </tr>
+            <tr>
+              <td><strong>Entretien</strong></td>
+              <td>Dépend des véhicules et de leur usage. Aucun texte fiscal ne la modifie.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Les trois premières lignes sont documentées ci-dessus, avec leurs sources. Les deux dernières dépendent de votre exploitation, et nous ne les chiffrerons pas à votre place à partir d'une moyenne.</p>
+
+      {# PENDING_DATA: économies d'exploitation d'une flotte électrique par rapport au thermique.
+         Aucun chiffre n'est publié : il dépend du tarif d'électricité, du kilométrage et du profil d'usage.
+         Le calculateur TCO du lot 7 le modélisera avec des hypothèses modifiables par l'utilisateur.
+         Voir docs/PENDING.md #}
+
+      <h2>Avant d'agir</h2>
+      <p>Cette page est une lecture de textes publics, avec les sources et les dates en regard. Elle n'est pas un conseil fiscal, et nous ne sommes pas fiscalistes.</p>
+      <p>Les modalités d'application — pièces à fournir, procédure douanière, articulation avec les autres droits et taxes — relèvent de votre conseil et des services compétents. Vérifiez auprès d'eux avant d'engager une dépense sur la foi de ces chiffres, y compris ceux que nous avons sourcés.</p>
+    </div>
+  </div>
+</section>
+
+{# ===== SOURCES ===== #}
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      <h2>Sources</h2>
+      <p>Chaque chiffre de cette page provient d'une source publique, datée et consultable :</p>
+      <ul>
+        <li><a href="https://www.investiraucameroun.com/gestion-publique/0801-21542-automobile-des-exonerations-fiscales-pour-stimuler-la-vente-des-vehicules-electriques-neufs-au-cameroun" target="_blank" rel="noopener nofollow">Investir au Cameroun</a> — exonérations fiscales sur les véhicules électriques neufs, 8 janvier 2025.</li>
+        <li><a href="https://www.sikafinance.com/marches/cameroun-des-exonerations-fiscales-pour-stimuler-les-importations-de-vehicules-electriques_50193" target="_blank" rel="noopener nofollow">Sikafinance</a> — abattement de 50 %, périmètre incluant batteries et bornes de recharge, 9 janvier 2025.</li>
+        <li><a href="https://ecomatin.net/cameroun-25-de-droit-daccises-sur-les-voitures-de-20-ans-0-pour-les-moins-de-12-ans" target="_blank" rel="noopener nofollow">EcoMatin</a> — grille de droit d'accise par âge, loi de finances 2026, 27 novembre 2025.</li>
+        <li><a href="https://www.investiraucameroun.com/gestion-publique/0512-22835-loi-de-finances-2026-le-cameroun-rencherit-les-droits-d-accises-sur-l-importation-des-vehicules-d-occasion" target="_blank" rel="noopener nofollow">Investir au Cameroun</a> — droits d'accise sur l'importation des véhicules d'occasion, décembre 2025.</li>
+        <li><a href="https://www.dgb.cm/wp-content/uploads/2025/12/Expose-des-Motifs_LF-2026_fr.pdf" target="_blank" rel="noopener nofollow">Direction générale du budget</a> — exposé des motifs de la loi de finances 2026 (PDF).</li>
+      </ul>
+      <p>Si vous constatez qu'un de ces chiffres a changé, <a href="/contact/">dites-le-nous</a>. Nous corrigerons la page et la date.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Chiffrer votre cas</h2>
+    <p>Nous auditons votre flotte et modélisons le passage à l'électrique, avec les hypothèses écrites et modifiables.</p>
+    <div class="btn-group">
+      <a href="/entreprises/methode/" class="btn btn-primary">Voir notre méthode</a>
+      <a href="{{ "devis" | ctaHref }}" class="btn btn-outline" data-form-type="devis">Demander un audit</a>
+    </div>
+  </div>
+</section>

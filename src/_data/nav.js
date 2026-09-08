@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       label: 'Entreprises',
-      href: '/services/entreprises/',
+      href: '/entreprises/',
       match: ['/services/entreprises/', '/entreprises/', '/flottes/', '/hotellerie-restauration/',
               '/centres-commerciaux/', '/immobilier/', '/stations-service/'],
     },
@@ -57,7 +57,8 @@ module.exports = {
     {
       heading: 'Professionnels',
       links: [
-        { label: 'Entreprises', href: '/services/entreprises/' },
+        { label: 'Entreprises', href: '/entreprises/' },
+        { label: 'Incitations fiscales', href: '/entreprises/incitations-fiscales/' },
         { label: 'Accueillir une borne', href: '/site-partenaire/' },
         { label: 'Critères d’éligibilité', href: '/site-partenaire/criteres/' },
         { label: 'Modèles économiques', href: '/site-partenaire/modeles-economiques/' },

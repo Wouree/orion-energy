@@ -1181,3 +1181,51 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
+
+/* Citation d'une donnée externe, affichée à côté du chiffre qu'elle appuie. */
+.claim-cite {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--light-text);
+}
+.claim-cite a { color: var(--light-text); text-decoration: underline; }
+.claim-cite a:hover { color: var(--blue); }
+
+/* Tableau de données — grille fiscale, spécifications matériel. */
+.data-table-wrap { overflow-x: auto; margin: 24px 0; }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 520px;
+}
+.data-table th,
+.data-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.data-table th {
+  font-family: var(--fd, 'Montserrat', sans-serif);
+  font-size: 13px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--blue-institutional);
+  background: var(--off-white);
+}
+.data-table td strong { color: var(--dark); }
+.data-table tr:last-child td { border-bottom: none; }
+
+/* Encadré d'avertissement — hors palette de marque, c'est un statut. */
+.notice {
+  margin: 24px 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--status-warn);
+  border-radius: var(--radius);
+  background: var(--status-warn-bg);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.notice strong { color: var(--status-warn); }

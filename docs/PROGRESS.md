@@ -10,9 +10,9 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 0 | Discovery | **DONE** | `f43c1e3` | `docs/00-DISCOVERY.md`. 11 defects (D-01…D-11). Remediation surface ~53 strings vs ~8 scoped. |
 | 1 | Content model + foundations | **DONE** | `3a34dd9` | 14 collections live, 43 items, 3 withheld by governance. D-04/05/06 fixed. i18n wired, `en` unbuilt. |
 | 2 | Phase 0 remediation | **DONE** | `103c6b6` `3834db5` `cd3c4c1` `3f2cda6` `aa70d4a` | All five parts. ~53 claim strings removed. 21 CTAs wired. Verified in Chromium. |
-| 3 | Site partner funnel | **DONE** | | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
-| 4 | Business hub + fiscal | **IN PROGRESS** | | `/entreprises/incitations-fiscales/` = highest priority page |
-| 5 | Safety + hardware | TODO | | |
+| 3 | Site partner funnel | **DONE** | `d58aa90` | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
+| 4 | Business hub + fiscal | **DONE** | | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
+| 5 | Safety + hardware | **IN PROGRESS** | | |
 | 6 | Residential | TODO | | |
 | 7 | Forms + calculators | TODO | | |
 | 8 | Sweep + verify | TODO | | |

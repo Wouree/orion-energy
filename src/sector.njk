@@ -1,0 +1,141 @@
+---
+layout: base.njk
+pagination:
+  data: orion.sector_solution
+  size: 1
+  alias: sector
+permalink: "/{{ sector.slug }}/"
+eleventyComputed:
+  pageTitle: "{{ sector.title }}"
+  pageDescription: "{{ sector.lead }}"
+---
+{# Generated from the sector_solution collection — one page per item.
+   Adding a sector is a Markdown file, not a template. #}
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/{{ sector.image }}');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">{{ sector.sector }}</span>
+    <h1>{{ sector.title }}</h1>
+    <p>{{ sector.lead }}</p>
+  </div>
+</section>
+
+{# ===== PROBLEM / SOLUTION ===== #}
+<section class="section">
+  <div class="container">
+    <div class="lp-split">
+      <div class="lp-split-text">
+        <span class="section-label">La situation</span>
+        <h2>Ce qui se passe réellement</h2>
+        <p>{{ sector.problem }}</p>
+        <h3>Notre approche</h3>
+        <p>{{ sector.solution }}</p>
+      </div>
+      <div class="lp-split-visual">
+        <div class="lp-visual-card">
+          <img src="{{ site.cloudinary }}/w_600,f_auto,q_auto/{{ sector.image }}" alt="{{ sector.title }}" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ===== PROOF POINTS ===== #}
+{% if sector.proof_points %}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Ce qui joue en votre faveur</span>
+      <h2>Pourquoi ce secteur s'y prête</h2>
+    </div>
+    <div class="lp-why-grid">
+      {% for point in sector.proof_points %}
+      <div class="lp-why-card animate">
+        <div class="lp-why-icon"><i data-lucide="check-circle" style="width:24px;height:24px;"></i></div>
+        <p>{{ point }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ===== BODY ===== #}
+{% if sector.body %}
+<section class="section">
+  <div class="container">
+    <div class="service-content">
+      {{ sector.body | markdown | safe }}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ===== RELATED HARDWARE ===== #}
+{% if sector.related_products %}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Matériel</span>
+      <h2>Les modèles adaptés</h2>
+      <p>Caractéristiques telles que fournies par le constructeur. Connecteur indiqué factuellement.</p>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Modèle</th>
+            <th scope="col">Type</th>
+            <th scope="col">Puissance</th>
+            <th scope="col">Connecteur</th>
+            <th scope="col">Protection</th>
+            <th scope="col">Garantie</th>
+            <th scope="col">Disponibilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for slug in sector.related_products %}
+          {% set p = orion.product | bySlug(slug) %}
+          {% if p %}
+          <tr>
+            <td><strong>{{ p.model }}</strong></td>
+            <td>{% if p.type == "ac_wallbox" %}Borne murale AC{% elif p.type == "ac_pedestal" %}Borne sur pied AC{% else %}Borne rapide DC{% endif %}</td>
+            <td>{{ p.power_kw }} kW</td>
+            <td>{{ p.connector }}</td>
+            <td>{{ p.ip_rating }} / {{ p.ik_rating }}</td>
+            <td>{{ p.warranty_months }} mois</td>
+            <td>{% if p.availability == "en_stock" %}En stock{% else %}Sur commande — {{ p.lead_time_weeks }} semaines{% endif %}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="service-content">
+      <p class="claim-cite">Nos bornes portent les marquages CE et RoHS. Le connecteur GB/T doit correspondre à la prise de votre véhicule : nous le vérifions avant tout engagement.</p>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ===== CTA ===== #}
+<section class="cta-banner">
+  <div class="container animate">
+    {% if sector.cta == "partenaire" %}
+    <h2>Investir, ou accueillir</h2>
+    <p>Vous pouvez équiper votre site vous-même, ou accueillir une borne du réseau sans rien engager.</p>
+    <div class="btn-group">
+      <a href="/site-partenaire/modeles-economiques/" class="btn btn-primary">Comparer les modèles</a>
+      <a href="/site-partenaire/proposer-mon-site/" class="btn btn-outline">Proposer mon site</a>
+    </div>
+    {% else %}
+    <h2>Chiffrer votre cas</h2>
+    <p>Nous auditons votre site et nous modélisons, avec les hypothèses écrites.</p>
+    <div class="btn-group">
+      <a href="/entreprises/methode/" class="btn btn-primary">Notre méthode</a>
+      <a href="{{ sector.cta | ctaHref }}" class="btn btn-outline" data-form-type="{{ sector.cta }}">Nous contacter</a>
+    </div>
+    {% endif %}
+  </div>
+</section>

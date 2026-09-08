@@ -41,6 +41,35 @@ module.exports = function (eleventyConfig) {
     return Boolean(content.claimBySlug[slug]);
   });
 
+  /**
+   * Citation for a claim, rendered inline beside the figure it supports.
+   *
+   * A `donnee_externe` is a fact about the world, so the reader gets the source and the date and can go
+   * and check it. That is the difference between a figure and an assertion — and on the fiscal page it is
+   * the whole point: a business acting on a tax figure needs to know where it came from and how old it is.
+   */
+  eleventyConfig.addFilter('claimCite', function (slug) {
+    const c = content.claimBySlug[slug];
+    if (!c || !c.evidence_url) return '';
+
+    const date = c.evidence_date
+      ? new Date(c.evidence_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+      : '';
+
+    // Internal references are not links: there is nothing for a reader to open.
+    if (String(c.evidence_url).startsWith('internal:')) {
+      return `<span class="claim-cite">Source : donnée confirmée par le client${date ? ', ' + date : ''}</span>`;
+    }
+
+    let host = c.evidence_url;
+    try {
+      host = new URL(c.evidence_url).hostname.replace(/^www\./, '');
+    } catch (e) {
+      /* keep the raw value */
+    }
+    return `<span class="claim-cite">Source : <a href="${c.evidence_url}" target="_blank" rel="noopener nofollow">${host}</a>${date ? ', ' + date : ''}</span>`;
+  });
+
   /* ------------------------------------------------------------------ *
    * Collections and lookups
    * ------------------------------------------------------------------ */
