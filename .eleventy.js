@@ -1,30 +1,116 @@
-module.exports = function(eleventyConfig) {
-  // Date filter for copyright year
-  eleventyConfig.addFilter("date", function(value, format) {
-    if (format === "Y") return new Date().getFullYear();
+const content = require('./src/_data/orion.js');
+const i18n = require('./src/_data/i18n.js');
+
+module.exports = function (eleventyConfig) {
+  /* ------------------------------------------------------------------ *
+   * Content governance
+   *
+   * CLAUDE.md: "Unapproved claims must not render. Enforce this in the template, not by editorial
+   * discipline." The loader already drops unapproved claims before they become data; these shortcodes are
+   * the only way a template can reach one, and they have no escape hatch. A missing or unapproved claim
+   * renders nothing at all — plus an HTML comment naming the slug, so an omission is visible in
+   * view-source rather than mysterious.
+   * ------------------------------------------------------------------ */
+
+  eleventyConfig.addShortcode('claim', function (slug) {
+    const c = content.claimBySlug[slug];
+    if (!c) return `<!-- claim "${slug}": absente ou non approuvée, rien n'est rendu -->`;
+    return c.text;
+  });
+
+  // Raw figure, for calculators and spec tables. Returns an empty string, never a zero — a zero would be
+  // arithmetic on a fact nobody confirmed.
+  eleventyConfig.addFilter('claimValue', function (slug) {
+    const c = content.claimBySlug[slug];
+    return c && c.value !== undefined ? c.value : '';
+  });
+
+  eleventyConfig.addFilter('claimText', function (slug) {
+    const c = content.claimBySlug[slug];
+    return c ? c.text : '';
+  });
+
+  // True when a claim exists and is approved. Lets a template omit a whole block rather than render a
+  // heading over an empty slot.
+  eleventyConfig.addFilter('hasClaim', function (slug) {
+    return Boolean(content.claimBySlug[slug]);
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Collections and lookups
+   * ------------------------------------------------------------------ */
+
+  eleventyConfig.addFilter('bySlug', (items, slug) => (items || []).find((i) => i.slug === slug) || null);
+
+  eleventyConfig.addFilter('sortByOrder', (items) =>
+    (items || []).slice().sort((a, b) => (a.order || 99) - (b.order || 99))
+  );
+
+  eleventyConfig.addFilter('where', (items, key, value) =>
+    (items || []).filter((i) => i[key] === value)
+  );
+
+  // Group a collection into ordered sections — e.g. FAQ items by `category`.
+  eleventyConfig.addFilter('groupBy', function (items, key, orderKey) {
+    const groups = new Map();
+    for (const item of items || []) {
+      const k = item[key] || '';
+      if (!groups.has(k)) groups.set(k, { key: k, order: item[orderKey] || 99, items: [] });
+      groups.get(k).items.push(item);
+    }
+    return [...groups.values()]
+      .sort((a, b) => a.order - b.order)
+      .map((g) => ({ ...g, items: g.items.sort((a, b) => (a.order || 99) - (b.order || 99)) }));
+  });
+
+  /* ------------------------------------------------------------------ *
+   * i18n
+   * ------------------------------------------------------------------ */
+
+  // Rewrite a URL into another locale. Used by the language switcher once English is built.
+  eleventyConfig.addFilter('localeUrl', (url, code) => i18n.urlFor(i18n.refFromUrl(url), code));
+
+  /* ------------------------------------------------------------------ *
+   * Formatting
+   * ------------------------------------------------------------------ */
+
+  eleventyConfig.addFilter('date', function (value, format) {
+    if (format === 'Y') return new Date().getFullYear();
     return value;
   });
 
-  // Pass through static assets
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addPassthroughCopy("src/images");
-  eleventyConfig.addPassthroughCopy("src/admin");
-  eleventyConfig.addPassthroughCopy("src/favicon.ico");
+  // French number formatting: narrow no-break spaces as thousands separators, as in 500 000 FCFA.
+  eleventyConfig.addFilter('fcfa', function (n) {
+    if (n === undefined || n === null || n === '') return '';
+    return Number(n).toLocaleString('fr-FR').replace(/ /g, ' ');
+  });
 
-  // Watch targets
-  eleventyConfig.addWatchTarget("src/css/");
-  eleventyConfig.addWatchTarget("src/js/");
+  // URL-encode for WhatsApp deep links and mailto bodies.
+  eleventyConfig.addFilter('urlencode', (s) => encodeURIComponent(String(s === undefined ? '' : s)));
+
+  /* ------------------------------------------------------------------ *
+   * Assets
+   * ------------------------------------------------------------------ */
+
+  eleventyConfig.addPassthroughCopy('src/css');
+  eleventyConfig.addPassthroughCopy('src/js');
+  eleventyConfig.addPassthroughCopy('src/images');
+  eleventyConfig.addPassthroughCopy('src/admin');
+
+  eleventyConfig.addWatchTarget('src/css/');
+  eleventyConfig.addWatchTarget('src/js/');
+  // Editorial content lives outside the input directory, so Eleventy must be told to watch it.
+  eleventyConfig.addWatchTarget('./content/');
 
   return {
     dir: {
-      input: "src",
-      output: "_site",
-      includes: "_includes",
-      data: "_data"
+      input: 'src',
+      output: '_site',
+      includes: '_includes',
+      data: '_data',
     },
-    templateFormats: ["njk", "md", "html"],
-    htmlTemplateEngine: "njk",
-    markdownTemplateEngine: "njk"
+    templateFormats: ['njk', 'md', 'html'],
+    htmlTemplateEngine: 'njk',
+    markdownTemplateEngine: 'njk',
   };
 };

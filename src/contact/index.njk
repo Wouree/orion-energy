@@ -23,7 +23,8 @@ pageDescription: "Contactez ORION Energy — par téléphone, WhatsApp, email ou
           <div class="contact-info-icon"><i data-lucide="phone"></i></div>
           <div class="contact-info-text">
             <h4>Téléphone</h4>
-            <p><a href="tel:{{ site.phoneClean }}">{{ site.phone }}</a></p>
+            {# PENDING_DATA: numéro de téléphone public — voir docs/PENDING.md P-01 #}
+            {% if site.has_phone %}<p><a href="tel:{{ site.phone_clean }}">{{ site.phone }}</a></p>{% endif %}
           </div>
         </div>
 

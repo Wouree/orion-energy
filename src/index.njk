@@ -35,7 +35,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
 <section class="trust-bar">
   <div class="container">
     <div class="trust-bar-inner">
-      {% for item in trust %}
+      {% for item in trust.items %}
       <div class="trust-item">
         <i data-lucide="{{ item.icon }}" style="width:20px;height:20px;"></i>
         <span>{{ item.label }}</span>
@@ -54,7 +54,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
       <p>De votre domicile aux grands axes routiers, ORION Energy vous accompagne dans la transition vers la mobilité électrique.</p>
     </div>
     <div class="card-grid">
-      {% for service in services %}
+      {% for service in services.services %}
       <div class="card animate">
         <div class="card-image" style="background-image: url('{{ service.image }}');">
         </div>
@@ -80,7 +80,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
       <h2>Du premier contact à la recharge : 4 étapes simples</h2>
     </div>
     <div class="process-grid">
-      {% for step in process %}
+      {% for step in process.steps %}
       <div class="process-step animate">
         <div class="process-number">{{ step.number }}</div>
         <h3>{{ step.title }}</h3>
@@ -105,7 +105,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
       <p>Chaque installation ORION Energy est réalisée selon les plus hauts standards internationaux de sécurité et de qualité.</p>
     </div>
     <div class="values-grid">
-      {% for value in values %}
+      {% for value in values.values %}
       <div class="value-card animate">
         <div class="value-icon">
           <i data-lucide="{{ value.icon }}"></i>

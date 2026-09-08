@@ -17,8 +17,8 @@ pageDescription: "Réponses à vos questions sur la recharge de véhicules élec
   <div class="container">
     <div style="max-width:800px;margin:0 auto;">
 
-      {% for section in faq %}
-      <h3 class="faq-section-title">{{ section.section }}</h3>
+      {% for section in orion.faq_item | groupBy("category", "category_order") %}
+      <h3 class="faq-section-title">{{ section.key }}</h3>
       {% for item in section.items %}
       <div class="faq-item">
         <button class="faq-question">
@@ -26,7 +26,7 @@ pageDescription: "Réponses à vos questions sur la recharge de véhicules élec
           <i data-lucide="chevron-down" style="width:20px;height:20px;"></i>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">{{ item.answer }}</div>
+          <div class="faq-answer-inner">{{ item.body }}</div>
         </div>
       </div>
       {% endfor %}

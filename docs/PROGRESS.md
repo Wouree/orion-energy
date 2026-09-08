@@ -7,8 +7,8 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 
 | Lot | Title | Status | Commit | Notes |
 |---|---|---|---|---|
-| 0 | Discovery | **DONE** | — | `docs/00-DISCOVERY.md`. 11 defects (D-01…D-11). Remediation surface ~53 strings vs ~8 scoped. |
-| 1 | Content model + foundations | TODO | | 14 collections, i18n architecture |
+| 0 | Discovery | **DONE** | `f43c1e3` | `docs/00-DISCOVERY.md`. 11 defects (D-01…D-11). Remediation surface ~53 strings vs ~8 scoped. |
+| 1 | Content model + foundations | **DONE** | | 14 collections live, 43 items, 3 withheld by governance. D-04/05/06 fixed. i18n wired, `en` unbuilt. |
 | 2 | Phase 0 remediation | TODO | | 2a endpoint · 2b CTAs · 2c claims · 2d WhatsApp · 2e foundations |
 | 3 | Site partner funnel | TODO | | 5 pages. Never name MRS / Corley. |
 | 4 | Business hub + fiscal | TODO | | `/entreprises/incitations-fiscales/` = highest priority page |
@@ -16,6 +16,15 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 6 | Residential | TODO | | |
 | 7 | Forms + calculators | TODO | | |
 | 8 | Sweep + verify | TODO | | |
+
+## Architecture (established Lot 1)
+- Editorial content: `content/<collection>/*.md`, **outside** `src/`. Loader: `src/_data/orion.js` → `orion.*` in templates.
+  (`content` is a **reserved** Eleventy data name — a `src/_data/content.js` aborts the build.)
+- Governance is enforced **in the loader**: gated items never become data. Validation failures **fail the build**.
+- Claims render only via `{% claim "slug" %}` / `| claimText` / `| claimValue` / `| hasClaim`.
+- `src/_data/site.js` ← `content/site_settings/general.md`. `site.has_phone` / `site.has_form_endpoint` gate rendering.
+- i18n: `src/_data/i18n.js` + `src/_data/eleventyComputed.js`. `en.built = false` → **no hreflang emitted**. Flip one line to enable.
+- Deps added: `gray-matter`, `playwright`.
 
 ## Environment (established Lot 0)
 - Eleventy **3.1.2**, input `src` → output `_site`, Nunjucks. Build verified clean: 11 pages, 0.08 s.

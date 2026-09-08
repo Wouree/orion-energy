@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ pageTitle }} — {{ site.name }}</title>
   <meta name="description" content="{{ pageDescription or site.description }}">
-  <meta name="form-endpoint" content="{{ site.formEndpoint }}">
+  <meta name="form-endpoint" content="{{ site.form_endpoint }}">
+
+  {# Canonical: previously absent entirely (D-10). #}
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+
+  {# hreflang is emitted only for locales that are actually built. While French is the only one,
+     `alternates` is empty and nothing is written here — advertising an /en/ twin that 404s would be a
+     claim the site cannot honour. See src/_data/i18n.js. #}
+  {% for alt in alternates %}
+  <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href }}">
+  {% endfor %}
 
   <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:title" content="{{ pageTitle }} — {{ site.name }}">
   <meta property="og:description" content="{{ pageDescription or site.description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}">
+  {# og:url was the site root on every page. It is now the page's own canonical URL. #}
+  <meta property="og:url" content="{{ canonical or site.url }}">
+  <meta property="og:locale" content="{% if lang == 'en' %}en_GB{% else %}fr_FR{% endif %}">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +37,10 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 
-  {% if site.analyticsId %}
+  {% if site.analytics_id %}
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analyticsId }}"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analyticsId }}');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics_id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analytics_id }}');</script>
   {% endif %}
 </head>
 <body>
@@ -96,10 +109,14 @@
 
         <div>
           <h4>Contact</h4>
+          {# PENDING_DATA: numéro de téléphone public — non confirmé, voir docs/PENDING.md P-01.
+             Aucun lien tel: n'est rendu tant qu'un vrai numéro n'existe pas. #}
+          {% if site.has_phone %}
           <div class="footer-contact-item">
             <i data-lucide="phone"></i>
-            <a href="tel:{{ site.phoneClean }}" style="color:rgba(255,255,255,0.7);">{{ site.phone }}</a>
+            <a href="tel:{{ site.phone_clean }}" style="color:rgba(255,255,255,0.7);">{{ site.phone }}</a>
           </div>
+          {% endif %}
           <div class="footer-contact-item">
             <i data-lucide="message-circle"></i>
             <a href="https://wa.me/{{ site.whatsapp }}" style="color:rgba(255,255,255,0.7);">WhatsApp</a>
