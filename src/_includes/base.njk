@@ -123,17 +123,22 @@
         <span></span><span></span><span></span>
       </button>
 
+      {# Navigation is data — see src/_data/nav.js. One entry per audience, not one per page. #}
       <ul class="nav-links">
-        <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Accueil</a></li>
-        <li><a href="/services/recharge-domicile/" {% if "recharge-domicile" in page.url %}class="active"{% endif %}>Chez Vous</a></li>
-        <li><a href="/services/bornes-publiques/" {% if "bornes-publiques" in page.url %}class="active"{% endif %}>Sur La Route</a></li>
-        <li><a href="/services/entreprises/" {% if "entreprises" in page.url %}class="active"{% endif %}>Entreprises</a></li>
-        <li><a href="/comment-ca-marche/" {% if "comment-ca-marche" in page.url %}class="active"{% endif %}>Comment Ça Marche</a></li>
-        <li><a href="/securite/" {% if "securite" in page.url %}class="active"{% endif %}>Sécurité</a></li>
-        <li><a href="/faq/" {% if "faq" in page.url %}class="active"{% endif %}>FAQ</a></li>
+        {% for item in nav.primary %}
+        {%- set isActive = false -%}
+        {%- for prefix in item.match -%}
+          {%- if item.exact -%}
+            {%- if page.url == prefix -%}{%- set isActive = true -%}{%- endif -%}
+          {%- elif page.url.startsWith(prefix) -%}
+            {%- set isActive = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <li><a href="{{ item.href }}"{% if isActive %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {% endfor %}
         {% if not servicePage %}
-		<li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
-		{% endif %}
+        <li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
+        {% endif %}
       </ul>
     </div>
   </nav>
@@ -154,25 +159,16 @@
           <p>Solutions de recharge pour véhicules électriques au Cameroun. Installation à domicile, bornes publiques et solutions entreprises.</p>
         </div>
 
+        {% for group in nav.footer %}
         <div>
-          <h4>Services</h4>
+          <h4>{{ group.heading }}</h4>
           <ul class="footer-links">
-            <li><a href="/services/recharge-domicile/">Recharge à domicile</a></li>
-            <li><a href="/services/bornes-publiques/">Bornes publiques</a></li>
-            <li><a href="/services/entreprises/">Entreprises</a></li>
-            <li><a href="/comment-ca-marche/">Comment ça marche</a></li>
+            {% for link in group.links %}
+            <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+            {% endfor %}
           </ul>
         </div>
-
-        <div>
-          <h4>Informations</h4>
-          <ul class="footer-links">
-            <li><a href="/a-propos/">À propos</a></li>
-            <li><a href="/securite/">Sécurité & Normes</a></li>
-            <li><a href="/faq/">FAQ</a></li>
-            <li><a href="/contact/">Contact</a></li>
-          </ul>
-        </div>
+        {% endfor %}
 
         <div>
           <h4>Contact</h4>

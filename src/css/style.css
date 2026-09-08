@@ -1164,3 +1164,20 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 }
 
 .form-success svg { color: var(--green); }
+
+/* Aide contextuelle sous un champ de formulaire. */
+.field-hint {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--light-text);
+}
+.form-panel h4 {
+  font-family: var(--fd, 'Montserrat', sans-serif);
+  font-size: 15px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--blue-institutional);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}

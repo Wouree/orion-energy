@@ -1,0 +1,201 @@
+---
+pageTitle: "Proposer mon site"
+pageDescription: "Décrivez votre site : type, adresse, places, fréquentation, puissance disponible. Nous répondons, y compris quand la réponse est non."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Site partenaire</span>
+    <h1>Proposer mon site</h1>
+    <p>Ce formulaire demande ce dont nous avons réellement besoin pour juger. Il est plus long qu'un formulaire de contact, et c'est voulu : mieux vaut dix minutes maintenant qu'une visite pour rien.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="form-panel" style="max-width:820px;margin:0 auto;">
+      <h3>Votre site</h3>
+      <p>Les champs marqués d'une astérisque sont nécessaires pour instruire le dossier. Si vous ignorez une réponse, écrivez-le : c'est une information en soi.</p>
+
+      <form data-orion-form data-segment="site_partenaire">
+        <input type="hidden" name="form_type" value="partenaire">
+
+        <h4 style="margin-top:24px;">Le site</h4>
+
+        <div class="form-group">
+          <label for="p-site-type">Type de site *</label>
+          <select id="p-site-type" name="site_type" required>
+            <option value="">Choisir…</option>
+            <option value="hotel">Hôtel</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="centre_commercial">Centre commercial</option>
+            <option value="station_service">Station-service</option>
+            <option value="bureau">Immeuble de bureaux</option>
+            <option value="residentiel">Résidence ou copropriété</option>
+            <option value="parking">Parking public ou privé</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-name">Nom de l'établissement *</label>
+            <input id="p-name" type="text" name="site_name" required>
+          </div>
+          <div class="form-group">
+            <label for="p-city">Ville *</label>
+            <select id="p-city" name="city" required>
+              <option value="">Choisir…</option>
+              {% for city in site.cities %}
+              <option value="{{ city }}">{{ city }}</option>
+              {% endfor %}
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="p-address">Adresse ou quartier *</label>
+          <input id="p-address" type="text" name="address" required>
+          <p class="field-hint">Assez précis pour que nous situions le site sur une carte.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="p-hours">Horaires d'ouverture</label>
+          <input id="p-hours" type="text" name="opening_hours" placeholder="Ex. 7j/7, 6h – 22h">
+          <p class="field-hint">Le parking est-il accessible en dehors de ces horaires ?</p>
+        </div>
+
+        <h4 style="margin-top:32px;">Le stationnement</h4>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-spaces">Places dédiables à la recharge *</label>
+            <input id="p-spaces" type="number" name="spaces_available" min="1" required>
+            <p class="field-hint">Des places que vous pouvez réserver durablement, pas ponctuellement.</p>
+          </div>
+          <div class="form-group">
+            <label for="p-footfall">Véhicules par jour, en moyenne</label>
+            <input id="p-footfall" type="number" name="daily_footfall" min="0">
+            <p class="field-hint">Une estimation honnête vaut mieux qu'un chiffre flatteur.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="p-dwell">Combien de temps un véhicule reste-t-il, en général ?</label>
+          <select id="p-dwell" name="dwell_time">
+            <option value="">Choisir…</option>
+            <option value="moins_30min">Moins de 30 minutes</option>
+            <option value="30min_2h">Entre 30 minutes et 2 heures</option>
+            <option value="2h_journee">Entre 2 heures et une journée</option>
+            <option value="nuit">La nuit, ou plusieurs jours</option>
+          </select>
+        </div>
+
+        <h4 style="margin-top:32px;">L'électricité</h4>
+
+        <div class="form-group">
+          <label for="p-power">Puissance électrique disponible</label>
+          <input id="p-power" type="text" name="available_power" placeholder="Ex. 60 kVA — figure sur votre facture">
+          <p class="field-hint">Si vous ne la connaissez pas, écrivez « inconnue ». Nous la relèverons lors de la visite.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Une installation solaire existe-t-elle sur le site ?</label>
+          <div class="form-radio-group">
+            <label class="form-radio"><input type="radio" name="existing_solar" value="oui"> Oui</label>
+            <label class="form-radio"><input type="radio" name="existing_solar" value="non"> Non</label>
+            <label class="form-radio"><input type="radio" name="existing_solar" value="surface_disponible"> Non, mais il y a de la surface</label>
+          </div>
+        </div>
+
+        <h4 style="margin-top:32px;">L'accès et la sécurité</h4>
+
+        <div class="form-group">
+          <label>Le parking est-il éclairé la nuit ?</label>
+          <div class="form-radio-group">
+            <label class="form-radio"><input type="radio" name="lighting" value="oui"> Oui</label>
+            <label class="form-radio"><input type="radio" name="lighting" value="partiel"> Partiellement</label>
+            <label class="form-radio"><input type="radio" name="lighting" value="non"> Non</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Surveillance sur place</label>
+          <div class="form-radio-group">
+            <label class="form-radio"><input type="radio" name="security" value="gardien"> Gardien</label>
+            <label class="form-radio"><input type="radio" name="security" value="cameras"> Caméras</label>
+            <label class="form-radio"><input type="radio" name="security" value="les_deux"> Les deux</label>
+            <label class="form-radio"><input type="radio" name="security" value="aucune"> Aucune</label>
+          </div>
+        </div>
+
+        <h4 style="margin-top:32px;">La décision</h4>
+
+        <div class="form-group">
+          <label for="p-decision">Qui décide pour ce site ? *</label>
+          <select id="p-decision" name="decision_maker" required>
+            <option value="">Choisir…</option>
+            <option value="je_suis_proprietaire">Je suis propriétaire</option>
+            <option value="je_suis_mandate">Je suis mandaté par le propriétaire</option>
+            <option value="locataire_bail_long">Je suis locataire avec un bail long</option>
+            <option value="copropriete">La décision revient à une copropriété</option>
+            <option value="autre">Autre situation</option>
+          </select>
+          <p class="field-hint">Nous ne pouvons pas engager de travaux sans quelqu'un qui puisse signer.</p>
+        </div>
+
+        <h4 style="margin-top:32px;">Vous</h4>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-contact">Nom complet *</label>
+            <input id="p-contact" type="text" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="p-role">Votre fonction</label>
+            <input id="p-role" type="text" name="role">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-phone">Téléphone ou WhatsApp *</label>
+            <input id="p-phone" type="tel" name="phone" placeholder="+237" required>
+          </div>
+          <div class="form-group">
+            <label for="p-email">Email</label>
+            <input id="p-email" type="email" name="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="p-message">Autre chose à nous dire ?</label>
+          <textarea id="p-message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Envoyer ma proposition</button>
+
+        <p class="field-hint" style="margin-top:12px;">
+          Nous répondons à chaque proposition, y compris pour dire non — avec la raison.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="service-content">
+      <h2>Ce qui se passe ensuite</h2>
+      <ul>
+        <li><strong>Nous lisons.</strong> Si un élément manque pour trancher, nous vous le demandons.</li>
+        <li><strong>Nous visitons</strong> si le dossier tient — pour relever le raccordement, mesurer les distances et voir le parking en usage.</li>
+        <li><strong>Nous chiffrons</strong> avec les hypothèses écrites, que vous pourrez contester.</li>
+        <li><strong>Ou nous refusons</strong>, en expliquant pourquoi. C'est plus utile qu'un silence.</li>
+      </ul>
+      <p>Vous préférez en parler de vive voix ? <a href="{{ wa.href }}" target="_blank" rel="noopener">Écrivez-nous sur WhatsApp</a>.</p>
+    </div>
+  </div>
+</section>

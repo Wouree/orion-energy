@@ -8,10 +8,10 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | Lot | Title | Status | Commit | Notes |
 |---|---|---|---|---|
 | 0 | Discovery | **DONE** | `f43c1e3` | `docs/00-DISCOVERY.md`. 11 defects (D-01…D-11). Remediation surface ~53 strings vs ~8 scoped. |
-| 1 | Content model + foundations | **DONE** | | 14 collections live, 43 items, 3 withheld by governance. D-04/05/06 fixed. i18n wired, `en` unbuilt. |
-| 2 | Phase 0 remediation | TODO | | 2a endpoint · 2b CTAs · 2c claims · 2d WhatsApp · 2e foundations |
-| 3 | Site partner funnel | TODO | | 5 pages. Never name MRS / Corley. |
-| 4 | Business hub + fiscal | TODO | | `/entreprises/incitations-fiscales/` = highest priority page |
+| 1 | Content model + foundations | **DONE** | `3a34dd9` | 14 collections live, 43 items, 3 withheld by governance. D-04/05/06 fixed. i18n wired, `en` unbuilt. |
+| 2 | Phase 0 remediation | **DONE** | `103c6b6` `3834db5` `cd3c4c1` `3f2cda6` `aa70d4a` | All five parts. ~53 claim strings removed. 21 CTAs wired. Verified in Chromium. |
+| 3 | Site partner funnel | **DONE** | | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
+| 4 | Business hub + fiscal | **IN PROGRESS** | | `/entreprises/incitations-fiscales/` = highest priority page |
 | 5 | Safety + hardware | TODO | | |
 | 6 | Residential | TODO | | |
 | 7 | Forms + calculators | TODO | | |
