@@ -1,7 +1,7 @@
 ---
 slug: partenaire
 label: Proposer mon site
-href: /site-partenaire/
+href: /contact/
 style: primary
 form_type: partenaire
 segment: site_partenaire

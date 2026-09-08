@@ -42,6 +42,26 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter('bySlug', (items, slug) => (items || []).find((i) => i.slug === slug) || null);
 
+  /**
+   * Destination for a CTA, looked up by its `form_type`.
+   *
+   * Every call-to-action on the site used `href="#"` (D-02) — 21 of them, duplicated across six
+   * templates. They are modal triggers, so they worked with JavaScript and did nothing without it: no
+   * destination for a middle-click, a crawler, or a failed script load.
+   *
+   * Resolving through the `cta` collection means a destination is edited in one file rather than hunted
+   * across six. Anything without its own page yet points at /contact/, so no link is ever dead.
+   */
+  eleventyConfig.addFilter('ctaHref', function (formType) {
+    const match = content.cta.find((c) => c.form_type === formType);
+    return (match && match.href) || '/contact/';
+  });
+
+  eleventyConfig.addFilter('ctaWhatsapp', function (formType) {
+    const match = content.cta.find((c) => c.form_type === formType);
+    return (match && match.whatsapp_text) || '';
+  });
+
   eleventyConfig.addFilter('sortByOrder', (items) =>
     (items || []).slice().sort((a, b) => (a.order || 99) - (b.order || 99))
   );
