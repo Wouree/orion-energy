@@ -3,6 +3,8 @@
 Branch `build/phase-0-1`, cut from `main` @ `e66b3a8`. Never merge to `main`.
 **Read this file first after any context reset.** Then re-read `docs/CLAUDE.md`.
 
+**Run complete — all nine lots done, nothing skipped.** Final report: `docs/RUN-REPORT.md`.
+
 Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 
 | Lot | Title | Status | Commit | Notes |
@@ -14,8 +16,8 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 4 | Business hub + fiscal | **DONE** | `5b60f50` | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
 | 5 | Safety + hardware | **DONE** | `a088722` | Safety cluster (3 pages + hub), hardware catalogue, solar. All forward links now resolve. |
 | 6 | Residential | **DONE** | `ff2c4ef` | Hub, avant-achat, tarifs, guide-puissance. `/particuliers/recharge-domicile/` → 301 via `_redirects`. No compatibility checker (GB/T). |
-| 7 | Forms + calculators | **DONE** | | 4 segmented forms, homepage router, 3 calculators + shell. Tariffs sourced (ARSEL, CSPH), all editable. |
-| 8 | Sweep + verify | **IN PROGRESS** | | |
+| 7 | Forms + calculators | **DONE** | `2861def` | 4 segmented forms, homepage router, 3 calculators + shell. Tariffs sourced (ARSEL, CSPH), all editable. |
+| 8 | Sweep + verify | **DONE** | | 10 assertions × 41 pages, all passing. 120 screenshots. CF build check flagged, not verifiable from here. |
 
 ## Architecture (established Lot 1)
 - Editorial content: `content/<collection>/*.md`, **outside** `src/`. Loader: `src/_data/orion.js` → `orion.*` in templates.

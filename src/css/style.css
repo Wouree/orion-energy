@@ -734,9 +734,14 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   max-width: 1100px;
   margin: 0 auto;
 }
+/* Variante à trois étapes. Auparavant posée en style inline sur deux pages, ce qui battait les media
+   queries ci-dessous et provoquait un débordement horizontal de la page à 390 px. */
+.lp-process--3 { grid-template-columns: 1fr auto 1fr auto 1fr; }
+
 .lp-process-step {
   text-align: center;
   padding: 0 12px;
+  min-width: 0;
 }
 .lp-process-icon {
   position: relative;
@@ -1072,7 +1077,8 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
    ============================================ */
 
 @media (max-width: 1024px) {
-  .lp-process {
+  .lp-process,
+  .lp-process--3 {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
@@ -1095,7 +1101,8 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 
   .lp-stats-row { flex-direction: column; gap: 20px; }
 
-  .lp-process {
+  .lp-process,
+  .lp-process--3 {
     grid-template-columns: 1fr;
     gap: 32px;
   }

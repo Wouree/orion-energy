@@ -108,3 +108,10 @@ Every judgement call, one line each, with reasoning. Newest at the bottom of eac
 - **Restated the assumptions beside every result.** A figure can then never be screenshotted away from the numbers that produced it.
 - **Carried the last calculator result into the next form as `tool_result`.** A lead that arrives with the calculation the visitor ran is worth more than one that arrives blank.
 - **Fixed a scoping bug found by the browser test, not by reading:** the result panel is a sibling column of the form, so `form.parentElement` never found it and every calculator threw on submit. The lookup is now scoped to the shared layout container, and the shell returns early if the panel is missing.
+
+## Lot 8 — Sweep and verification
+
+- **Fixed the two mobile overflows by replacing an inline `grid-template-columns` with a modifier class.** An inline style beats any media query, so the three-step process grid stayed five columns wide at 390 px and pushed the page 137 px past the viewport. Found by the screenshot script asserting `scrollWidth`, not by looking at the pictures.
+- **Made `scripts/screenshots.js` assert as well as capture.** Horizontal overflow and console errors per page per width, so 120 images do not have to be inspected by eye to know whether something is wrong.
+- **Reported the Cloudflare Pages check as unverifiable rather than claiming it.** `CLAUDE.md` forbids touching Cloudflare and forbids deploys, and no credential was available; the user agreed at the start of the run that Lot 8 would verify the local build and flag the rest. The report says exactly what to check and names the two likeliest failure causes.
+- **Wrote `docs/PENDING.md` grouped by who supplies the answer** rather than by page. A list ordered by page is a list nobody can act on; a list ordered by owner gets unblocked.
