@@ -13,9 +13,9 @@ Legend: `TODO` · `IN PROGRESS` · `DONE` · `SKIPPED`
 | 3 | Site partner funnel | **DONE** | `d58aa90` | 5 pages. Nav + footer now data-driven. `scripts/verify.js` added. **4 forward links open** → Lots 4/5. |
 | 4 | Business hub + fiscal | **DONE** | `5b60f50` | Hub, fiscal page (5 sourced `donnee_externe` claims), method, 5 sector pages. **1 forward link open** → Lot 5. |
 | 5 | Safety + hardware | **DONE** | `a088722` | Safety cluster (3 pages + hub), hardware catalogue, solar. All forward links now resolve. |
-| 6 | Residential | **DONE** | | Hub, avant-achat, tarifs, guide-puissance. `/particuliers/recharge-domicile/` → 301 via `_redirects`. No compatibility checker (GB/T). |
-| 7 | Forms + calculators | **IN PROGRESS** | | |
-| 8 | Sweep + verify | TODO | | |
+| 6 | Residential | **DONE** | `ff2c4ef` | Hub, avant-achat, tarifs, guide-puissance. `/particuliers/recharge-domicile/` → 301 via `_redirects`. No compatibility checker (GB/T). |
+| 7 | Forms + calculators | **DONE** | | 4 segmented forms, homepage router, 3 calculators + shell. Tariffs sourced (ARSEL, CSPH), all editable. |
+| 8 | Sweep + verify | **IN PROGRESS** | | |
 
 ## Architecture (established Lot 1)
 - Editorial content: `content/<collection>/*.md`, **outside** `src/`. Loader: `src/_data/orion.js` → `orion.*` in templates.

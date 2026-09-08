@@ -94,7 +94,10 @@
     var attribution = read(KEY) || {};
 
     hidden(form, 'source_page', window.location.pathname);
-    hidden(form, 'segment', form.dataset.segment || meta('page-segment') || 'support');
+    // Most specific wins: the form's own segment, then the segment the visitor chose on the homepage
+    // router earlier in this session, then the page's section, then a safe default.
+    var chosen = window.orionSegment ? window.orionSegment.get() : null;
+    hidden(form, 'segment', form.dataset.segment || chosen || meta('page-segment') || 'support');
     hidden(form, 'language', document.documentElement.lang || 'fr');
 
     UTM_KEYS.forEach(function (k) {

@@ -31,6 +31,43 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
   </div>
 </section>
 
+
+{# ===== SEGMENT ROUTER =====
+   The homepage's central element. The choice is stored for the session and travels as a hidden field
+   into whichever form the visitor eventually reaches — see src/js/segment-router.js. #}
+<section class="section" id="router">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Par où commencer</span>
+      <h2>Vous êtes…</h2>
+      <p>Choisissez, et le reste du site s'adresse à vous plutôt qu'à tout le monde.</p>
+    </div>
+
+    <div class="segment-router" data-segment-router>
+      <a class="segment-card animate" href="/particuliers/" data-segment="residentiel" data-form="/demande/residentiel/">
+        <span class="segment-card-icon"><i data-lucide="home" style="width:28px;height:28px;"></i></span>
+        <h3>Un particulier</h3>
+        <p>Vous voulez recharger chez vous, ou vous vous renseignez avant d'acheter un véhicule.</p>
+      </a>
+      <a class="segment-card animate" href="/entreprises/" data-segment="entreprise" data-form="/demande/entreprise/">
+        <span class="segment-card-icon"><i data-lucide="building-2" style="width:28px;height:28px;"></i></span>
+        <h3>Une entreprise</h3>
+        <p>Vous avez une flotte à électrifier, ou un site professionnel à équiper.</p>
+      </a>
+      <a class="segment-card animate" href="/site-partenaire/" data-segment="site_partenaire" data-form="/demande/site-partenaire/">
+        <span class="segment-card-icon"><i data-lucide="map-pin" style="width:28px;height:28px;"></i></span>
+        <h3>Un site d'accueil</h3>
+        <p>Vous avez un parking et vous pouvez accueillir une borne, sans rien investir.</p>
+      </a>
+      <a class="segment-card animate" href="/demande/support/" data-segment="support" data-form="/demande/support/">
+        <span class="segment-card-icon"><i data-lucide="life-buoy" style="width:28px;height:28px;"></i></span>
+        <h3>Déjà client</h3>
+        <p>Vous avez une question sur une installation existante, ou un problème à signaler.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
 {# ===== TRUST BAR ===== #}
 <section class="trust-bar">
   <div class="container">

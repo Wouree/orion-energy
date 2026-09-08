@@ -1,0 +1,89 @@
+---
+pageTitle: "Calculateur de revenus d'un site"
+pageDescription: "Estimez l'énergie délivrée, le chiffre d'affaires et le coût de l'électricité d'une borne sur votre site. Toutes les hypothèses sont modifiables."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Outils</span>
+    <h1>Ce que peut produire une borne sur votre site</h1>
+    <p>Trois nombres suffisent : combien de véhicules se branchent, combien d'énergie ils prennent, et à quel tarif. Le reste n'est qu'une multiplication.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calc-layout">
+
+      <div class="calc-panel">
+        <h2>Vos hypothèses</h2>
+        <form data-calculator="siteRevenue">
+
+          <div class="form-group">
+            <label for="c-sessions">Sessions de recharge par jour</label>
+            <input id="c-sessions" type="number" name="sessions_per_day" value="6" min="0" step="1"
+                   data-assumption="Sessions par jour" data-unit="sessions">
+            <p class="field-hint">Combien de véhicules se branchent, un jour ordinaire. Soyez prudent : c'est l'hypothèse la plus optimiste de tout le calcul.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="c-kwh">Énergie par session (kWh)</label>
+            <input id="c-kwh" type="number" name="kwh_per_session" value="15" min="0" step="0.5"
+                   data-assumption="Énergie par session" data-unit="kWh">
+            <p class="field-hint">Dépend de la puissance de la borne et du temps que le conducteur reste. Une recharge d'appoint de 30 minutes sur une borne de 20 kW délivre environ 10 kWh.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="c-tariff">Tarif de recharge facturé (FCFA/kWh)</label>
+            <input id="c-tariff" type="number" name="charging_tariff" value="" min="0" step="1"
+                   placeholder="à renseigner"
+                   data-assumption="Tarif de recharge" data-unit="FCFA/kWh" data-source="valeur à renseigner — non publiée">
+            <p class="field-hint"><strong>Volontairement vide.</strong> Le tarif de recharge est fixé par ORION, site par site, et n'est pas publié. Nous ne mettrons pas de valeur par défaut ici : elle deviendrait une promesse. Saisissez l'hypothèse que vous voulez tester.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="c-elec">Prix de l'électricité achetée (FCFA/kWh)</label>
+            <input id="c-elec" type="number" name="electricity_tariff" value="{{ "tarif-electricite-bt-domestique" | claimValue }}" min="0" step="1"
+                   data-assumption="Prix de l'électricité" data-unit="FCFA/kWh"
+                   data-source="ARSEL, tarif basse tension, tranche 111–400 kWh">
+            <p class="field-hint">Valeur par défaut : tarif basse tension domestique de l'ARSEL. {{ "tarif-electricite-bt-domestique" | claimCite | safe }}</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Calculer</button>
+        </form>
+      </div>
+
+      <div class="calc-panel">
+        <h2>Résultat</h2>
+        <div data-calculator-result>
+          <p class="calc-placeholder">Renseignez vos hypothèses et lancez le calcul. Le résultat apparaîtra ici, avec les valeurs qui l'ont produit.</p>
+        </div>
+        <div data-calculator-assumptions class="service-content"></div>
+
+        <div data-calculator-cta hidden style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
+          <h3>Confronter ce chiffre à la réalité</h3>
+          <p>Ce calcul repose sur une fréquentation que vous avez estimée. Nous pouvons la confronter à votre site : emplacement, visibilité, durée de stationnement, puissance disponible.</p>
+          <a href="/demande/site-partenaire/" class="btn btn-primary">Proposer mon site</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="service-content mt-3">
+      <h2>Ce que ce calcul ne dit pas</h2>
+      <ul>
+        <li><strong>Votre part.</strong> Le résultat est la marge avant partage entre ORION et le site. La répartition est une clause du contrat, et elle n'est pas publiée ici — nous ne l'inventerons pas pour rendre l'outil plus satisfaisant.</li>
+        <li><strong>Les coûts d'exploitation autres que l'énergie</strong> : maintenance, assurance, amortissement. Ils sont à notre charge dans le modèle site partenaire, mais ils existent et ils pèsent sur la marge.</li>
+        <li><strong>La montée en charge.</strong> Une borne neuve n'atteint pas sa fréquentation de croisière le premier mois.</li>
+      </ul>
+
+      {# PENDING_DATA: part de revenu reversée au site hôte et tarif de recharge appliqué.
+         Aucun des deux n'est confirmé. Le calculateur s'arrête donc à la marge avant partage,
+         et le champ « tarif de recharge » est délibérément sans valeur par défaut.
+         Voir docs/PENDING.md #}
+
+      <p>Ce résultat n'est pas un devis. C'est un ordre de grandeur destiné à savoir s'il vaut la peine d'aller plus loin.</p>
+    </div>
+  </div>
+</section>

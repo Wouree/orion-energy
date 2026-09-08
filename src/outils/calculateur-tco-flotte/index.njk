@@ -1,0 +1,103 @@
+---
+pageTitle: "Calculateur de coût énergétique d'une flotte"
+pageDescription: "Comparez ce que votre flotte coûte en carburant et ce qu'elle coûterait en électricité. Prix du carburant et tarif d'électricité modifiables, sourcés et datés."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-entreprise-OrionEnergyCameroon.jpg');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Outils</span>
+    <h1>Carburant contre électricité</h1>
+    <p>Un seul terme du coût total de possession, mais celui qu'on peut calculer sans venir sur place — et le plus simple à vérifier.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calc-layout">
+
+      <div class="calc-panel">
+        <h2>Votre flotte</h2>
+        <form data-calculator="fleetTco">
+
+          <div class="form-group">
+            <label for="t-vehicles">Nombre de véhicules</label>
+            <input id="t-vehicles" type="number" name="vehicles" value="10" min="1" step="1"
+                   data-assumption="Véhicules" data-unit="">
+          </div>
+
+          <div class="form-group">
+            <label for="t-km">Kilométrage annuel par véhicule</label>
+            <input id="t-km" type="number" name="km_per_vehicle_year" value="20000" min="0" step="500"
+                   data-assumption="Kilométrage annuel" data-unit="km par véhicule">
+          </div>
+
+          <h4 style="margin-top:28px;">Côté thermique</h4>
+
+          <div class="form-group">
+            <label for="t-cons">Consommation (L aux 100 km)</label>
+            <input id="t-cons" type="number" name="fuel_consumption" value="8" min="0" step="0.1"
+                   data-assumption="Consommation carburant" data-unit="L / 100 km">
+            <p class="field-hint">Relevez-la sur vos propres tickets de carburant plutôt que sur la fiche constructeur.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="t-fuel">Prix du carburant (FCFA/L)</label>
+            <input id="t-fuel" type="number" name="fuel_price" value="{{ "prix-super-pompe" | claimValue }}" min="0" step="1"
+                   data-assumption="Prix du carburant" data-unit="FCFA/L"
+                   data-source="prix administré CSPH, super">
+            <p class="field-hint">Valeur par défaut : prix officiel du super. Le gasoil est à {{ "prix-gasoil-pompe" | claimValue }} FCFA/L. {{ "prix-super-pompe" | claimCite | safe }}</p>
+          </div>
+
+          <h4 style="margin-top:28px;">Côté électrique</h4>
+
+          <div class="form-group">
+            <label for="t-ev">Consommation électrique (kWh aux 100 km)</label>
+            <input id="t-ev" type="number" name="ev_consumption" value="18" min="0" step="0.5"
+                   data-assumption="Consommation électrique" data-unit="kWh / 100 km">
+            <p class="field-hint">Dépend fortement du véhicule et de l'usage urbain ou routier. Vérifiez la valeur du modèle que vous envisagez.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="t-elec">Prix de l'électricité (FCFA/kWh)</label>
+            <input id="t-elec" type="number" name="electricity_tariff" value="{{ "tarif-electricite-bt-domestique" | claimValue }}" min="0" step="1"
+                   data-assumption="Prix de l'électricité" data-unit="FCFA/kWh"
+                   data-source="ARSEL, tarif basse tension, tranche 111–400 kWh">
+            <p class="field-hint">Valeur par défaut : tarif basse tension de l'ARSEL. Si vous êtes en moyenne tension, votre tarif est différent — corrigez-le. {{ "tarif-electricite-bt-domestique" | claimCite | safe }}</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Calculer</button>
+        </form>
+      </div>
+
+      <div class="calc-panel">
+        <h2>Résultat</h2>
+        <div data-calculator-result>
+          <p class="calc-placeholder">Renseignez votre flotte et lancez le calcul. Le résultat apparaîtra ici, avec les valeurs qui l'ont produit.</p>
+        </div>
+        <div data-calculator-assumptions class="service-content"></div>
+
+        <div data-calculator-cta hidden style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
+          <h3>Passer au calcul complet</h3>
+          <p>L'audit intègre l'acquisition, l'installation, l'entretien et l'assurance — les postes que ce calculateur laisse de côté — sur vos données réelles.</p>
+          <a href="/demande/entreprise/" class="btn btn-primary">Demander un audit</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="service-content mt-3">
+      <h2>Ce que ce calcul ne dit pas</h2>
+      <p>Il porte sur l'énergie, et uniquement sur l'énergie. Il ne comprend pas :</p>
+      <ul>
+        <li>le prix d'achat des véhicules, ni l'écart entre thermique et électrique à l'achat ;</li>
+        <li>l'installation des bornes et le raccordement du dépôt ;</li>
+        <li>l'entretien, généralement plus faible sur un véhicule électrique, mais pas nul ;</li>
+        <li>l'assurance et la valeur de revente ;</li>
+        <li>les <a href="/entreprises/incitations-fiscales/">incitations fiscales</a>, qui allègent l'acquisition et l'infrastructure.</li>
+      </ul>
+      <p>Un écart favorable sur l'énergie ne fait pas à lui seul un dossier. C'est un terme de l'équation, et c'est celui que vous pouvez vérifier sans nous.</p>
+      <p>Ce résultat n'est pas un devis.</p>
+    </div>
+  </div>
+</section>

@@ -41,6 +41,7 @@ module.exports = {
       href: '/securite/',
       match: ['/securite/', '/technologie/'],
     },
+    { label: 'Outils', href: '/outils/', match: ['/outils/'] },
     { label: 'FAQ', href: '/faq/', match: ['/faq/'] },
   ],
 
@@ -52,6 +53,7 @@ module.exports = {
         { label: 'Avant d’acheter', href: '/particuliers/avant-achat/' },
         { label: 'Tarifs d’installation', href: '/particuliers/tarifs-installation/' },
         { label: 'Quelle puissance choisir', href: '/guide-puissance/' },
+        { label: 'Vérificateur de faisabilité', href: '/outils/verificateur-domicile/' },
         { label: 'Réserver une visite', href: '/reserver/' },
         { label: 'FAQ', href: '/faq/' },
       ],
@@ -64,6 +66,8 @@ module.exports = {
         { label: 'Accueillir une borne', href: '/site-partenaire/' },
         { label: 'Critères d’éligibilité', href: '/site-partenaire/criteres/' },
         { label: 'Modèles économiques', href: '/site-partenaire/modeles-economiques/' },
+        { label: 'Calculateur de revenus', href: '/outils/calculateur-revenus-site/' },
+        { label: 'Calculateur de flotte', href: '/outils/calculateur-tco-flotte/' },
       ],
     },
     {

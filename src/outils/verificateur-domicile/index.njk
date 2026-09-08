@@ -1,0 +1,129 @@
+---
+pageTitle: "Vérificateur de faisabilité à domicile"
+pageDescription: "Temps de recharge, coût mensuel et points bloquants pour une borne à votre domicile. Toutes les hypothèses sont modifiables."
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872058/orionenergy/webimages/recharge-domicile-hero-03-OrionEnergyCameroon.png');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Outils</span>
+    <h1>Est-ce faisable chez vous ?</h1>
+    <p>Deux questions décident presque tout — avez-vous une place à vous, et avez-vous une mise à la terre. Le reste est arithmétique.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calc-layout">
+
+      <div class="calc-panel">
+        <h2>Votre situation</h2>
+        <form data-calculator="homeReadiness">
+
+          <div class="form-group">
+            <fieldset style="border:0;padding:0;margin:0;">
+              <legend style="padding:0;">Disposez-vous d'une place de stationnement à vous ?</legend>
+              <div class="form-radio-group">
+                <label class="form-radio"><input type="radio" name="parking" value="privative" checked> Oui, privative</label>
+                <label class="form-radio"><input type="radio" name="parking" value="copropriete"> Oui, en copropriété</label>
+                <label class="form-radio"><input type="radio" name="parking" value="non"> Non, dans la rue</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-group">
+            <fieldset style="border:0;padding:0;margin:0;">
+              <legend style="padding:0;">Votre installation a-t-elle une mise à la terre ?</legend>
+              <div class="form-radio-group">
+                <label class="form-radio"><input type="radio" name="earthing" value="oui"> Oui</label>
+                <label class="form-radio"><input type="radio" name="earthing" value="non"> Non</label>
+                <label class="form-radio"><input type="radio" name="earthing" value="inconnu" checked> Je ne sais pas</label>
+              </div>
+              <p class="field-hint">Cherchez dans votre tableau un conducteur vert et jaune qui part vers l'extérieur. Si vous ne le trouvez pas, répondez « non ».</p>
+            </fieldset>
+          </div>
+
+          <h4 style="margin-top:28px;">Votre véhicule</h4>
+
+          <div class="form-group">
+            <label for="v-batt">Capacité de la batterie (kWh)</label>
+            <input id="v-batt" type="number" name="battery_kwh" value="40" min="1" step="1"
+                   data-assumption="Capacité batterie" data-unit="kWh">
+            <p class="field-hint">Figure sur la fiche technique du véhicule.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="v-ac">Puissance acceptée en courant alternatif (kW)</label>
+            <input id="v-ac" type="number" name="vehicle_ac_kw" value="7" min="1" step="0.5"
+                   data-assumption="Puissance acceptée par le véhicule" data-unit="kW">
+            <p class="field-hint">C'est le chargeur embarqué du véhicule qui fixe le plafond, pas la borne. Une borne plus puissante ne dépassera pas cette valeur.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="v-cons">Consommation (kWh aux 100 km)</label>
+            <input id="v-cons" type="number" name="ev_consumption" value="18" min="1" step="0.5"
+                   data-assumption="Consommation" data-unit="kWh / 100 km">
+          </div>
+
+          <h4 style="margin-top:28px;">Votre usage</h4>
+
+          <div class="form-group">
+            <label for="v-km">Kilomètres par jour</label>
+            <input id="v-km" type="number" name="daily_km" value="40" min="0" step="5"
+                   data-assumption="Kilométrage quotidien" data-unit="km">
+          </div>
+
+          <div class="form-group">
+            <label for="v-hours">Heures de recharge disponibles par nuit</label>
+            <input id="v-hours" type="number" name="hours_available" value="10" min="0" step="1"
+                   data-assumption="Fenêtre de recharge" data-unit="heures">
+          </div>
+
+          <div class="form-group">
+            <label for="v-sub">Puissance souscrite (kW), si vous la connaissez</label>
+            <input id="v-sub" type="number" name="subscribed_kw" value="0" min="0" step="1"
+                   data-assumption="Puissance souscrite" data-unit="kW">
+            <p class="field-hint">Figure sur votre facture d'électricité. Laissez à 0 si vous ne l'avez pas sous la main.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="v-elec">Prix de l'électricité (FCFA/kWh)</label>
+            <input id="v-elec" type="number" name="electricity_tariff" value="{{ "tarif-electricite-bt-domestique" | claimValue }}" min="0" step="1"
+                   data-assumption="Prix de l'électricité" data-unit="FCFA/kWh"
+                   data-source="ARSEL, tarif basse tension, tranche 111–400 kWh">
+            <p class="field-hint">Valeur par défaut : tranche 111–400 kWh. Ajouter un véhicule électrique fait souvent passer un foyer dans une tranche supérieure. {{ "tarif-electricite-bt-domestique" | claimCite | safe }}</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Vérifier</button>
+        </form>
+      </div>
+
+      <div class="calc-panel">
+        <h2>Résultat</h2>
+        <div data-calculator-result>
+          <p class="calc-placeholder">Renseignez votre situation et lancez la vérification. Le résultat apparaîtra ici, avec les valeurs qui l'ont produit.</p>
+        </div>
+        <div data-calculator-assumptions class="service-content"></div>
+
+        <div data-calculator-cta hidden style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
+          <h3>Faire vérifier sur place</h3>
+          <p>Ce calcul ne dit rien de l'état réel de votre installation. La visite d'évaluation mesure la terre, relève votre puissance disponible et détermine le trajet du câble. Elle est gratuite.</p>
+          <a href="/demande/residentiel/" class="btn btn-primary">Demander une visite</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="service-content mt-3">
+      <h2>Ce que ce vérificateur ne fait pas</h2>
+      <p>Il ne vous dit pas si nos bornes conviennent à votre véhicule. Cette question est celle du <strong>connecteur</strong>, et elle se règle en regardant la trappe de recharge de votre voiture.</p>
+      <p>Nos bornes sont équipées d'un connecteur GB/T. Nous ne publions pas d'outil qui déduirait la compatibilité de la marque et du modèle : il faudrait qu'il soit exact, et une réponse fausse coûterait à quelqu'un un achat de plusieurs millions de francs. <a href="{{ wa.href }}" target="_blank" rel="noopener">Envoyez-nous une photo</a> — un être humain vous répondra.</p>
+
+      {# PENDING_DATA: positionnement commercial sur la compatibilité des connecteurs. Décision client
+         en attente. Aucun vérificateur de compatibilité véhicule n'est construit (contrainte GB/T
+         de CLAUDE.md). Voir docs/PENDING.md #}
+
+      <p>Ce résultat n'est pas un devis.</p>
+    </div>
+  </div>
+</section>

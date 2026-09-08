@@ -13,6 +13,22 @@ pageDescription: "Contactez ORION Energy — par téléphone, WhatsApp, email ou
   </div>
 </section>
 
+{# Route to the segmented forms: a request that arrives in the right funnel is answered faster and
+   better than one that arrives as "contact". The general form below still works for anything else. #}
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="segment-router" data-segment-router>
+      {% for form in orion.form_definition %}
+      <a class="segment-card animate" href="/demande/{{ form.slug }}/" data-segment="{{ form.segment }}">
+        <h3>{{ form.title }}</h3>
+        <p>{{ form.lead }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
 <section class="section">
   <div class="container">
     <div class="contact-grid">
