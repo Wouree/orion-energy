@@ -37,22 +37,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const formConfigs = {
     visite: {
+      segment: 'residentiel',
       title: 'Réserver une visite à domicile',
       fields: ['name', 'phone', 'whatsapp', 'email', 'city', 'address', 'property', 'ev', 'date', 'time', 'message']
     },
     rappel: {
+      segment: 'support',
       title: 'Demander un rappel',
       fields: ['name', 'phone', 'day', 'timeslot', 'topic']
     },
     devis: {
+      segment: 'entreprise',
       title: 'Demander un devis commercial',
       fields: ['name', 'company', 'phone', 'email', 'fleet', 'message']
     },
     contact: {
+      segment: 'support',
       title: 'Nous contacter',
       fields: ['name', 'phone', 'email', 'subject', 'message']
     },
     partenaire: {
+      segment: 'site_partenaire',
       title: 'Devenir partenaire',
       fields: ['name', 'company', 'phone', 'email', 'location', 'premises', 'message']
     }
@@ -65,10 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalTitle.textContent = config.title;
     modalForm.querySelector('input[name="form_type"]').value = formType;
+    modalForm.dataset.segment = config.segment || '';
 
-    // Show/hide fields
+    // Show/hide fields.
+    //
+    // Hidden inputs must also be DISABLED. The modal reuses one form for five configurations, and several
+    // of the fields it hides carry `required` — a hidden required field is invalid and not focusable, so
+    // the browser refuses to submit and cannot show the user where the problem is. The form simply does
+    // nothing when clicked. Disabling also keeps irrelevant fields out of FormData, so a fleet enquiry no
+    // longer carries an empty home-address field.
     modalForm.querySelectorAll('[data-field]').forEach(el => {
-      el.classList.toggle('hidden', !config.fields.includes(el.dataset.field));
+      const show = config.fields.includes(el.dataset.field);
+      el.classList.toggle('hidden', !show);
+      el.querySelectorAll('input, select, textarea').forEach(input => {
+        input.disabled = !show;
+      });
     });
 
     // Set date constraints for visite
@@ -216,6 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function handleSubmit(form) {
+    // Re-stamp immediately before reading: a modal form's segment depends on which CTA opened it,
+    // which is not known at page load.
+    if (window.orionAttribution) window.orionAttribution.stamp(form);
+
     const data = Object.fromEntries(new FormData(form));
     const endpoint = document.querySelector('meta[name="form-endpoint"]')?.content;
 
@@ -263,6 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       showFormSuccess(form);
+      if (window.orionTrack) {
+        window.orionTrack('form_submit', { form_type: data.form_type || '', segment: data.segment || '' });
+      }
     } catch (err) {
       showFormError(
         form,
@@ -272,6 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
           ) || 'WhatsApp') +
           '.'
       );
+      if (window.orionTrack) {
+        window.orionTrack('form_error', { form_type: data.form_type || '', reason: String(err.message || err).slice(0, 80) });
+      }
     } finally {
       if (submitBtn) {
         submitBtn.textContent = originalText;

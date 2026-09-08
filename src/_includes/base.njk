@@ -7,6 +7,7 @@
   <meta name="description" content="{{ pageDescription or site.description }}">
   <meta name="form-endpoint" content="{{ site.form_endpoint }}">
   <meta name="whatsapp-number" content="{{ site.whatsapp }}">
+  <meta name="page-segment" content="{{ wa.segment }}">
 
   {# Canonical: previously absent entirely (D-10). #}
   {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
@@ -33,7 +34,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  {# Pinned deliberately (D-11): @latest lets a supplier-side release break the icon layer of every
+     page with no commit in this repository. Bump this version on purpose, never implicitly. #}
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer crossorigin="anonymous"></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
@@ -43,6 +46,69 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics_id }}"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analytics_id }}');</script>
   {% endif %}
+
+  {# ---------------------------------------------------------------- #}
+  {# Structured data. There was none at all before (D-10).            #}
+  {#                                                                  #}
+  {# Only confirmed or client-controlled values appear here. No       #}
+  {# aggregateRating, no priceRange, and no telephone — there is no   #}
+  {# confirmed voice number, and inventing one for a search engine is #}
+  {# the same offence as inventing one for a visitor.                 #}
+  {# ---------------------------------------------------------------- #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ site.url }}#organization",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "description": "{{ site.description }}",
+        "email": "{{ site.email }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://res.cloudinary.com/woureesystems/image/upload/v1771707241/orionenergy/logo_type_only.svg"
+        },
+        "sameAs": [
+          {% if site.social.facebook %}"{{ site.social.facebook }}"{% if site.social.instagram or site.social.linkedin %},{% endif %}{% endif %}
+          {% if site.social.instagram %}"{{ site.social.instagram }}"{% if site.social.linkedin %},{% endif %}{% endif %}
+          {% if site.social.linkedin %}"{{ site.social.linkedin }}"{% endif %}
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "{{ site.url }}#localbusiness",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "parentOrganization": { "@id": "{{ site.url }}#organization" },
+        "email": "{{ site.email }}",
+        {% if site.has_phone %}"telephone": "{{ site.phone_clean }}",{% endif %}
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Douala",
+          "addressCountry": "CM"
+        },
+        "areaServed": [
+          {%- for city in site.cities -%}
+          { "@type": "City", "name": "{{ city }}" }{% if not loop.last %},{% endif %}
+          {%- endfor -%}
+        ],
+        "openingHours": "Mo-Sa 08:00-18:00",
+        "knowsLanguage": ["fr"]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ canonical }}#webpage",
+        "url": "{{ canonical }}",
+        "name": "{{ pageTitle }} — {{ site.name }}",
+        "description": "{{ pageDescription or site.description }}",
+        "inLanguage": "{{ lang }}",
+        "isPartOf": { "@id": "{{ site.url }}#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -303,7 +369,9 @@
     </div>
   </div>
 
+  <script src="/js/attribution.js"></script>
+  <script src="/js/analytics.js"></script>
   <script src="/js/main.js"></script>
-  <script>lucide.createIcons();</script>
+  <script>window.addEventListener('load', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>
