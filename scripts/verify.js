@@ -121,9 +121,26 @@ const BRAND = new Set(
 );
 check('only known colours appear in CSS', () => {
   const css = fs.readFileSync(path.join(SITE, 'css', 'style.css'), 'utf8');
-  const found = new Set((css.match(/#[0-9a-fA-F]{3,6}\b/g) || []).map((c) => c.toUpperCase()));
-  for (const c of found) {
-    if (!BRAND.has(c)) fail(`style.css: undeclared colour ${c}`);
+
+  // Print output is deliberately achromatic: brand blue on paper wastes ink and reads worse than black.
+  // Rather than widen the brand allowlist with a hand-maintained list of greys, neutral values are
+  // permitted *inside the @media print block only*, and only when they are genuinely achromatic
+  // (R = G = B). Any chromatic stray still fails, in print as everywhere else.
+  const printBlock = (css.match(/@media print\s*\{[\s\S]*\}\s*$/) || [''])[0];
+  const achromatic = (hex) => {
+    const h = hex.replace('#', '');
+    const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+    if (full.length !== 6) return false;
+    const [r, g, b] = [full.slice(0, 2), full.slice(2, 4), full.slice(4, 6)];
+    return r === g && g === b;
+  };
+
+  for (const m of css.matchAll(/#[0-9a-fA-F]{3,6}\b/g)) {
+    const c = m[0].toUpperCase();
+    if (BRAND.has(c)) continue;
+    const inPrint = printBlock && printBlock.includes(m[0]);
+    if (inPrint && achromatic(c)) continue;
+    fail(`style.css: undeclared colour ${c}${inPrint ? ' (in print block, but not achromatic)' : ''}`);
   }
 });
 
@@ -176,6 +193,52 @@ check('JSON-LD parses on every page', () => {
     if (!m) { fail(`${rel(f)}: no JSON-LD`); continue; }
     try { JSON.parse(m[1]); } catch (e) { fail(`${rel(f)}: JSON-LD invalid — ${e.message}`); }
   }
+});
+
+/* -- Revenue indicator: arithmetic parity and framing ------------------ */
+check('revenue indicator matches the reference arithmetic', () => {
+  const { execFileSync } = require('child_process');
+  try {
+    execFileSync('node', [path.join(__dirname, 'parity.js')], { stdio: 'pipe' });
+  } catch (e) {
+    const out = (e.stdout ? e.stdout.toString() : '') + (e.stderr ? e.stderr.toString() : '');
+    out.split('\n').filter((l) => /FAIL|✗/.test(l)).forEach((l) => fail('parity: ' + l.trim()));
+    if (!/FAIL|✗/.test(out)) fail('parity: ' + (e.message || 'harness failed').split('\n')[0]);
+  }
+});
+
+check('no hardcoded FCFA figure in the revenue template', () => {
+  const tpl = fs.readFileSync(path.join(__dirname, '..', 'src/outils/calculateur-revenus-site/index.njk'), 'utf8');
+  // Every number on this page must come from the assumptions collection or a claim.
+  for (const m of tpl.matchAll(/value="(\d[\d\s.,]*)"/g)) {
+    fail(`revenue template: literal value="${m[1]}" — assumptions must come from the collection`);
+  }
+  for (const m of tpl.matchAll(/(\d[\d\s.]{2,})\s*FCFA/g)) {
+    fail(`revenue template: hardcoded "${m[1].trim()} FCFA"`);
+  }
+});
+
+check('print stylesheet hides capture, keeps assumptions and stamp', () => {
+  const css = fs.readFileSync(path.join(SITE, 'css', 'style.css'), 'utf8');
+  const m = css.match(/@media print\s*\{([\s\S]*)\}\s*$/);
+  if (!m) { fail('no @media print block'); return; }
+  const block = m[1];
+  if (!/\.rev-capture[^{]*\{[^}]*display:\s*none/.test(block)) fail('print: .rev-capture is not hidden — the email capture would print');
+  if (/\.rev-assumptions[^{]*\{[^}]*display:\s*none/.test(block)) fail('print: .rev-assumptions is hidden — the leave-behind would lose its assumptions');
+  if (/\.rev-stamp[^{]*\{[^}]*display:\s*none/.test(block)) fail('print: .rev-stamp is hidden — the leave-behind would lose its date stamp');
+});
+
+check('revenue page renders no single-figure host output', () => {
+  const f = path.join(SITE, 'outils', 'calculateur-revenus-site', 'index.html');
+  const s = fs.readFileSync(f, 'utf8');
+  // Server-rendered markup must not ship a host figure at all; it is computed client-side as a band.
+  const t = textOf(f).replace(/\s+/g, ' ');
+  const bare = t.match(/\b\d{1,3}(?: \d{3})+ FCFA\b/g) || [];
+  const banded = t.match(/\b\d{1,3}(?: \d{3})* – \d{1,3}(?: \d{3})* FCFA\b/g) || [];
+  bare.filter((b) => !banded.some((x) => x.includes(b))).forEach((b) => {
+    fail(`revenue page: single host figure "${b}" rendered outside a band`);
+  });
+  if (!/hypothèse/.test(s)) fail('revenue page: no hypothesis badge rendered');
 });
 
 /* -- Report ------------------------------------------------------------ */

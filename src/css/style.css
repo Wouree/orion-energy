@@ -1289,6 +1289,10 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--white);
+  /* Grid items default to min-width:auto, which lets wide content — a six-column table — push the
+     column past the viewport instead of scrolling inside its own .data-table-wrap. Latent since the
+     shell was written; it only surfaced once a calculator had a table wide enough to expose it. */
+  min-width: 0;
 }
 .calc-panel h2, .calc-panel h3 { margin-top: 0; }
 
@@ -1521,14 +1525,27 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
     margin-bottom: 14mm;
   }
 
-  .page-hero {
+  /* Le bandeau du titre est un dégradé bleu plein écran : à l'impression il gaspille de l'encre et rend
+     le texte clair illisible. On le ramène à du texte noir sur blanc. */
+  .page-hero,
+  .lp-hero {
+    background: none !important;
+    background-image: none !important;
     min-height: 0 !important;
+    margin-top: 0 !important;
     padding: 0 0 8mm !important;
     color: #000;
+    text-align: left;
+    border-bottom: 1px solid #999;
+    margin-bottom: 8mm;
   }
-  .page-hero h1 { font-size: 20pt; color: #000; }
-  .page-hero p { font-size: 10.5pt; color: #222; }
-  .page-hero .section-label { color: #444 !important; }
+  .page-hero h1,
+  .lp-hero h1 { font-size: 20pt; color: #000; margin: 0 0 4mm; }
+  .page-hero p,
+  .lp-hero p { font-size: 10.5pt; color: #222; }
+  .page-hero .section-label,
+  .lp-hero .section-label { color: #444 !important; }
+  .hero-sunburst, .lp-hero-badge { display: none !important; }
 
   /* Les cartes de fourchette tiennent sur une ligne et ne se coupent pas. */
   .rev-cards { grid-template-columns: repeat(4, 1fr) !important; gap: 4mm; }
