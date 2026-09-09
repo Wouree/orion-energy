@@ -110,3 +110,82 @@ untouched, which the parity assertions confirm.
 invent a parallel component, the badge is added as `.claim-badge` **inside the existing `.claim-*`
 family** — the same vocabulary as `.claim-cite`, which already marks provenance next to a figure. It is
 an inline variant of an existing idea, not a new component, and it does not use the reference's CSS.
+
+---
+
+## What was ported from the reference
+
+| From the reference | Kept as-is | Changed |
+|---|---|---|
+| The maths — `points × kW × hours × 30 × utilisation × efficiency`, then revenue, energy, fees, net, and the two host shares | ✅ exactly | Reads its constants from the content collection instead of module-level literals |
+| Three utilisation ramps × four milestones | ✅ values identical | Moved into `calculator_assumptions`, validated at build time |
+| Banded output; mid-point as a secondary line | ✅ | — |
+| Both share models rendered at once | ✅ | — |
+| Detail table, assumptions list, date stamp | ✅ | Assumptions rendered from the collection |
+| French copy, framing paragraph, "ne constitue ni une offre ni un engagement de revenus" | ✅ verbatim | — |
+| CSS | ✗ **none copied** | Written against the existing brand tokens and `.calc-*` shell |
+| Hardware `<select>` | structure | Populated from the `product` collection, so the four models stay in step with the catalogue |
+| Efficiency `0.85` as a module constant | value | Now `efficiency_factor` in the collection |
+| Electricity cost `99` hardcoded | value | Now a `donnee_externe` claim citing the ARSEL 801–2000 kWh band |
+
+### What is new, beyond the reference
+
+- **Every number is content.** The reference hardcodes all of them. Replacing a guess with a measurement is now a CMS edit, and the build rejects a malformed one.
+- **The electricity default is sourced.** The reference's `99` is the ARSEL 801–2000 kWh band; it now cites the regulator instead of appearing from nowhere.
+- **The 7 kW warning.** The model selector says plainly that an AC wallbox earns a host very little. The reference offers the same option silently.
+- **T1 email capture and the T3 pre-filled CTA**, neither of which the reference has.
+- **The print stylesheet hides the capture** — the reference has no capture to hide.
+
+---
+
+## Arithmetic parity
+
+Asserted permanently in `scripts/verify.js` via `scripts/parity.js`.
+
+**Inputs:** 2 points · 60 kW · 14 h/day · tariff 200 · cost 99 · fees 2 % · efficiency 0.85 · moderate · month 12
+
+| Model | Expected | Actual |
+|---|---|---|
+| Net, 30 % | 74 799 – 149 597 FCFA | **74 799 – 149 597 FCFA** ✅ |
+| Gross, 10 % | 51 408 – 102 816 FCFA | **51 408 – 102 816 FCFA** ✅ |
+
+Derivation of the low bound, for whoever has to re-verify this later:
+
+```
+kWh    = 2 × 60 × 14 × 30 × 0.060 × 0.85   = 2 570.4
+revenue= 2 570.4 × 200                      = 514 080
+energy = 2 570.4 × 99                       = 254 469.6
+fees   = 514 080 × 0.02                     = 10 281.6
+net    = 514 080 − 254 469.6 − 10 281.6     = 249 328.8
+host   = 249 328.8 × 0.30                   = 74 798.64  → 74 799
+```
+
+---
+
+## The superseded decision, and how the framing is preserved
+
+Lot 7 stopped this calculator at the margin before sharing, on the grounds that a default share would
+read as a promise. That reasoning was right then and is superseded now, but **only** because the split is
+presented as an adjustable hypothesis rather than an offer. Four things hold that framing, and all four
+are asserted:
+
+1. The percentages are **inputs the visitor moves**, not fixed values.
+2. Output is **always a band**, never a single figure — asserted in `verify.js` and in the browser tests.
+3. **Both models stay visible**, so the page reads as a comparison of trade-offs rather than a proposal.
+4. Every screen and every printout carries **"ne constitue ni une offre ni un engagement de revenus"**.
+
+The underlying rule is unchanged: ORION's actual charging tariff is still unpublished, still carries the
+*hypothèse* badge, and the page states in terms that the real split is a contract clause not published here.
+
+---
+
+## Verification
+
+| | |
+|---|---|
+| `scripts/verify.js` | 14 assertions over 41 pages — the original ten plus parity, no-hardcoded-FCFA, print-hides-capture, no-single-figure |
+| `scripts/parity.js` | arithmetic parity + framing, run inside `verify.js` |
+| `scripts/smoke-revenue.js` | 22 browser assertions across screen and print emulation |
+| `scripts/check-cms-schema.js` | CMS ↔ loader alignment, 16 collections |
+| Screenshots | `docs/screenshots/02/` — 390 / 768 / 1440 plus the print leave-behind |
+| Clean-clone Pages build | `npm ci` + `npm run build` → 40 pages, `.nvmrc` and `engines` intact, zero reference files in output |

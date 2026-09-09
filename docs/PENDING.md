@@ -5,7 +5,7 @@ Each entry corresponds to one or more `{# PENDING_DATA: … #}` markers in the s
 
 **The rule (`CLAUDE.md`): no placeholder numbers, no "à partir de X", no lorem. The slot renders nothing.**
 
-25 markers across 21 files. The loader strips markers from Markdown bodies, and Nunjucks strips them from
+26 markers across 21 files. The loader strips markers from Markdown bodies, and Nunjucks strips them from
 templates, so none reaches the published page — `scripts/verify.js` asserts this.
 
 **Grouped by who has to supply the answer**, because that is how it gets unblocked.
@@ -42,7 +42,9 @@ parallel with this run. P-02 remains, and is now the single item blocking lead c
 |---|---|---|---|
 | **P-08** | **Full warranty exclusion list and territorial scope** | `/securite/garantie/`, FAQ *Quelle garantie* | Durations (12 + 12 months) and the travel exclusion are confirmed and published. The page states plainly that the remaining exclusions are not settled, that they arrive in writing with the quote, and that the reader should demand them if they do not. |
 | **P-09** | **Site-partner contract duration, exit and renewal terms** | `/site-partenaire/programme/` | The page says the term is set by contract and shown in writing before signature. No duration is stated. |
-| **P-10** | **Host revenue share, and the charging tariff ORION applies** | `/site-partenaire/modeles-economiques/`, `/outils/calculateur-revenus-site/` | Two consequences. The economics page publishes no revenue figure, payback period or worked example. The revenue calculator has **no default charging tariff** — a default there would become a promise — and stops at the **margin before sharing**, telling the reader explicitly that it is not showing their share. |
+| **P-10a** | ~~Host revenue share~~ — *no longer blocks the tool* | `/outils/calculateur-revenus-site/` | **Unblocked 2026-09-09.** The split is now an **adjustable hypothesis displayed as a band**, never a figure ORION offers: the percentages are inputs, output is always a band, both models stay visible, and every screen and printout carries *"ne constitue ni une offre ni un engagement de revenus"*. The real split remains a contract clause and is still not published — `/site-partenaire/modeles-economiques/` still shows no revenue figure, payback period or worked example. |
+| **P-10b** | **ORION's actual charging tariff** | `/outils/calculateur-revenus-site/`, `/site-partenaire/modeles-economiques/` | **Still open, but narrowed.** It no longer blocks the whole tool — only a *visible default*. The field is populated with an explicitly illustrative 200 FCFA/kWh carrying the *hypothèse* badge and an `estimation` claim whose note says in terms that it is not ORION's price. Once the real tariff exists, one number in `content/calculator_assumptions/` replaces it. |
+| **P-10c** | **Utilisation rates observed on a live site** | `/outils/calculateur-revenus-site/` | The three ramps are `estimation` with **no external source and no possibility of one** — the Cameroonian EV fleet is too small for charger utilisation to be observable. The page says this explicitly. First site to run a quarter replaces them. |
 
 ---
 
