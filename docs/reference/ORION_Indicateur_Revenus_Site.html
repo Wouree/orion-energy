@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORION Energy — Indicateur de revenus site partenaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Jetons de marque vérifiés — brand.orionenergycmr.com. Valeurs exactes, jamais approximées. */
+:root{
+  --inst:#14328C; --primary:#0B47BF; --tech:#1383F2; --energy:#0F79F2;
+  --deep:#0E2A6E; --light-blue:#4BA0F5;
+  --green:#48D951; --green2:#73D844; --lime:#D3D936;
+  --ink:#0E1A2B; --body:#3D5068; --mute:#6B839A;
+  --wash:#F4F6FA; --rule:#DDE3EB;
+  --fd:'Montserrat',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--wash);color:var(--body);font-family:var(--fb);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--fd);color:var(--ink);margin:0;letter-spacing:-.01em}
+
+header{background:linear-gradient(152deg,var(--deep),var(--inst) 55%,var(--primary));color:#fff;padding:24px 0 26px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 26px}
+.brandrow{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.brandrow b{font-family:var(--fd);font-weight:800;font-size:15px}
+.brandrow span{font-size:12px;color:#A9C3E8;border-left:1px solid rgba(255,255,255,.28);padding-left:11px}
+header h1{color:#fff;font-size:clamp(20px,2.5vw,27px);font-weight:800;margin-bottom:6px}
+header p{color:#C7D8F2;max-width:82ch;margin:0;font-size:14px}
+
+main{max-width:1240px;margin:0 auto;padding:24px 26px 80px;display:grid;grid-template-columns:352px minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:20px 22px}
+.panel h3{font-size:14px;font-weight:700;margin-bottom:3px}
+.panel .sub{font-size:12.2px;color:var(--mute);margin:0 0 16px}
+.grp{border-top:1px solid var(--rule);padding-top:15px;margin-top:15px}
+.grp:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.grp h4{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--mute);margin-bottom:11px}
+.f{margin-bottom:12px}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+label em{font-style:normal;font-weight:400;color:var(--mute);display:block;font-size:11.5px;margin-top:1px}
+input[type=number],select{font-family:var(--fb);font-size:14px;color:var(--ink);background:#fff;
+  border:1px solid var(--rule);border-radius:7px;padding:8px 10px;width:100%}
+input:focus,select:focus{outline:none;border-color:var(--tech);box-shadow:0 0 0 3px rgba(19,131,242,.13)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.seg button{flex:1;font-family:var(--fb);font-size:12.5px;font-weight:600;padding:9px 6px;
+  border:none;background:#fff;color:var(--mute);cursor:pointer;transition:all .12s}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button.on{background:var(--primary);color:#fff}
+.hyp{font-size:10.5px;font-weight:700;color:var(--tech);background:#EAF3FE;
+  padding:2px 7px;border-radius:20px;display:inline-block;margin-left:6px;vertical-align:middle}
+
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.head h2{font-size:19px;font-weight:800}
+.head p{margin:3px 0 0;font-size:13px;color:var(--mute);max-width:70ch}
+.btn{font-family:var(--fb);font-size:13px;font-weight:600;border-radius:7px;padding:9px 15px;cursor:pointer;
+  border:1px solid var(--rule);background:#fff;color:var(--primary)}
+.btn:hover{border-color:var(--primary)}
+.btn.p{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.mcard{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:16px 15px;position:relative;overflow:hidden}
+.mcard::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--green2))}
+.mcard .m{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:9px}
+.mcard .band{font-family:var(--fd);font-weight:800;color:var(--ink);font-size:clamp(15px,1.5vw,19px);line-height:1.25}
+.mcard .unit{font-size:11.5px;color:var(--mute);font-weight:400;font-family:var(--fb);display:block;margin-top:2px}
+.mcard .mid{font-size:12.3px;color:var(--body);margin-top:9px;padding-top:9px;border-top:1px solid var(--rule)}
+.mcard .mid b{color:var(--inst)}
+.mcard .util{font-size:11.5px;color:var(--mute);margin-top:5px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.scard{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:17px 19px}
+.scard.on{border-color:var(--primary);border-width:1.5px;background:linear-gradient(180deg,#F5FAFF,#fff)}
+.scard h4{font-size:13.5px;font-weight:700;margin-bottom:4px}
+.scard .d{font-size:12.3px;color:var(--mute);margin-bottom:11px;min-height:34px}
+.scard .v{font-family:var(--fd);font-weight:800;font-size:17px;color:var(--inst)}
+.scard .v span{font-size:11.5px;color:var(--mute);font-weight:400;font-family:var(--fb)}
+
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+th{text-align:left;font-family:var(--fd);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--mute);padding:13px 12px 9px;border-bottom:1.5px solid var(--ink)}
+td{padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--wash)}
+.tbl{background:#fff;border:1px solid var(--rule);border-radius:11px;overflow:hidden;margin-bottom:16px}
+.tbl h3{padding:15px 20px 0;font-size:14px}
+.tbl .sub{padding:2px 20px 0;font-size:12.2px;color:var(--mute);margin:0}
+
+.note{background:#FFFBF0;border:1px solid #EFE0BC;border-radius:10px;padding:15px 18px;font-size:13px;margin-bottom:16px}
+.note b{color:#B47A05}
+.assum{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:18px 20px;font-size:12.8px}
+.assum h3{font-size:13px;margin-bottom:9px}
+.assum ul{margin:0;padding-left:18px}
+.assum li{margin-bottom:5px}
+.assum .stamp{margin-top:13px;padding-top:11px;border-top:1px solid var(--rule);color:var(--mute);font-size:11.8px}
+
+@media(max-width:1000px){
+  main{grid-template-columns:1fr}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff}
+  header{background:var(--inst)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  main{grid-template-columns:1fr;padding-top:14px}
+  .btn,.seg button:not(.on){display:none}
+  .panel{page-break-inside:avoid}
+  .cards{grid-template-columns:repeat(4,1fr)}
+  .mcard,.scard,.tbl,.assum,.note{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="brandrow">
+    <svg width="23" height="23" viewBox="0 0 26 26" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#73D844"/><stop offset="100%" stop-color="#0F79F2"/></linearGradient></defs>
+      <g stroke="url(#lg)" stroke-width="2" stroke-linecap="round">
+        <line x1="13" y1="2" x2="13" y2="8"/><line x1="13" y1="18" x2="13" y2="24"/>
+        <line x1="2" y1="13" x2="8" y2="13"/><line x1="18" y1="13" x2="24" y2="13"/>
+        <line x1="5.2" y1="5.2" x2="9.4" y2="9.4"/><line x1="16.6" y1="16.6" x2="20.8" y2="20.8"/>
+        <line x1="20.8" y1="5.2" x2="16.6" y2="9.4"/><line x1="9.4" y1="16.6" x2="5.2" y2="20.8"/>
+      </g><circle cx="13" cy="13" r="3.2" fill="url(#lg)"/></svg>
+    <b>ORION Energy</b><span>Indicateur de revenus — site partenaire</span>
+  </div>
+  <h1>Ce que votre emplacement pourrait rapporter</h1>
+  <p>Un ordre de grandeur, pas un chiffre ferme. Toutes les hypothèses sont modifiables ci-dessous : ajustez-les avec nous, et le modèle se recalcule immédiatement. Les résultats sont présentés en fourchette parce que la fréquentation d'une borne au Cameroun ne se prédit pas — elle s'observe.</p>
+ </div>
+</header>
+
+<main>
+
+<!-- ============ PANNEAU ============ -->
+<section class="panel">
+  <h3>Votre site</h3>
+  <p class="sub">Ajustez ce qui ne correspond pas.</p>
+
+  <div class="grp">
+    <div class="f">
+      <label>Type de site</label>
+      <select id="siteType">
+        <option value="forecourt">Station-service</option>
+        <option value="hotel">Hôtel</option>
+        <option value="mall">Centre commercial</option>
+        <option value="office">Immeuble de bureaux</option>
+        <option value="parking">Parking</option>
+      </select>
+    </div>
+    <div class="two">
+      <div class="f">
+        <label>Points de charge</label>
+        <input type="number" id="points" value="2" min="1" max="20">
+      </div>
+      <div class="f">
+        <label>Heures d'ouverture<em>par jour</em></label>
+        <input type="number" id="hours" value="14" min="1" max="24">
+      </div>
+    </div>
+    <div class="f">
+      <label>Matériel envisagé</label>
+      <select id="model">
+        <option value="60">TA-DC-DD60kW — 60 kW (station publique)</option>
+        <option value="20">TA-DC-WD20kW — 20 kW (flotte)</option>
+        <option value="44">TA-AC-G22-ALD3 — 44 kW sur pied</option>
+        <option value="7">XD-AC-G07-P — 7 kW murale (résidentiel)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grp">
+    <h4>Hypothèses économiques</h4>
+    <div class="f">
+      <label>Tarif facturé au conducteur <span class="hyp">hypothèse</span><em>FCFA par kWh — fixé par ORION</em></label>
+      <input type="number" id="tariff" value="200" min="1" step="5">
+    </div>
+    <div class="f">
+      <label>Coût de l'électricité <span class="hyp">hypothèse</span><em>FCFA par kWh — à la charge d'ORION</em></label>
+      <input type="number" id="cost" value="99" min="0" step="1">
+    </div>
+    <div class="f">
+      <label>Frais d'encaissement<em>% du chiffre d'affaires</em></label>
+      <input type="number" id="fees" value="2" min="0" max="15" step="0.5">
+    </div>
+  </div>
+
+  <div class="grp">
+    <h4>Modèle de partage</h4>
+    <div class="f">
+      <div class="seg" id="modeSeg">
+        <button data-mode="net" class="on">Partage du net</button>
+        <button data-mode="gross">Partage du brut</button>
+      </div>
+    </div>
+    <div class="f" id="netShareWrap">
+      <label>Part du site sur le résultat net<em>après électricité et frais d'encaissement</em></label>
+      <input type="number" id="netShare" value="30" min="0" max="100" step="5">
+    </div>
+    <div class="f" id="grossShareWrap" style="display:none">
+      <label>Part du site sur le chiffre d'affaires<em>ORION conserve 90 % et supporte tous les coûts</em></label>
+      <input type="number" id="grossShare" value="10" min="0" max="100" step="1">
+    </div>
+  </div>
+
+  <div class="grp">
+    <h4>Rythme d'adoption</h4>
+    <div class="f">
+      <div class="seg" id="paceSeg">
+        <button data-pace="slow">Lent</button>
+        <button data-pace="mid" class="on">Modéré</button>
+        <button data-pace="fast">Rapide</button>
+      </div>
+    </div>
+    <p class="sub" style="margin:0">Le parc de véhicules électriques au Cameroun est encore restreint. Ce réglage déplace l'ensemble de la fourchette, il ne la remplace pas par une certitude.</p>
+  </div>
+</section>
+
+<!-- ============ RÉSULTATS ============ -->
+<section>
+  <div class="head">
+    <div>
+      <h2>Indication de revenus pour le site</h2>
+      <p id="ctxLine"></p>
+    </div>
+    <div>
+      <button class="btn" id="reset">Réinitialiser</button>
+      <button class="btn p" id="print">Imprimer cette page</button>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="split">
+    <div class="scard" id="cardNet">
+      <h4>Partage du net</h4>
+      <p class="d">Électricité et frais déduits, puis partage. La part du site suit la rentabilité réelle de la borne.</p>
+      <div class="v" id="vNet">—<span> / mois au 12ᵉ mois</span></div>
+    </div>
+    <div class="scard" id="cardGross">
+      <h4>Partage du brut — 90 / 10</h4>
+      <p class="d">Part calculée sur l'encaissement total. Plus simple à vérifier : le site n'a aucun coût à suivre.</p>
+      <div class="v" id="vGross">—<span> / mois au 12ᵉ mois</span></div>
+    </div>
+  </div>
+
+  <div class="tbl">
+    <h3>Détail du modèle</h3>
+    <p class="sub">Fourchette basse et haute à chaque échéance.</p>
+    <table>
+      <thead><tr>
+        <th>Échéance</th><th class="n">Taux d'utilisation</th><th class="n">Énergie livrée</th>
+        <th class="n">Chiffre d'affaires</th><th class="n">Résultat net</th><th class="n">Part du site</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Comment lire ces chiffres.</b> Il s'agit d'un ordre de grandeur construit sur les hypothèses affichées ci-dessus, et non d'une offre commerciale ni d'un engagement de revenus. La fréquentation réelle dépend de l'emplacement, de la visibilité depuis la voie, du parc de véhicules en circulation et de la concurrence à proximité. Nous préférons vous montrer une fourchette honnête plutôt qu'un chiffre précis qui serait faux. Les conditions définitives sont établies après visite du site et figurent au contrat.
+  </div>
+
+  <div class="assum">
+    <h3>Hypothèses retenues</h3>
+    <ul id="assumList"></ul>
+    <div class="stamp" id="stamp"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ---------------------------------------------------------------
+   Trajectoires d'utilisation — fourchette basse / haute par échéance.
+   Marché naissant : on modélise une montée en charge, pas un régime établi.
+   Ces bornes sont des hypothèses de travail ORION, à réviser dès que
+   des données d'exploitation réelles seront disponibles.
+   --------------------------------------------------------------- */
+var PACE = {
+  slow: { label:'Lent',    m:[[0.005,0.015],[0.010,0.030],[0.020,0.045],[0.030,0.065]] },
+  mid:  { label:'Modéré',  m:[[0.010,0.025],[0.020,0.050],[0.040,0.080],[0.060,0.120]] },
+  fast: { label:'Rapide',  m:[[0.015,0.040],[0.035,0.075],[0.065,0.125],[0.100,0.180]] }
+};
+var MONTHS = ['3ᵉ mois','6ᵉ mois','9ᵉ mois','12ᵉ mois'];
+var SITE = {
+  forecourt:'station-service', hotel:'hôtel', mall:'centre commercial',
+  office:'immeuble de bureaux', parking:'parking'
+};
+
+var mode = 'net', pace = 'mid';
+var $ = function(id){ return document.getElementById(id); };
+var fmt = function(n){ return Math.round(n).toLocaleString('fr-FR').replace(/\u202F|,/g,' '); };
+var pct = function(n){ return (n*100).toFixed(1).replace('.',',')+' %'; };
+
+function readInputs(){
+  return {
+    points: Math.max(1, +$('points').value || 1),
+    hours:  Math.max(1, +$('hours').value || 1),
+    kw:     +$('model').value,
+    tariff: Math.max(0, +$('tariff').value || 0),
+    cost:   Math.max(0, +$('cost').value || 0),
+    fees:   Math.max(0, +$('fees').value || 0) / 100,
+    netShare:   Math.max(0, +$('netShare').value || 0) / 100,
+    grossShare: Math.max(0, +$('grossShare').value || 0) / 100,
+    site:   $('siteType').value
+  };
+}
+
+/* Un point de charge ne délivre pas sa puissance nominale en continu :
+   pertes, sessions partielles, temps de branchement. Facteur prudent. */
+var EFFICIENCY = 0.85;
+
+function model(i, util){
+  var kwh = i.points * i.kw * i.hours * 30 * util * EFFICIENCY;
+  var revenue = kwh * i.tariff;
+  var energy  = kwh * i.cost;
+  var fees    = revenue * i.fees;
+  var net     = revenue - energy - fees;
+  return {
+    kwh: kwh, revenue: revenue, net: net,
+    hostNet:   Math.max(0, net * i.netShare),
+    hostGross: revenue * i.grossShare
+  };
+}
+
+function hostValue(r){ return mode === 'net' ? r.hostNet : r.hostGross; }
+
+function render(){
+  var i = readInputs(), ramp = PACE[pace].m;
+
+  /* --- cartes par échéance --- */
+  var cards = '', rows = '';
+  ramp.forEach(function(u, k){
+    var lo = model(i, u[0]), hi = model(i, u[1]);
+    var vLo = hostValue(lo), vHi = hostValue(hi);
+    var mid = (vLo + vHi) / 2;
+
+    cards += '<div class="mcard">' +
+      '<div class="m">' + MONTHS[k] + '</div>' +
+      '<div class="band">' + fmt(vLo) + ' – ' + fmt(vHi) +
+        '<span class="unit">FCFA par mois</span></div>' +
+      '<div class="mid">Milieu de fourchette <b>' + fmt(mid) + ' FCFA</b></div>' +
+      '<div class="util">Utilisation ' + pct(u[0]) + ' à ' + pct(u[1]) + '</div>' +
+      '</div>';
+
+    rows += '<tr><td><b>' + MONTHS[k] + '</b></td>' +
+      '<td class="n">' + pct(u[0]) + ' – ' + pct(u[1]) + '</td>' +
+      '<td class="n">' + fmt(lo.kwh) + ' – ' + fmt(hi.kwh) + ' kWh</td>' +
+      '<td class="n">' + fmt(lo.revenue) + ' – ' + fmt(hi.revenue) + '</td>' +
+      '<td class="n">' + fmt(lo.net) + ' – ' + fmt(hi.net) + '</td>' +
+      '<td class="n"><b>' + fmt(vLo) + ' – ' + fmt(vHi) + '</b></td></tr>';
+  });
+  $('cards').innerHTML = cards;
+  $('rows').innerHTML = rows;
+
+  /* --- comparaison des deux modèles au 12e mois --- */
+  var last = ramp[3];
+  var l12 = model(i, last[0]), h12 = model(i, last[1]);
+  $('vNet').innerHTML   = fmt(l12.hostNet)   + ' – ' + fmt(h12.hostNet)   + ' <span>FCFA / mois au 12ᵉ mois</span>';
+  $('vGross').innerHTML = fmt(l12.hostGross) + ' – ' + fmt(h12.hostGross) + ' <span>FCFA / mois au 12ᵉ mois</span>';
+  $('cardNet').classList.toggle('on', mode === 'net');
+  $('cardGross').classList.toggle('on', mode === 'gross');
+
+  /* --- contexte --- */
+  $('ctxLine').textContent =
+    i.points + ' point' + (i.points > 1 ? 's' : '') + ' de charge de ' + i.kw + ' kW, ' +
+    SITE[i.site] + ' ouvert ' + i.hours + ' h par jour · rythme d\'adoption ' +
+    PACE[pace].label.toLowerCase() + '.';
+
+  /* --- hypothèses affichées, y compris à l'impression --- */
+  var share = mode === 'net'
+    ? 'partage du résultat net, ' + (i.netShare * 100) + ' % pour le site'
+    : 'partage du chiffre d\'affaires, ' + (i.grossShare * 100) + ' % pour le site';
+  $('assumList').innerHTML =
+    '<li>' + i.points + ' point(s) de charge de ' + i.kw + ' kW, ' + i.hours + ' heures d\'ouverture par jour, 30 jours par mois.</li>' +
+    '<li>Tarif facturé au conducteur : ' + fmt(i.tariff) + ' FCFA/kWh. <b>Hypothèse de travail</b>, à confirmer par ORION.</li>' +
+    '<li>Coût de l\'électricité : ' + fmt(i.cost) + ' FCFA/kWh, supporté par ORION. <b>Hypothèse de travail</b>, à confirmer sur la base du tarif applicable au site.</li>' +
+    '<li>Frais d\'encaissement : ' + (i.fees * 100).toString().replace('.', ',') + ' % du chiffre d\'affaires.</li>' +
+    '<li>Modèle de partage : ' + share + '.</li>' +
+    '<li>Rendement retenu : ' + (EFFICIENCY * 100) + ' % de la puissance nominale, pour tenir compte des sessions partielles et des pertes.</li>' +
+    '<li>Trajectoire d\'utilisation « ' + PACE[pace].label.toLowerCase() + ' » : de ' +
+      pct(ramp[0][0]) + '–' + pct(ramp[0][1]) + ' au 3ᵉ mois à ' +
+      pct(ramp[3][0]) + '–' + pct(ramp[3][1]) + ' au 12ᵉ mois.</li>' +
+    '<li>ORION prend en charge le matériel, le génie civil, le raccordement, l\'électricité consommée, la maintenance, l\'assurance et la signalétique. Le site met l\'emplacement à disposition.</li>';
+
+  var d = new Date();
+  $('stamp').textContent =
+    'Simulation établie le ' + d.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}) +
+    ' · ORION Energy · Document de travail — ne constitue ni une offre ni un engagement de revenus.';
+}
+
+/* ---------- interactions ---------- */
+document.querySelectorAll('#modeSeg button').forEach(function(b){
+  b.onclick = function(){
+    mode = b.dataset.mode;
+    document.querySelectorAll('#modeSeg button').forEach(function(x){ x.classList.toggle('on', x === b); });
+    $('netShareWrap').style.display   = mode === 'net'   ? '' : 'none';
+    $('grossShareWrap').style.display = mode === 'gross' ? '' : 'none';
+    render();
+  };
+});
+document.querySelectorAll('#paceSeg button').forEach(function(b){
+  b.onclick = function(){
+    pace = b.dataset.pace;
+    document.querySelectorAll('#paceSeg button').forEach(function(x){ x.classList.toggle('on', x === b); });
+    render();
+  };
+});
+['points','hours','model','tariff','cost','fees','netShare','grossShare','siteType']
+  .forEach(function(id){ $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+
+$('print').onclick = function(){ window.print(); };
+$('reset').onclick = function(){
+  var d = {points:2, hours:14, model:'60', tariff:200, cost:99, fees:2, netShare:30, grossShare:10, siteType:'forecourt'};
+  Object.keys(d).forEach(function(k){ $(k).value = d[k]; });
+  mode = 'net'; pace = 'mid';
+  document.querySelectorAll('#modeSeg button').forEach(function(x){ x.classList.toggle('on', x.dataset.mode === 'net'); });
+  document.querySelectorAll('#paceSeg button').forEach(function(x){ x.classList.toggle('on', x.dataset.pace === 'mid'); });
+  $('netShareWrap').style.display = ''; $('grossShareWrap').style.display = 'none';
+  render();
+};
+
+render();
+</script>
+</body>
+</html>

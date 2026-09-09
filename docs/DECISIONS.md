@@ -135,3 +135,25 @@ Every judgement call, one line each, with reasoning. Newest at the bottom of eac
 - **Took the branch's `config.yml` wholesale.** They had independently fixed D-04 (`base_url` → `auth.wouree.com`) and D-05 (invalid collection-level `file:`) on the old six-collection model. This branch's config is a fifteen-collection superset built on the new content model, and their six collections point at files this run replaced, so taking the branch version loses nothing — the convergence on both fixes is corroboration, not conflict.
 - **Did not force-push.** The rejected push was a real signal, not an obstacle; local `main` was reset to `origin/main` and the merge redone against current remote state.
 - **Used `--no-ff`.** The whole run reverts with a single `git revert -m 1` if the production deploy misbehaves, which matters more than a linear history for a change that goes straight to a live site.
+
+# ═══════════════════════════════════════════════════════════════════════
+# TASK BLOCK 02 — Site revenue indicator (branch `feat/revenue-indicator`)
+# ═══════════════════════════════════════════════════════════════════════
+
+## Step 0 — Reference folder hygiene
+
+- **No live disclosure occurred.** Verified against real built output, not config: `find _site -iname "*reference*" -o -iname "*.zip"` returns zero. `dir.input` is `src`, so `docs/` was never in scope. The two content hits for `brand.orionenergycmr.com` are my own source citations in a CSS comment and in `logo.svg`, naming where the tokens came from — not the guidelines content.
+- **Added the exclusion anyway, as instructed, in two places.** `.eleventyignore` lists `docs/` and `reference/`, and `.eleventy.js` adds the same via `eleventyConfig.ignores`. The point is to make the exclusion independent of the input directory rather than a side effect of it, so a later change to `dir.input` cannot silently make this folder publishable.
+- **Deleted `docs/reference/index.html.zip`** — redundant archive of the file beside it.
+- **The move was on disk only; git still tracked the old root path.** `reference/index.html` and `reference/index.html.zip` were tracked at the repository root while the files physically sat in `docs/reference/`. Untracked the old paths and tracked the new location, so the tree and the index agree.
+- **Fixed one stale path**, `docs/00-DISCOVERY.md:365`, which cited `reference/index.html`.
+
+### Discrepancy to report — the task brief mis-describes one file
+
+**`docs/reference/index.html` is not the brand guidelines page.** Its `<title>` is *"ORION Energy — Questionnaire technique et commercial"* and its heading is *"Les informations qu'il nous manque pour construire le nouveau site"*. It is the client questionnaire — the same document identified in Lot 0 as the source of the confirmed data under ref `ORION-20260809-4M59`.
+
+It *does* carry a brand token block in its stylesheet, headed *"Jetons de marque vérifiés sur brand.orionenergycmr.com"*, which is presumably why it was taken for the guidelines. But that block is a second-hand transcription inside a questionnaire, not the guidelines page itself. **The authoritative source remains `brand.orionenergycmr.com`**, exactly as `CLAUDE.md` states. Reporting rather than correcting, per instruction.
+
+### Token cross-check — no discrepancy
+
+All twelve `CLAUDE.md` tokens match the reference file exactly, byte for byte. One naming difference only: Energy Blue `#0F79F2` is `--blue` in `CLAUDE.md` and `--energy` in the reference. The reference also carries four tokens `CLAUDE.md` does not list — `--deep-blue #0E2A6E`, `--light-blue #4BA0F5`, `--err #C42B2B`, `--warn #B47A05` — the first two already documented as legitimate extensions in Lot 0, the last two already in use as status colours outside the brand palette. Nothing was corrected, because nothing disagreed.

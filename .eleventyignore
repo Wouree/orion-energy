@@ -1,0 +1,10 @@
+# Never publishable, regardless of what the input directory is later changed to.
+#
+# docs/reference/ holds client-supplied source material: the technical questionnaire that confirmed the
+# hardware, pricing and partner terms, and the reference implementation for the revenue indicator. None
+# of it is ours to publish, and the questionnaire in particular carries the brand token block.
+#
+# Today `dir.input` is `src`, so docs/ is out of scope anyway and the built output contains none of it.
+# This file makes that independent of the input directory rather than a consequence of it.
+docs/
+reference/

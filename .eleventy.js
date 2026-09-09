@@ -156,6 +156,12 @@ module.exports = function (eleventyConfig) {
   // Cloudflare Pages reads _redirects from the output root.
   eleventyConfig.addPassthroughCopy({ 'src/_redirects': '_redirects' });
 
+  // Client-supplied source material is never publishable. `dir.input` is `src`, so docs/ is already out
+  // of scope; .eleventyignore states it explicitly so the exclusion survives a change to the input dir
+  // rather than depending on one. Passthrough globs are all scoped to src/ for the same reason.
+  eleventyConfig.ignores.add('docs/**');
+  eleventyConfig.ignores.add('reference/**');
+
   eleventyConfig.addWatchTarget('src/css/');
   eleventyConfig.addWatchTarget('src/js/');
   // Editorial content lives outside the input directory, so Eleventy must be told to watch it.

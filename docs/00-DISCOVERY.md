@@ -362,7 +362,7 @@ All eleven `CLAUDE.md` tokens are present and **exact**. No approximations. Nami
 
 Five extensions exist beyond the eleven: `--blue-dark: #0E2A6E`, `--blue-light: #4BA0F5`,
 `--green-dark: #3AB843`, `--green-light: #8DE06A`, `--lime-foundation: #CAC343`. The first two match the
-`--deep-blue` / `--light-blue` declared in the client questionnaire (`reference/index.html`) and are
+`--deep-blue` / `--light-blue` declared in the client questionnaire (`docs/reference/index.html`) and are
 legitimate. The other three are undeclared derivations — flagged for the Lot 8 colour audit, not a defect.
 
 `#25D366` (`style.css:545`) is WhatsApp's own brand green on the float button — correctly outside the
