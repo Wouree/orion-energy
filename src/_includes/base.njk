@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ pageTitle }} — {{ site.name }}</title>
   <meta name="description" content="{{ pageDescription or site.description }}">
-  <meta name="form-endpoint" content="{{ site.formEndpoint }}">
+  <meta name="form-endpoint" content="{{ site.form_endpoint }}">
+  <meta name="whatsapp-number" content="{{ site.whatsapp }}">
+  <meta name="page-segment" content="{{ wa.segment }}">
+
+  {# Canonical: previously absent entirely (D-10). #}
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+
+  {# hreflang is emitted only for locales that are actually built. While French is the only one,
+     `alternates` is empty and nothing is written here — advertising an /en/ twin that 404s would be a
+     claim the site cannot honour. See src/_data/i18n.js. #}
+  {% for alt in alternates %}
+  <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href }}">
+  {% endfor %}
 
   <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:title" content="{{ pageTitle }} — {{ site.name }}">
   <meta property="og:description" content="{{ pageDescription or site.description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}">
+  {# og:url was the site root on every page. It is now the page's own canonical URL. #}
+  <meta property="og:url" content="{{ canonical or site.url }}">
+  <meta property="og:locale" content="{% if lang == 'en' %}en_GB{% else %}fr_FR{% endif %}">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +34,81 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  {# Pinned deliberately (D-11): @latest lets a supplier-side release break the icon layer of every
+     page with no commit in this repository. Bump this version on purpose, never implicitly. #}
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer crossorigin="anonymous"></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 
-  {% if site.analyticsId %}
+  {% if site.analytics_id %}
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analyticsId }}"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analyticsId }}');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics_id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.analytics_id }}');</script>
   {% endif %}
+
+  {# ---------------------------------------------------------------- #}
+  {# Structured data. There was none at all before (D-10).            #}
+  {#                                                                  #}
+  {# Only confirmed or client-controlled values appear here. No       #}
+  {# aggregateRating, no priceRange, and no telephone — there is no   #}
+  {# confirmed voice number, and inventing one for a search engine is #}
+  {# the same offence as inventing one for a visitor.                 #}
+  {# ---------------------------------------------------------------- #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ site.url }}#organization",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "description": "{{ site.description }}",
+        "email": "{{ site.email }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://res.cloudinary.com/woureesystems/image/upload/v1771707241/orionenergy/logo_type_only.svg"
+        },
+        "sameAs": [
+          {% if site.social.facebook %}"{{ site.social.facebook }}"{% if site.social.instagram or site.social.linkedin %},{% endif %}{% endif %}
+          {% if site.social.instagram %}"{{ site.social.instagram }}"{% if site.social.linkedin %},{% endif %}{% endif %}
+          {% if site.social.linkedin %}"{{ site.social.linkedin }}"{% endif %}
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "{{ site.url }}#localbusiness",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "parentOrganization": { "@id": "{{ site.url }}#organization" },
+        "email": "{{ site.email }}",
+        {% if site.has_phone %}"telephone": "{{ site.phone_clean }}",{% endif %}
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Douala",
+          "addressCountry": "CM"
+        },
+        "areaServed": [
+          {%- for city in site.cities -%}
+          { "@type": "City", "name": "{{ city }}" }{% if not loop.last %},{% endif %}
+          {%- endfor -%}
+        ],
+        "openingHours": "Mo-Sa 08:00-18:00",
+        "knowsLanguage": ["fr"]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ canonical }}#webpage",
+        "url": "{{ canonical }}",
+        "name": "{{ pageTitle }} — {{ site.name }}",
+        "description": "{{ pageDescription or site.description }}",
+        "inLanguage": "{{ lang }}",
+        "isPartOf": { "@id": "{{ site.url }}#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -43,17 +123,22 @@
         <span></span><span></span><span></span>
       </button>
 
+      {# Navigation is data — see src/_data/nav.js. One entry per audience, not one per page. #}
       <ul class="nav-links">
-        <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Accueil</a></li>
-        <li><a href="/services/recharge-domicile/" {% if "recharge-domicile" in page.url %}class="active"{% endif %}>Chez Vous</a></li>
-        <li><a href="/services/bornes-publiques/" {% if "bornes-publiques" in page.url %}class="active"{% endif %}>Sur La Route</a></li>
-        <li><a href="/services/entreprises/" {% if "entreprises" in page.url %}class="active"{% endif %}>Entreprises</a></li>
-        <li><a href="/comment-ca-marche/" {% if "comment-ca-marche" in page.url %}class="active"{% endif %}>Comment Ça Marche</a></li>
-        <li><a href="/securite/" {% if "securite" in page.url %}class="active"{% endif %}>Sécurité</a></li>
-        <li><a href="/faq/" {% if "faq" in page.url %}class="active"{% endif %}>FAQ</a></li>
+        {% for item in nav.primary %}
+        {%- set isActive = false -%}
+        {%- for prefix in item.match -%}
+          {%- if item.exact -%}
+            {%- if page.url == prefix -%}{%- set isActive = true -%}{%- endif -%}
+          {%- elif page.url.startsWith(prefix) -%}
+            {%- set isActive = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <li><a href="{{ item.href }}"{% if isActive %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {% endfor %}
         {% if not servicePage %}
-		<li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
-		{% endif %}
+        <li><a href="/reserver/" class="nav-cta" data-form-type="visite">Réserver</a></li>
+        {% endif %}
       </ul>
     </div>
   </nav>
@@ -74,35 +159,30 @@
           <p>Solutions de recharge pour véhicules électriques au Cameroun. Installation à domicile, bornes publiques et solutions entreprises.</p>
         </div>
 
+        {% for group in nav.footer %}
         <div>
-          <h4>Services</h4>
+          <h4>{{ group.heading }}</h4>
           <ul class="footer-links">
-            <li><a href="/services/recharge-domicile/">Recharge à domicile</a></li>
-            <li><a href="/services/bornes-publiques/">Bornes publiques</a></li>
-            <li><a href="/services/entreprises/">Entreprises</a></li>
-            <li><a href="/comment-ca-marche/">Comment ça marche</a></li>
+            {% for link in group.links %}
+            <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+            {% endfor %}
           </ul>
         </div>
-
-        <div>
-          <h4>Informations</h4>
-          <ul class="footer-links">
-            <li><a href="/a-propos/">À propos</a></li>
-            <li><a href="/securite/">Sécurité & Normes</a></li>
-            <li><a href="/faq/">FAQ</a></li>
-            <li><a href="/contact/">Contact</a></li>
-          </ul>
-        </div>
+        {% endfor %}
 
         <div>
           <h4>Contact</h4>
+          {# PENDING_DATA: numéro de téléphone public — non confirmé, voir docs/PENDING.md P-01.
+             Aucun lien tel: n'est rendu tant qu'un vrai numéro n'existe pas. #}
+          {% if site.has_phone %}
           <div class="footer-contact-item">
             <i data-lucide="phone"></i>
-            <a href="tel:{{ site.phoneClean }}" style="color:rgba(255,255,255,0.7);">{{ site.phone }}</a>
+            <a href="tel:{{ site.phone_clean }}" style="color:rgba(255,255,255,0.7);">{{ site.phone }}</a>
           </div>
+          {% endif %}
           <div class="footer-contact-item">
             <i data-lucide="message-circle"></i>
-            <a href="https://wa.me/{{ site.whatsapp }}" style="color:rgba(255,255,255,0.7);">WhatsApp</a>
+            <a href="{{ wa.href }}" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);">WhatsApp</a>
           </div>
           <div class="footer-contact-item">
             <i data-lucide="mail"></i>
@@ -121,7 +201,8 @@
   </footer>
 
   <!-- WhatsApp Float -->
-  <a href="https://wa.me/{{ site.whatsapp }}?text=Bonjour%20ORION%20Energy%2C%20je%20souhaite%20des%20informations%20sur%20vos%20services." class="whatsapp-float" aria-label="WhatsApp" target="_blank" rel="noopener">
+  {# Message composed from the current page — see src/_data/whatsapp.js #}
+  <a href="{{ wa.href }}" class="whatsapp-float" aria-label="Écrire à ORION Energy sur WhatsApp" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.111.547 4.099 1.504 5.831L0 24l6.335-1.652A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.883 0-3.677-.508-5.25-1.451l-.375-.225-3.9 1.017 1.05-3.825-.248-.394A9.705 9.705 0 012.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75z"/></svg>
   </a>
 
@@ -284,7 +365,11 @@
     </div>
   </div>
 
+  <script src="/js/segment-router.js"></script>
+  <script src="/js/attribution.js"></script>
+  <script src="/js/analytics.js"></script>
+  <script src="/js/calculator.js"></script>
   <script src="/js/main.js"></script>
-  <script>lucide.createIcons();</script>
+  <script>window.addEventListener('load', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>

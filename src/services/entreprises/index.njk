@@ -17,11 +17,11 @@ servicePage: true
     <h1>Électrifiez votre<br>entreprise</h1>
     <p class="lp-hero-sub">La mobilité électrique est un avantage compétitif. ORION Energy accompagne les organisations camerounaises dans leur transition — de l'analyse de faisabilité à la gestion quotidienne.</p>
     <div class="lp-hero-actions">
-      <a href="#" class="btn btn-primary btn-lg" data-form-type="devis">
+      <a href="{{ "devis" | ctaHref }}" class="btn btn-primary btn-lg" data-form-type="devis">
         <i data-lucide="file-text" style="width:18px;height:18px;"></i>
         Demander un devis gratuit
       </a>
-      <a href="#" class="btn btn-ghost" data-form-type="rappel">
+      <a href="{{ "rappel" | ctaHref }}" class="btn btn-ghost" data-form-type="rappel">
         <i data-lucide="phone" style="width:18px;height:18px;"></i>
         Demander un rappel
       </a>
@@ -55,14 +55,19 @@ servicePage: true
         <p><strong>ORION Energy est votre partenaire.</strong> Nous transformons la complexité de l'électrification en un projet clé en main : étude, installation, formation et gestion continue.</p>
         <div class="lp-stats-row">
           <div class="lp-stat">
-            <span class="lp-stat-number">-40%</span>
-            <span class="lp-stat-label">de coût d'exploitation vs. flotte thermique</span>
+            <span class="lp-stat-number" style="font-size:1.4rem;">Audit d'abord</span>
+            <span class="lp-stat-label">Nous modélisons votre cas avant de proposer quoi que ce soit</span>
           </div>
           <div class="lp-stat">
-            <span class="lp-stat-number">100%</span>
-            <span class="lp-stat-label">accompagnement de A à Z</span>
+            <span class="lp-stat-number" style="font-size:1.4rem;">Un seul interlocuteur</span>
+            <span class="lp-stat-label">Étude, installation, alimentation, exploitation, entretien</span>
           </div>
         </div>
+
+        {# PENDING_DATA: économie d'exploitation d'une flotte électrique par rapport au thermique —
+           l'ancien « -40 % » n'était étayé par aucune source et a été supprimé sans remplacement.
+           Un chiffre ne reviendra ici qu'appuyé par un modèle aux hypothèses visibles
+           (voir le calculateur TCO du lot 7). Voir docs/PENDING.md #}
       </div>
       <div class="lp-split-visual">
         <div class="lp-visual-card">
@@ -143,7 +148,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
 
@@ -164,7 +169,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-primary btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-primary btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
 
@@ -184,7 +189,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
     </div>
@@ -273,8 +278,8 @@ servicePage: true
         <div class="lp-why-icon">
           <i data-lucide="award" style="width:24px;height:24px;"></i>
         </div>
-        <h3>Pionnier au Cameroun</h3>
-        <p>Premier réseau dédié de recharge pour véhicules électriques au Cameroun. L'expérience qui fait la différence.</p>
+        <h3>De bout en bout</h3>
+        <p>{% claim "operateur-bout-en-bout" %}</p>
       </div>
     </div>
   </div>
@@ -292,7 +297,7 @@ servicePage: true
         <div class="lp-cta-details">
           <div class="lp-cta-detail">
             <i data-lucide="file-text" style="width:18px;height:18px;"></i>
-            <span>Proposition sous 48h</span>
+            <span>Proposition chiffrée après audit</span>
           </div>
           <div class="lp-cta-detail">
             <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
@@ -304,11 +309,11 @@ servicePage: true
           </div>
         </div>
         <div class="lp-cta-buttons">
-          <a href="#" class="btn btn-primary btn-lg" data-form-type="devis">
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-primary btn-lg" data-form-type="devis">
             <i data-lucide="file-text" style="width:18px;height:18px;"></i>
             Demander un devis gratuit
           </a>
-          <a href="#" class="btn btn-ghost" data-form-type="rappel">
+          <a href="{{ "rappel" | ctaHref }}" class="btn btn-ghost" data-form-type="rappel">
             <i data-lucide="phone" style="width:18px;height:18px;"></i>
             Demander un rappel
           </a>

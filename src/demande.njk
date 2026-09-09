@@ -1,0 +1,103 @@
+---
+layout: base.njk
+pagination:
+  data: orion.form_definition
+  size: 1
+  alias: form
+permalink: "/demande/{{ form.slug }}/"
+eleventyComputed:
+  pageTitle: "{{ form.title }}"
+  pageDescription: "{{ form.lead }}"
+---
+{# Rendered from the form_definition collection — one page per segment.
+   Adding or reordering a field is a content change, not a template change. #}
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872057/orionenergy/webimages/recharge-chez-nous-04-OrionEnergyCameroon.jpg');"></div>
+  <div class="container">
+    <span class="section-label" style="color:var(--lime);">Nous écrire</span>
+    <h1>{{ form.title }}</h1>
+    <p>{{ form.lead }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    {# Segment switcher: someone who arrived in the wrong funnel can move without going back. #}
+    <div class="segment-switch" role="navigation" aria-label="Choisir un autre type de demande">
+      <span class="segment-switch-label">Ce n'est pas votre cas ?</span>
+      {% for other in orion.form_definition %}
+      {% if other.slug != form.slug %}
+      <a href="/demande/{{ other.slug }}/">{{ other.title }}</a>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="form-panel" style="max-width:760px;margin:24px auto 0;">
+      <form data-orion-form data-segment="{{ form.segment }}">
+        <input type="hidden" name="form_type" value="{{ form.slug }}">
+
+        {% for field in form.fields %}
+        <div class="form-group">
+          {% if field.type == "radio" %}
+          <fieldset style="border:0;padding:0;margin:0;">
+            <legend style="padding:0;">{{ field.label }}{% if field.required %} *{% endif %}</legend>
+            <div class="form-radio-group">
+              {% for option in field.options %}
+              <label class="form-radio">
+                <input type="radio" name="{{ field.name }}" value="{{ option }}"{% if field.required and loop.first %} required{% endif %}>
+                {{ option }}
+              </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+
+          {% elif field.type == "select" %}
+          <label for="f-{{ form.slug }}-{{ field.name }}">{{ field.label }}{% if field.required %} *{% endif %}</label>
+          <select id="f-{{ form.slug }}-{{ field.name }}" name="{{ field.name }}"{% if field.required %} required{% endif %}>
+            <option value="">Choisir…</option>
+            {% for option in field.options %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+          </select>
+
+          {% elif field.type == "city" %}
+          <label for="f-{{ form.slug }}-{{ field.name }}">{{ field.label }}{% if field.required %} *{% endif %}</label>
+          <select id="f-{{ form.slug }}-{{ field.name }}" name="{{ field.name }}"{% if field.required %} required{% endif %}>
+            <option value="">Choisir…</option>
+            {% for city in site.cities %}
+            <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+            <option value="Autre">Autre</option>
+          </select>
+
+          {% elif field.type == "textarea" %}
+          <label for="f-{{ form.slug }}-{{ field.name }}">{{ field.label }}{% if field.required %} *{% endif %}</label>
+          <textarea id="f-{{ form.slug }}-{{ field.name }}" name="{{ field.name }}" rows="4"{% if field.required %} required{% endif %}></textarea>
+
+          {% else %}
+          <label for="f-{{ form.slug }}-{{ field.name }}">{{ field.label }}{% if field.required %} *{% endif %}</label>
+          <input id="f-{{ form.slug }}-{{ field.name }}"
+                 type="{{ field.type }}"
+                 name="{{ field.name }}"
+                 {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+                 {% if field.required %}required{% endif %}>
+          {% endif %}
+
+          {% if field.hint %}<p class="field-hint">{{ field.hint }}</p>{% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">{{ form.cta_label or "Envoyer" }}</button>
+
+        {# No response-time figure in any confirmation or reassurance text — the client's commitment is
+           under review, and the loader fails the build if a success_message contains one. #}
+        <p class="field-hint" style="margin-top:12px;">
+          Les champs marqués d'une astérisque sont nécessaires pour traiter votre demande.
+          Vous préférez écrire directement ? <a href="{{ wa.href }}" target="_blank" rel="noopener">WhatsApp</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

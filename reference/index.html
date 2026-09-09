@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORION Energy — Questionnaire technique et commercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Jetons de marque vérifiés sur brand.orionenergycmr.com — valeurs exactes, jamais approximées.
+   Institutional Blue #14328C (PMS 2748 C) · Primary Blue #0B47BF (PMS 2728 C)
+   Technology Blue #1383F2 (PMS 2175 C) · Energy Blue #0F79F2
+   Primary Green #48D951 (PMS 2270 C) · Secondary Green #73D844 (PMS 2275 C)
+   Energy Lime #D3D936 (PMS 389 C) · Dark #0E1A2B · Medium #3D5068 · Off-White #F4F6FA */
+:root{
+  --inst:#14328C; --primary:#0B47BF; --tech:#1383F2; --energy:#0F79F2;
+  --deep-blue:#0E2A6E; --light-blue:#4BA0F5;
+  --green:#48D951; --green2:#73D844; --lime:#D3D936;
+  --ink:#0E1A2B; --body:#3D5068; --mute:#6B839A;
+  --wash:#F4F6FA; --rule:#DDE3EB; --white:#fff;
+  --err:#C42B2B; --warn:#B47A05;
+  --fd:'Montserrat',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--wash);color:var(--body);font-family:var(--fb);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--fd);color:var(--ink);margin:0;letter-spacing:-.01em}
+a{color:var(--primary)}
+
+/* ---------- en-tête ---------- */
+header{background:linear-gradient(152deg,var(--deep-blue),var(--inst) 55%,var(--primary));color:#fff;padding:26px 0 0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.brandrow{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brandrow b{font-family:var(--fd);font-weight:800;font-size:16px;letter-spacing:.01em}
+.brandrow span{font-size:12px;color:#A9C3E8;border-left:1px solid rgba(255,255,255,.28);padding-left:12px}
+header h1{color:#fff;font-size:clamp(21px,2.6vw,29px);font-weight:800;margin-bottom:8px;max-width:26ch}
+header p{color:#C7D8F2;max-width:74ch;margin:0 0 22px;font-size:14.5px}
+.steps{display:flex;gap:2px;overflow-x:auto;padding-bottom:0}
+.steptab{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:var(--fb);
+  color:#A9C3E8;font-size:12.5px;font-weight:500;padding:11px 15px;border-bottom:3px solid transparent;
+  white-space:nowrap;display:flex;gap:8px;align-items:center}
+.steptab b{font-family:var(--fd);font-weight:800;font-size:11px;opacity:.75}
+.steptab:hover{color:#fff}
+.steptab.on{color:#fff;border-bottom-color:var(--lime);font-weight:600}
+.steptab.done b::after{content:' ✓';color:var(--green2)}
+
+/* ---------- corps ---------- */
+main{max-width:1180px;margin:0 auto;padding:30px 28px 90px}
+.step{display:none;animation:fade .22s ease}
+.step.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.shead{margin-bottom:22px}
+.snum{font-family:var(--fd);font-weight:800;font-size:11.5px;letter-spacing:.14em;color:var(--primary);margin-bottom:7px}
+.shead h2{font-size:clamp(20px,2.3vw,26px);font-weight:800;margin-bottom:7px}
+.shead p{margin:0;max-width:78ch;color:var(--mute);font-size:14.5px}
+
+.card{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:24px 26px;margin-bottom:18px}
+.card > h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.card > h3 + .hint{margin-top:0;margin-bottom:18px}
+.hint{font-size:13px;color:var(--mute);margin:0 0 14px;max-width:80ch}
+.why{background:var(--wash);border-left:3px solid var(--tech);border-radius:0 7px 7px 0;
+  padding:11px 15px;font-size:12.8px;color:var(--body);margin:0 0 18px;max-width:82ch}
+.why b{color:var(--ink)}
+.warnbox{background:#FFFBF0;border:1px solid #EFE0BC;border-radius:9px;padding:14px 17px;font-size:13.2px;margin-bottom:18px}
+.warnbox b{color:var(--warn)}
+.okbox{background:#F1FBF2;border:1px solid #C6EBCB;border-radius:9px;padding:14px 17px;font-size:13.2px;margin-bottom:18px}
+
+/* ---------- champs ---------- */
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;margin-bottom:15px}
+.row.c1{grid-template-columns:1fr}
+.row.c2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+label{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4}
+label .req{color:var(--err)}
+label .sub{display:block;font-weight:400;color:var(--mute);font-size:11.8px;margin-top:2px}
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],input[type=url],select,textarea{
+  font-family:var(--fb);font-size:14px;color:var(--ink);background:#fff;
+  border:1px solid var(--rule);border-radius:7px;padding:9px 11px;width:100%;transition:border-color .12s,box-shadow .12s}
+textarea{min-height:82px;resize:vertical;line-height:1.55}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tech);box-shadow:0 0 0 3px rgba(19,131,242,.13)}
+input.bad,select.bad,textarea.bad{border-color:var(--err);background:#FEF7F7}
+.suffix{position:relative}
+.suffix input{padding-right:60px}
+.suffix span{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--mute);pointer-events:none}
+
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);background:#fff;
+  border-radius:7px;padding:8px 12px;cursor:pointer;font-size:13.2px;transition:all .12s}
+.opt:hover{border-color:var(--light-blue)}
+.opt input{accent-color:var(--primary);margin:0;width:15px;height:15px}
+.opt.sel{border-color:var(--primary);background:#F2F7FF;color:var(--ink);font-weight:500}
+.stack{display:flex;flex-direction:column;gap:8px}
+.stack .opt{width:100%}
+
+/* ---------- blocs répétables ---------- */
+.rep{border:1px solid var(--rule);border-radius:10px;margin-bottom:14px;overflow:hidden;background:#fff}
+.rephead{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--wash);padding:11px 16px;border-bottom:1px solid var(--rule)}
+.rephead h4{font-size:13.5px;font-weight:700;color:var(--inst)}
+.repbody{padding:18px}
+.btn{font-family:var(--fb);font-size:13px;font-weight:600;border-radius:7px;padding:8px 15px;
+  cursor:pointer;border:1px solid transparent;transition:all .12s;display:inline-flex;align-items:center;gap:7px}
+.btn.p{background:var(--primary);color:#fff}
+.btn.p:hover{background:var(--inst)}
+.btn.s{background:#fff;color:var(--primary);border-color:var(--rule)}
+.btn.s:hover{border-color:var(--primary)}
+.btn.g{background:#fff;color:var(--mute);border-color:var(--rule);font-size:12.2px;padding:5px 11px}
+.btn.g:hover{color:var(--err);border-color:var(--err)}
+.btn.add{background:#fff;border:1.5px dashed var(--light-blue);color:var(--primary);width:100%;justify-content:center;padding:12px}
+.btn.add:hover{background:#F2F7FF;border-style:solid}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ---------- barre de navigation bas ---------- */
+.navbar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--rule);
+  padding:13px 28px;margin:26px -28px -90px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  box-shadow:0 -3px 18px rgba(14,26,43,.06);z-index:20}
+.navbar .sp{flex:1}
+.prog{height:4px;background:var(--rule);border-radius:3px;overflow:hidden;width:150px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--green2));width:0;transition:width .3s}
+.progtxt{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+
+/* ---------- récapitulatif ---------- */
+.recap{background:#fff;border:1px solid var(--rule);border-radius:11px;padding:0;overflow:hidden}
+.recap h4{background:var(--wash);padding:11px 18px;font-size:12.5px;font-weight:700;color:var(--inst);
+  border-bottom:1px solid var(--rule);letter-spacing:.04em;text-transform:uppercase}
+.recap dl{margin:0;padding:14px 18px}
+.recap div{display:grid;grid-template-columns:minmax(180px,38%) 1fr;gap:14px;padding:7px 0;border-bottom:1px solid #F0F3F8;font-size:13.3px}
+.recap div:last-child{border-bottom:none}
+.recap dt{color:var(--mute)}
+.recap dd{margin:0;color:var(--ink);font-weight:500;word-break:break-word}
+.recap dd.empty{color:#B9C4D3;font-weight:400;font-style:italic}
+.docs{margin:0;padding-left:19px;font-size:13.5px}
+.docs li{margin-bottom:6px}
+table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+table.mini th{text-align:left;font-family:var(--fd);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mute);padding:0 10px 7px 0;border-bottom:1.5px solid var(--ink)}
+table.mini td{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tag.a{background:#FDE2E2;color:#9E1C1C}.tag.b{background:#DCF3E1;color:#1D6B34}
+
+.drop{border:1.5px dashed var(--light-blue);border-radius:10px;background:var(--wash);
+  padding:26px 20px;text-align:center;cursor:pointer;transition:all .14s;display:block;margin-top:6px}
+.drop:hover,.drop.over{background:#F2F7FF;border-color:var(--primary);border-style:solid}
+.drop b{display:block;font-family:var(--fd);font-size:14.5px;color:var(--ink);margin-bottom:4px}
+.drop span{font-size:12.8px;color:var(--mute)}
+.fitem{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1px solid var(--rule);
+  border-radius:8px;margin-top:9px;background:#fff;font-size:13.2px;flex-wrap:wrap}
+.fitem .nm{flex:1;min-width:140px;color:var(--ink);font-weight:500;word-break:break-all}
+.fitem .sz{color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums}
+.fitem select{width:auto;min-width:160px;font-size:12.5px;padding:5px 8px}
+.fitem .st{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--wash);color:var(--mute);white-space:nowrap}
+.fitem .st.ok{background:#DCF3E1;color:#1D6B34}
+.fitem .st.err{background:#FDE2E2;color:#9E1C1C}
+.fitem .st.up{background:#E7F1FE;color:#0B47BF}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;
+  padding:4px 11px;border-radius:20px;background:var(--wash);color:var(--mute);margin-bottom:14px}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--mute);display:inline-block;flex:0 0 auto}
+.chip.ok{background:#DCF3E1;color:#1D6B34} .chip.ok i{background:#1D6B34}
+.chip.off{background:#FFFBF0;color:#B47A05} .chip.off i{background:#B47A05}
+@media (max-width:760px){
+  .wrap,main{padding-left:17px;padding-right:17px}
+  .navbar{margin-left:-17px;margin-right:-17px;padding:11px 17px}
+  .recap div{grid-template-columns:1fr;gap:2px}
+  .prog{display:none}
+}
+@media print{
+  header{background:var(--inst)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .steps,.navbar,.btn{display:none!important}
+  .step{display:block!important;page-break-after:always}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="brandrow">
+    <svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#73D844"/><stop offset="100%" stop-color="#0F79F2"/></linearGradient></defs>
+      <g stroke="url(#lg)" stroke-width="2" stroke-linecap="round">
+        <line x1="13" y1="2" x2="13" y2="8"/><line x1="13" y1="18" x2="13" y2="24"/>
+        <line x1="2" y1="13" x2="8" y2="13"/><line x1="18" y1="13" x2="24" y2="13"/>
+        <line x1="5.2" y1="5.2" x2="9.4" y2="9.4"/><line x1="16.6" y1="16.6" x2="20.8" y2="20.8"/>
+        <line x1="20.8" y1="5.2" x2="16.6" y2="9.4"/><line x1="9.4" y1="16.6" x2="5.2" y2="20.8"/>
+      </g><circle cx="13" cy="13" r="3.2" fill="url(#lg)"/></svg>
+    <b>ORION Energy</b><span>Questionnaire technique et commercial · Refonte du site web</span>
+  </div>
+  <h1>Les informations qu'il nous manque pour construire le nouveau site</h1>
+  <p>Ce questionnaire rassemble les six décisions qui bloquent aujourd'hui la production. Chaque réponse alimente directement une page du site : sans elles, nous ne pouvons ni publier de prix, ni afficher de garantie, ni nommer vos ingénieurs, ni annoncer une station. Comptez 30 à 45 minutes. Vous pouvez enregistrer un brouillon et reprendre plus tard.</p>
+  <nav class="steps" id="tabs"></nav>
+ </div>
+</header>
+
+<main>
+<form id="form" novalidate>
+
+<!-- ================= 0 ================= -->
+<section class="step" data-title="Répondant">
+  <div class="shead"><p class="snum">SECTION 0</p>
+    <h2>Qui remplit ce questionnaire ?</h2>
+    <p>Nous devons pouvoir revenir vers une personne précise pour chaque réponse, et savoir qui engage l'entreprise sur les délais et les prix publiés.</p></div>
+  <div class="card">
+    <div class="row c2">
+      <div class="f"><label>Nom et prénom <span class="req">*</span></label><input type="text" name="rep_nom" required></div>
+      <div class="f"><label>Fonction dans l'entreprise <span class="req">*</span></label><input type="text" name="rep_fonction" required placeholder="Ex. Directeur technique"></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Email <span class="req">*</span></label><input type="email" name="rep_email" required></div>
+      <div class="f"><label>Téléphone / WhatsApp <span class="req">*</span></label><input type="tel" name="rep_tel" required placeholder="+237 …"></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Date de remplissage</label><input type="date" name="rep_date"></div>
+      <div class="f"><label>Avez-vous autorité pour valider les prix et les délais publiés ? <span class="req">*</span>
+        <span class="sub">Si non, indiquez qui doit valider en section 7.</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="rep_autorite" value="Oui" required>Oui</label>
+        <label class="opt"><input type="radio" name="rep_autorite" value="Non">Non</label></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Autres personnes ayant contribué aux réponses</label>
+      <input type="text" name="rep_contrib" placeholder="Noms et fonctions, séparés par des virgules"></div></div>
+  </div>
+</section>
+
+<!-- ================= 1 ================= -->
+<section class="step" data-title="Matériel">
+  <div class="shead"><p class="snum">SECTION 1 · DÉCISION 2</p>
+    <h2>Matériel et équipements réellement commercialisés</h2>
+    <p>Nous créons un catalogue matériel sur le site. C'est la principale preuve de sérieux face à TotalEnergies et 3S Motors : des marques, des modèles, des fiches techniques et des certificats vérifiables.</p></div>
+
+  <div class="why"><b>Pourquoi c'est bloquant :</b> le site affiche aujourd'hui « Normes IEC 61851 » comme si ORION était certifiée. Une norme s'applique à un <b>équipement</b>, pas à un installateur. Sans référence produit, cette mention doit être retirée.</div>
+
+  <div class="card">
+    <h3>Vos références produits</h3>
+    <p class="hint">Ajoutez une fiche par modèle réellement disponible à la vente. Si un modèle est en cours de sélection, indiquez-le dans le statut plutôt que de l'omettre.</p>
+    <div id="rep-materiel"></div>
+    <button type="button" class="btn add" data-add="materiel">+ Ajouter un modèle</button>
+  </div>
+
+  <div class="card">
+    <h3>Fournisseurs et approvisionnement</h3>
+    <div class="row c2">
+      <div class="f"><label>Fournisseur(s) principal(aux) <span class="req">*</span></label><input type="text" name="mat_fournisseur" required placeholder="Raison sociale et pays"></div>
+      <div class="f"><label>Délai d'approvisionnement habituel</label>
+        <div class="suffix"><input type="number" name="mat_delai" min="0"><span>semaines</span></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Pouvons-nous citer publiquement les marques que vous distribuez ? <span class="req">*</span>
+      <span class="sub">Certains contrats de distribution l'interdisent. Vérifiez avant de répondre oui.</span></label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="mat_citer" value="Oui, toutes" required>Oui, toutes</label>
+        <label class="opt"><input type="radio" name="mat_citer" value="Oui, certaines seulement">Oui, certaines seulement</label>
+        <label class="opt"><input type="radio" name="mat_citer" value="Non">Non</label>
+        <label class="opt"><input type="radio" name="mat_citer" value="À vérifier">À vérifier</label>
+      </div></div></div>
+    <div class="row c1"><div class="f"><label>Si « certaines seulement » : lesquelles, et pourquoi ?</label>
+      <textarea name="mat_citer_detail"></textarea></div></div>
+  </div>
+
+  <div class="warnbox"><b>Documents à nous transmettre séparément</b> (WhatsApp ou email — ce formulaire ne transporte pas de fichiers) :
+    fiches techniques PDF de chaque modèle · certificats de conformité IEC / CE · photos produit haute définition ·
+    éventuels certificats d'agrément distributeur.</div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="step" data-title="Équipe">
+  <div class="shead"><p class="snum">SECTION 2 · DÉCISION 3</p>
+    <h2>Équipe technique et certifications</h2>
+    <p>Le site affirme « Ingénieurs certifiés » sans nommer personne. Nous voulons remplacer cette affirmation par une page équipe avec des noms, des organismes et des dates — ce qu'aucun concurrent ne publie.</p></div>
+
+  <div class="why"><b>Pourquoi c'est bloquant :</b> une entreprise ou un bailleur qui prépare un appel d'offres vérifiera. Une certification annoncée mais non documentée est un motif d'élimination.</div>
+
+  <div class="card">
+    <h3>Personnes à publier sur le site</h3>
+    <p class="hint">Une fiche par personne dont vous souhaitez publier le nom. L'accord écrit de chaque personne est obligatoire avant publication de son nom ou de sa photo.</p>
+    <div id="rep-equipe"></div>
+    <button type="button" class="btn add" data-add="equipe">+ Ajouter une personne</button>
+  </div>
+
+  <div class="card">
+    <h3>Capacité de l'entreprise</h3>
+    <div class="row">
+      <div class="f"><label>Effectif technique total</label><input type="number" name="eq_effectif" min="0"></div>
+      <div class="f"><label>Nombre d'équipes d'installation</label><input type="number" name="eq_equipes" min="0"></div>
+      <div class="f"><label>Villes où vous intervenez aujourd'hui <span class="req">*</span></label>
+        <input type="text" name="eq_villes" required placeholder="Ex. Douala, Yaoundé"></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Faites-vous appel à la sous-traitance ? <span class="req">*</span>
+      <span class="sub">Le site laisse entendre que tout est réalisé en interne. Nous devons dire la vérité.</span></label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="eq_soustrait" value="Jamais" required>Jamais</label>
+        <label class="opt"><input type="radio" name="eq_soustrait" value="Ponctuellement">Ponctuellement</label>
+        <label class="opt"><input type="radio" name="eq_soustrait" value="Régulièrement">Régulièrement</label>
+      </div></div></div>
+    <div class="row c1"><div class="f"><label>Si oui : pour quels travaux, et comment contrôlez-vous la qualité ?</label>
+      <textarea name="eq_soustrait_detail"></textarea></div></div>
+    <div class="row c1"><div class="f"><label>Assurance responsabilité civile professionnelle</label>
+      <input type="text" name="eq_assurance" placeholder="Assureur, numéro de police, plafond, échéance"></div></div>
+  </div>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="step" data-title="Garantie">
+  <div class="shead"><p class="snum">SECTION 3 · DÉCISION 4</p>
+    <h2>Conditions de garantie</h2>
+    <p>Le site promet aujourd'hui une « Garantie complète » sans durée, sans exclusion et sans périmètre. Juridiquement, une garantie « complète » est indéfendable. Nous devons publier des conditions précises.</p></div>
+
+  <div class="card">
+    <h3>Durées</h3>
+    <div class="row">
+      <div class="f"><label>Garantie matériel <span class="req">*</span><span class="sub">Celle du constructeur</span></label>
+        <div class="suffix"><input type="number" name="gar_materiel" min="0" required><span>mois</span></div></div>
+      <div class="f"><label>Garantie installation / main-d'œuvre <span class="req">*</span><span class="sub">La vôtre</span></label>
+        <div class="suffix"><input type="number" name="gar_pose" min="0" required><span>mois</span></div></div>
+      <div class="f"><label>Garantie sur une installation solaire</label>
+        <div class="suffix"><input type="number" name="gar_solaire" min="0"><span>mois</span></div></div>
+      <div class="f"><label>Garantie sur une batterie de stockage</label>
+        <div class="suffix"><input type="number" name="gar_batterie" min="0"><span>mois</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Périmètre</h3>
+    <div class="row c1"><div class="f"><label>Que couvre exactement la garantie ? <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="gar_couvre" value="Pièces">Pièces</label>
+        <label class="opt"><input type="checkbox" name="gar_couvre" value="Main-d'œuvre">Main-d'œuvre</label>
+        <label class="opt"><input type="checkbox" name="gar_couvre" value="Déplacement">Déplacement</label>
+        <label class="opt"><input type="checkbox" name="gar_couvre" value="Remplacement à neuf">Remplacement à neuf</label>
+        <label class="opt"><input type="checkbox" name="gar_couvre" value="Diagnostic à distance">Diagnostic à distance</label>
+      </div></div></div>
+    <div class="row c1"><div class="f"><label>Exclusions <span class="req">*</span>
+      <span class="sub">Soyez exhaustif : foudre, surtension réseau, inondation, mauvaise utilisation, intervention d'un tiers, groupe électrogène non conforme…</span></label>
+      <textarea name="gar_exclusions" required></textarea></div></div>
+    <div class="row c2">
+      <div class="f"><label>La garantie exige-t-elle un entretien annuel ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="gar_entretien" value="Oui">Oui</label>
+        <label class="opt"><input type="radio" name="gar_entretien" value="Non">Non</label></div></div>
+      <div class="f"><label>Délai d'intervention sous garantie</label>
+        <div class="suffix"><input type="number" name="gar_delai" min="0"><span>j. ouvrés</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Proposez-vous une extension de garantie ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="gar_ext" value="Oui">Oui</label>
+        <label class="opt"><input type="radio" name="gar_ext" value="Non">Non</label>
+        <label class="opt"><input type="radio" name="gar_ext" value="À l'étude">À l'étude</label></div></div>
+      <div class="f"><label>Si oui : durée et tarif</label><input type="text" name="gar_ext_detail" placeholder="Ex. +24 mois, 150 000 FCFA"></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Zone géographique couverte par la garantie <span class="req">*</span>
+      <span class="sub">Intervenez-vous hors de Douala et Yaoundé ? À quelles conditions de déplacement ?</span></label>
+      <textarea name="gar_zone" required></textarea></div></div>
+  </div>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="step" data-title="Délais">
+  <div class="shead"><p class="snum">SECTION 4 · DÉCISION 5</p>
+    <h2>Engagements de délai</h2>
+    <p>Nous voulons publier des délais sur chaque formulaire. Un délai affiché est une promesse contractuelle : ne répondez que ce que vous pouvez tenir un lundi matin chargé.</p></div>
+
+  <div class="warnbox"><b>Avertissement :</b> le site promet aujourd'hui « Réponse sous 24h » et « Proposition sous 48h », sans préciser s'il s'agit de jours ouvrés. Si ces délais ne sont pas tenus, mieux vaut annoncer un délai plus long et le respecter. Un délai tenu vaut mieux qu'un délai flatteur.</div>
+
+  <div class="card">
+    <h3>Horaires de travail</h3>
+    <div class="row">
+      <div class="f"><label>Jours ouvrés <span class="req">*</span></label>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Lundi">Lun</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Mardi">Mar</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Mercredi">Mer</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Jeudi">Jeu</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Vendredi">Ven</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Samedi">Sam</label>
+          <label class="opt"><input type="checkbox" name="sla_jours" value="Dimanche">Dim</label>
+        </div></div>
+    </div>
+    <div class="row">
+      <div class="f"><label>Heure d'ouverture</label><input type="text" name="sla_ouv" placeholder="Ex. 08h00"></div>
+      <div class="f"><label>Heure de fermeture</label><input type="text" name="sla_ferm" placeholder="Ex. 17h00"></div>
+      <div class="f"><label>Le WhatsApp est-il surveillé hors horaires ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="sla_whatsapp" value="Oui">Oui</label>
+        <label class="opt"><input type="radio" name="sla_whatsapp" value="Non">Non</label></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Délais que nous publierons</h3>
+    <p class="hint">Exprimez tout en <b>heures ou jours ouvrés</b>. Laissez vide si vous ne voulez pas d'engagement public sur ce point.</p>
+    <div class="row c2">
+      <div class="f"><label>Première réponse à une demande particulier <span class="req">*</span></label>
+        <div class="suffix"><input type="number" name="sla_rep_part" min="0" required><span>h ouvrées</span></div></div>
+      <div class="f"><label>Première réponse à une demande entreprise <span class="req">*</span></label>
+        <div class="suffix"><input type="number" name="sla_rep_ent" min="0" required><span>h ouvrées</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Visite d'évaluation à domicile après contact</label>
+        <div class="suffix"><input type="number" name="sla_visite" min="0"><span>j. ouvrés</span></div></div>
+      <div class="f"><label>Devis après visite d'évaluation</label>
+        <div class="suffix"><input type="number" name="sla_devis" min="0"><span>j. ouvrés</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Rendez-vous de cadrage entreprise</label>
+        <div class="suffix"><input type="number" name="sla_cadrage" min="0"><span>j. ouvrés</span></div></div>
+      <div class="f"><label>Évaluation d'un site partenaire proposé</label>
+        <div class="suffix"><input type="number" name="sla_site" min="0"><span>j. ouvrés</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Intervention sur panne — Douala et Yaoundé</label>
+        <div class="suffix"><input type="number" name="sla_panne_dla" min="0"><span>j. ouvrés</span></div></div>
+      <div class="f"><label>Intervention sur panne — autres villes</label>
+        <div class="suffix"><input type="number" name="sla_panne_autre" min="0"><span>j. ouvrés</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Durée type d'une installation résidentielle</label>
+        <div class="suffix"><input type="number" name="sla_pose" min="0"><span>jours</span></div></div>
+      <div class="f"><label>Délai entre commande et installation</label>
+        <div class="suffix"><input type="number" name="sla_commande" min="0"><span>j. ouvrés</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Qui répond, concrètement</h3>
+    <div class="row c2">
+      <div class="f"><label>Responsable des demandes particuliers</label><input type="text" name="sla_qui_part" placeholder="Nom et fonction"></div>
+      <div class="f"><label>Responsable des demandes entreprises</label><input type="text" name="sla_qui_ent" placeholder="Nom et fonction"></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Responsable des sites partenaires</label><input type="text" name="sla_qui_site" placeholder="Nom et fonction"></div>
+      <div class="f"><label>Responsable du support technique</label><input type="text" name="sla_qui_sup" placeholder="Nom et fonction"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 ================= -->
+<section class="step" data-title="Prix">
+  <div class="shead"><p class="snum">SECTION 5 · DÉCISION 6</p>
+    <h2>Fourchettes de prix</h2>
+    <p>« Combien ça coûte ? » est la question la plus recherchée de la catégorie, et le site n'y répond pas — donc le visiteur part chercher ailleurs. Une fourchette honnête convertit mieux qu'un silence.</p></div>
+
+  <div class="why"><b>Vous n'êtes pas obligés d'afficher un prix ferme.</b> Une fourchette (« à partir de X FCFA, pose comprise, hors travaux de tableau ») suffit à retenir le visiteur et à écarter les demandes hors budget. C'est aussi ce qui remplacera l'affirmation « −40 % de coût d'exploitation », aujourd'hui invérifiable.</div>
+
+  <div class="card">
+    <h3>Installation résidentielle — tout compris</h3>
+    <p class="hint">Matériel + pose + protections, pour une installation standard. Précisez ensuite ce qui n'est pas compris.</p>
+    <div class="row">
+      <div class="f"><label>Borne 7 kW — minimum <span class="req">*</span></label><div class="suffix"><input type="number" name="prix_7_min" min="0" required><span>FCFA</span></div></div>
+      <div class="f"><label>Borne 7 kW — maximum <span class="req">*</span></label><div class="suffix"><input type="number" name="prix_7_max" min="0" required><span>FCFA</span></div></div>
+      <div class="f"><label>Borne 11 kW — minimum</label><div class="suffix"><input type="number" name="prix_11_min" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Borne 11 kW — maximum</label><div class="suffix"><input type="number" name="prix_11_max" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Borne 22 kW — minimum</label><div class="suffix"><input type="number" name="prix_22_min" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Borne 22 kW — maximum</label><div class="suffix"><input type="number" name="prix_22_max" min="0"><span>FCFA</span></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Qu'est-ce qui est compris dans ces montants ? <span class="req">*</span></label>
+      <textarea name="prix_inclus" required placeholder="Ex. borne, circuit dédié jusqu'à 15 m, disjoncteur différentiel 30 mA, parafoudre, mise en service, formation"></textarea></div></div>
+    <div class="row c1"><div class="f"><label>Qu'est-ce qui est facturé en supplément ? <span class="req">*</span></label>
+      <textarea name="prix_exclus" required placeholder="Ex. mètre linéaire de câble au-delà de 15 m, reprise de tableau, mise à la terre, génie civil, tranchée"></textarea></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Travaux annexes fréquents</h3>
+    <div class="row">
+      <div class="f"><label>Mètre de câble supplémentaire</label><div class="suffix"><input type="number" name="prix_cable" min="0"><span>FCFA/m</span></div></div>
+      <div class="f"><label>Reprise ou remplacement de tableau</label><div class="suffix"><input type="number" name="prix_tableau" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Mise à la terre conforme</label><div class="suffix"><input type="number" name="prix_terre" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Visite d'évaluation à domicile</label>
+        <div class="opts"><label class="opt"><input type="radio" name="prix_visite" value="Gratuite">Gratuite</label>
+        <label class="opt"><input type="radio" name="prix_visite" value="Payante">Payante</label></div></div>
+      <div class="f"><label>Si payante : montant</label><div class="suffix"><input type="number" name="prix_visite_mt" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Déduite du devis si commande ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="prix_visite_deduite" value="Oui">Oui</label>
+        <label class="opt"><input type="radio" name="prix_visite_deduite" value="Non">Non</label></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Entreprises, solaire et maintenance</h3>
+    <div class="row c2">
+      <div class="f"><label>Borne DC rapide installée — fourchette</label><input type="text" name="prix_dc" placeholder="Ex. de X à Y FCFA selon puissance"></div>
+      <div class="f"><label>Étude de faisabilité entreprise</label>
+        <div class="opts"><label class="opt"><input type="radio" name="prix_etude" value="Gratuite">Gratuite</label>
+        <label class="opt"><input type="radio" name="prix_etude" value="Payante">Payante</label>
+        <label class="opt"><input type="radio" name="prix_etude" value="Payante puis déduite">Payante puis déduite</label></div></div>
+    </div>
+    <div class="row">
+      <div class="f"><label>Si payante : montant</label><div class="suffix"><input type="number" name="prix_etude_mt" min="0"><span>FCFA</span></div></div>
+      <div class="f"><label>Solaire installé</label><div class="suffix"><input type="number" name="prix_solaire" min="0"><span>FCFA/kWc</span></div></div>
+      <div class="f"><label>Batterie de stockage</label><div class="suffix"><input type="number" name="prix_batterie" min="0"><span>FCFA/kWh</span></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Contrat de maintenance annuel — particulier</label><div class="suffix"><input type="number" name="prix_maint_part" min="0"><span>FCFA/an</span></div></div>
+      <div class="f"><label>Contrat de maintenance annuel — entreprise</label><input type="text" name="prix_maint_ent" placeholder="Ex. % de l'investissement, ou montant par borne"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Coût d'usage — pour le simulateur</h3>
+    <p class="hint">Ces chiffres alimenteront le simulateur « coût aux 100 km » et le calculateur TCO flotte, en remplacement de l'affirmation « −40 % » qui n'a aujourd'hui aucune source.</p>
+    <div class="row">
+      <div class="f"><label>Tarif électricité utilisé — résidentiel</label><div class="suffix"><input type="number" name="calc_kwh_res" min="0" step="0.01"><span>FCFA/kWh</span></div></div>
+      <div class="f"><label>Tarif électricité utilisé — professionnel</label><div class="suffix"><input type="number" name="calc_kwh_pro" min="0" step="0.01"><span>FCFA/kWh</span></div></div>
+      <div class="f"><label>Prix du litre d'essence retenu</label><div class="suffix"><input type="number" name="calc_essence" min="0"><span>FCFA/L</span></div></div>
+      <div class="f"><label>Prix du litre de gasoil retenu</label><div class="suffix"><input type="number" name="calc_gasoil" min="0"><span>FCFA/L</span></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Date de ces tarifs <span class="sub">Toute donnée chiffrée publiée doit être datée.</span></label>
+      <input type="date" name="calc_date"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Autorisation de publication</h3>
+    <div class="row c1"><div class="f"><label>Pouvons-nous afficher publiquement ces fourchettes sur le site ? <span class="req">*</span></label>
+      <div class="stack">
+        <label class="opt"><input type="radio" name="prix_publier" value="Oui, toutes" required>Oui, toutes les fourchettes peuvent être affichées</label>
+        <label class="opt"><input type="radio" name="prix_publier" value="Résidentiel seulement">Résidentiel seulement — les prix entreprises restent sur devis</label>
+        <label class="opt"><input type="radio" name="prix_publier" value="À partir de">Uniquement sous forme « à partir de … »</label>
+        <label class="opt"><input type="radio" name="prix_publier" value="Non">Non — aucun prix public</label>
+      </div></div></div>
+    <div class="row c1"><div class="f"><label>À quelle fréquence ces prix doivent-ils être révisés ?</label>
+      <input type="text" name="prix_revision" placeholder="Ex. tous les trimestres, ou à chaque variation du taux de change"></div></div>
+  </div>
+</section>
+
+<!-- ================= 6 ================= -->
+<section class="step" data-title="MRS / Corley">
+  <div class="shead"><p class="snum">SECTION 6 · DÉCISIONS 7 &amp; 8</p>
+    <h2>Partenariat MRS (Corley) et état réel des stations</h2>
+    <p>Un accord existe pour implanter des bornes sur les stations-service MRS (Corley). Cette section remplace la question générique sur les modèles de partenariat : nous documentons l'accord réel, puis chaque site, un par un.</p></div>
+
+  <div class="why"><b>Règle absolue sur la carte du réseau :</b> une station ne sera <b>jamais</b> affichée comme « Ouverte » tant qu'elle ne l'est pas. Quatre statuts existent — <b>Ouverte · Installation en cours · Annoncée · En étude</b>. Annoncer une station inexistante est le moyen le plus rapide de perdre la confiance d'un conducteur, et c'est vérifiable par n'importe qui.</div>
+
+  <div class="card">
+    <h3>L'accord</h3>
+    <div class="row c2">
+      <div class="f"><label>Raison sociale exacte du partenaire <span class="req">*</span>
+        <span class="sub">Telle qu'elle doit apparaître sur le site.</span></label>
+        <input type="text" name="mrs_raison" required placeholder="Ex. MRS Corley SA"></div>
+      <div class="f"><label>Interlocuteur principal chez le partenaire</label><input type="text" name="mrs_contact" placeholder="Nom, fonction, téléphone"></div>
+    </div>
+    <div class="row">
+      <div class="f"><label>Nature de l'accord <span class="req">*</span></label>
+        <select name="mrs_nature" required>
+          <option value="">Choisir…</option>
+          <option>Contrat signé</option>
+          <option>Protocole d'accord (MoU) signé</option>
+          <option>Accord de principe écrit</option>
+          <option>Accord verbal</option>
+          <option>En cours de négociation</option>
+        </select></div>
+      <div class="f"><label>Date de l'accord</label><input type="date" name="mrs_date"></div>
+      <div class="f"><label>Durée</label><input type="text" name="mrs_duree" placeholder="Ex. 5 ans renouvelables"></div>
+      <div class="f"><label>Exclusivité ?</label>
+        <select name="mrs_exclusivite">
+          <option value="">Choisir…</option>
+          <option>Oui, ORION est l'opérateur exclusif</option>
+          <option>Oui, mais limitée à certains sites</option>
+          <option>Non</option>
+          <option>À confirmer</option>
+        </select></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Nombre total de sites MRS couverts par l'accord <span class="req">*</span></label>
+      <input type="number" name="mrs_nb_sites" min="0" required></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Modèle économique</h3>
+    <p class="hint">C'est ce que nous publierons sur la page « Site partenaire » pour attirer d'autres hôtels, centres commerciaux et stations-service.</p>
+    <div class="row c1"><div class="f"><label>Modèle retenu avec MRS <span class="req">*</span></label>
+      <div class="stack">
+        <label class="opt"><input type="radio" name="mrs_modele" value="ORION investit et exploite" required>ORION finance, installe et exploite ; le site met le foncier à disposition</label>
+        <label class="opt"><input type="radio" name="mrs_modele" value="Partage de revenus">Partage de revenus sur les sessions de recharge</label>
+        <label class="opt"><input type="radio" name="mrs_modele" value="Redevance fixe">Redevance fixe versée au site</label>
+        <label class="opt"><input type="radio" name="mrs_modele" value="Le site achète l'équipement">Le site achète l'équipement ; ORION installe et maintient</label>
+        <label class="opt"><input type="radio" name="mrs_modele" value="Modèle mixte">Modèle mixte — à détailler ci-dessous</label>
+      </div></div></div>
+    <div class="row c2">
+      <div class="f"><label>Si partage de revenus : clé de répartition</label><input type="text" name="mrs_partage" placeholder="Ex. 70 % ORION / 30 % site"></div>
+      <div class="f"><label>Qui encaisse le paiement du conducteur ?</label>
+        <select name="mrs_encaisse"><option value="">Choisir…</option><option>ORION</option><option>Le site partenaire</option><option>Les deux selon le moyen de paiement</option><option>À définir</option></select></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Qui prend en charge quoi ? <span class="req">*</span></label>
+      <div class="opts" id="mrs_charges">
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Équipement">Équipement : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Génie civil">Génie civil : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Raccordement électrique">Raccordement : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Électricité consommée">Électricité consommée : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Maintenance">Maintenance : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Assurance">Assurance : ORION</label>
+        <label class="opt"><input type="checkbox" name="mrs_orion_charge" value="Signalétique">Signalétique : ORION</label>
+      </div>
+      <p class="hint" style="margin:8px 0 0">Cochez uniquement ce qui est <b>à la charge d'ORION</b>. Le reste sera considéré comme à la charge du site.</p></div></div>
+    <div class="row c1"><div class="f"><label>Qui fixe le tarif de la recharge ?</label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="mrs_tarif" value="ORION seule">ORION seule</label>
+        <label class="opt"><input type="radio" name="mrs_tarif" value="Conjointement">Conjointement</label>
+        <label class="opt"><input type="radio" name="mrs_tarif" value="Le site">Le site partenaire</label>
+        <label class="opt"><input type="radio" name="mrs_tarif" value="Non défini">Non défini</label>
+      </div></div></div>
+    <div class="row c1"><div class="f"><label>Précisions ou particularités de l'accord</label><textarea name="mrs_precisions"></textarea></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Communication</h3>
+    <div class="row c2">
+      <div class="f"><label>Pouvons-nous citer le nom du partenaire sur le site ? <span class="req">*</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="mrs_citer" value="Oui" required>Oui</label>
+        <label class="opt"><input type="radio" name="mrs_citer" value="Non">Non</label>
+        <label class="opt"><input type="radio" name="mrs_citer" value="Après accord écrit">Après accord écrit</label></div></div>
+      <div class="f"><label>Pouvons-nous utiliser son logo ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="mrs_logo" value="Oui">Oui</label>
+        <label class="opt"><input type="radio" name="mrs_logo" value="Non">Non</label>
+        <label class="opt"><input type="radio" name="mrs_logo" value="À demander">À demander</label></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Y a-t-il une date d'annonce publique convenue ? <span class="sub">Nous ne publierons rien avant cette date.</span></label>
+      <input type="text" name="mrs_annonce" placeholder="Date, ou « pas de contrainte », ou « à convenir »"></div></div>
+    <div class="row c1"><div class="f"><label>Autres partenaires en discussion <span class="sub">Non publiés — pour notre planification uniquement.</span></label>
+      <textarea name="mrs_autres" placeholder="Hôtels, centres commerciaux, parkings, promoteurs…"></textarea></div></div>
+  </div>
+
+  <div class="card">
+    <h3>État réel de chaque station</h3>
+    <p class="hint">Une fiche par site. C'est cette liste, et rien d'autre, qui alimentera la carte du réseau. Incluez aussi les sites au stade de l'étude — ils apparaîtront avec le statut « En étude », ce qui est honnête et utile.</p>
+    <div id="rep-station"></div>
+    <button type="button" class="btn add" data-add="station">+ Ajouter une station</button>
+  </div>
+</section>
+
+<!-- ================= 7 ================= -->
+<section class="step" data-title="Confirmations">
+  <div class="shead"><p class="snum">SECTION 7</p>
+    <h2>Points déjà arbitrés — à confirmer</h2>
+    <p>Ces cinq points nous ont déjà été communiqués. Merci de les confirmer ou de les corriger : ils sont écrits dans le cahier des charges et nous construirons dessus.</p></div>
+
+  <div class="card">
+    <h3>Formulaires et collecte des demandes</h3>
+    <div class="okbox"><b>Décision actée :</b> l'adresse de collecte des formulaires (Google Apps Script) sera fournie par <b>Digitaall</b>, depuis son compte administrateur ORION Energy.</div>
+    <div class="row c2">
+      <div class="f"><label>Confirmez-vous ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="c1_ok" value="Confirmé">Confirmé</label>
+        <label class="opt"><input type="radio" name="c1_ok" value="À corriger">À corriger</label></div></div>
+      <div class="f"><label>Adresse email qui doit recevoir les notifications de demande</label><input type="email" name="c1_email"></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Correction éventuelle</label><input type="text" name="c1_note"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Moyens de paiement</h3>
+    <div class="okbox"><b>Décision actée :</b> Orange Money · MoMo (MTN Mobile Money) · VISA · MasterCard.</div>
+    <div class="row c2">
+      <div class="f"><label>Confirmez-vous ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="c9_ok" value="Confirmé">Confirmé</label>
+        <label class="opt"><input type="radio" name="c9_ok" value="À corriger">À corriger</label></div></div>
+      <div class="f"><label>Ces moyens seront-ils actifs dès l'ouverture de la première station ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="c9_actif" value="Tous">Tous</label>
+        <label class="opt"><input type="radio" name="c9_actif" value="Mobile Money d'abord">Mobile Money d'abord</label>
+        <label class="opt"><input type="radio" name="c9_actif" value="À confirmer">À confirmer</label></div></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Banque ou prestataire acquéreur pour les cartes</label><input type="text" name="c9_acquereur"></div>
+      <div class="f"><label>Agrégateur Mobile Money utilisé</label><input type="text" name="c9_agregateur"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Version anglaise</h3>
+    <div class="okbox"><b>Décision actée :</b> miroir complet du site en anglais.</div>
+    <div class="row c2">
+      <div class="f"><label>Confirmez-vous ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="c10_ok" value="Confirmé">Confirmé</label>
+        <label class="opt"><input type="radio" name="c10_ok" value="À corriger">À corriger</label></div></div>
+      <div class="f"><label>Qui valide la traduction anglaise avant publication ?</label><input type="text" name="c10_valideur" placeholder="Nom et fonction"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Production éditoriale</h3>
+    <div class="okbox"><b>Décision actée :</b> <b>FabAfriq Media Group</b> assure la production et l'approbation des contenus éditoriaux.</div>
+    <div class="row c2">
+      <div class="f"><label>Confirmez-vous ?</label>
+        <div class="opts"><label class="opt"><input type="radio" name="c11_ok" value="Confirmé">Confirmé</label>
+        <label class="opt"><input type="radio" name="c11_ok" value="À corriger">À corriger</label></div></div>
+      <div class="f"><label>Contact chez FabAfriq</label><input type="text" name="c11_contact" placeholder="Nom, email, téléphone"></div>
+    </div>
+    <div class="row c2">
+      <div class="f"><label>Rythme de publication convenu</label><input type="text" name="c11_rythme" placeholder="Ex. 2 articles par mois"></div>
+      <div class="f"><label>Date de démarrage</label><input type="date" name="c11_demarrage"></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Qui valide un contenu avant mise en ligne, côté ORION ?</label><input type="text" name="c11_valideur"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Application mobile</h3>
+    <div class="okbox"><b>Décision actée :</b> l'application sera fournie par le fournisseur chinois. <b>Hors périmètre</b> pour l'instant, date de lancement inconnue.</div>
+    <div class="warnbox"><b>Conséquence immédiate :</b> le site affirme aujourd'hui que le conducteur peut « suivre ses sessions via l'application ». Tant que l'application n'existe pas, cette phrase doit être retirée. Nous la remettrons le jour du lancement.</div>
+    <div class="row c2">
+      <div class="f"><label>Confirmez-vous le retrait de cette mention ? <span class="req">*</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="c12_ok" value="Confirmé — retirer" required>Confirmé — retirer</label>
+        <label class="opt"><input type="radio" name="c12_ok" value="Ne pas retirer">Ne pas retirer</label></div></div>
+      <div class="f"><label>Nom du fournisseur <span class="sub">Publiable ou non ?</span></label><input type="text" name="c12_fournisseur"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Affirmations à retirer du site actuel</h3>
+    <p class="hint">Ces quatre mentions sont en ligne aujourd'hui et ne peuvent pas être prouvées. Deux d'entre elles sont contestables par un concurrent. Merci de valider chaque remplacement.</p>
+    <div class="row c1">
+      <div class="f"><label>« Pionnier de la recharge électrique au Cameroun » et « Premier réseau dédié » <span class="req">*</span>
+        <span class="sub">TotalEnergies et 3S Motors ont inauguré publiquement des bornes à Douala et Yaoundé début 2025. Remplacement proposé : « L'opérateur de recharge du Cameroun — de l'audit à la maintenance ».</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="claim_pionnier" value="Accepté" required>J'accepte le remplacement</label>
+        <label class="opt"><input type="radio" name="claim_pionnier" value="À discuter">À discuter</label></div></div>
+    </div>
+    <div class="row c1">
+      <div class="f"><label>« −40 % de coût d'exploitation vs. flotte thermique » <span class="req">*</span>
+        <span class="sub">Aucune source, aucune hypothèse, aucune date. Remplacement proposé : un calculateur TCO alimenté par les tarifs saisis en section 5.</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="claim_40" value="Accepté" required>J'accepte le remplacement</label>
+        <label class="opt"><input type="radio" name="claim_40" value="À discuter">À discuter</label></div></div>
+    </div>
+    <div class="row c1">
+      <div class="f"><label>« Garantie complète » <span class="req">*</span>
+        <span class="sub">Remplacée par les durées et exclusions saisies en section 3.</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="claim_garantie" value="Accepté" required>J'accepte le remplacement</label>
+        <label class="opt"><input type="radio" name="claim_garantie" value="À discuter">À discuter</label></div></div>
+    </div>
+    <div class="row c1">
+      <div class="f"><label>« Ingénieurs certifiés » et « Normes IEC 61851 » <span class="req">*</span>
+        <span class="sub">Remplacées par la page équipe (section 2) et le catalogue matériel (section 1).</span></label>
+        <div class="opts"><label class="opt"><input type="radio" name="claim_certif" value="Accepté" required>J'accepte le remplacement</label>
+        <label class="opt"><input type="radio" name="claim_certif" value="À discuter">À discuter</label></div></div>
+    </div>
+    <div class="row c1"><div class="f"><label>Commentaires sur ces remplacements</label><textarea name="claim_note"></textarea></div></div>
+  </div>
+</section>
+
+<!-- ================= 8 ================= -->
+<section class="step" data-title="Vérifier et envoyer">
+  <div class="shead"><p class="snum">SECTION 8</p>
+    <h2>Vérifier et envoyer</h2>
+    <p>Relisez le récapitulatif ci-dessous. Les champs laissés vides apparaissent en gris : ils devront être complétés avant que la page concernée puisse être publiée.</p></div>
+
+  <div id="missing"></div>
+  <div id="recap"></div>
+
+  <div class="card" id="filescard">
+    <h3>Pièces jointes</h3>
+    <p class="hint">Joignez directement vos documents : ils partiront avec vos réponses et seront classés dans un dossier Drive à votre nom. Les photos prises au téléphone sont compressées automatiquement avant l'envoi.</p>
+    <ul class="docs">
+      <li>Fiches techniques PDF de chaque modèle de borne</li>
+      <li>Certificats de conformité IEC 61851 / IEC 62196 / CE</li>
+      <li>Certificats et diplômes des ingénieurs, avec leur accord écrit de publication</li>
+      <li>Conditions générales de garantie, si un document existe</li>
+      <li>Accord ou protocole signé avec MRS (Corley)</li>
+      <li>Photos des stations MRS concernées et de leur emplacement</li>
+      <li>Photos d'installations déjà réalisées, avec l'accord du client</li>
+      <li>Attestation d'assurance responsabilité civile professionnelle</li>
+    </ul>
+    <label class="drop" id="drop" for="files">
+      <b>Glissez vos fichiers ici</b>
+      <span>ou touchez pour parcourir votre appareil — PDF, images, documents · 25 Mo maximum par fichier</span>
+    </label>
+    <input type="file" id="files" multiple hidden>
+    <div id="filelist"></div>
+  </div>
+
+  <div class="card">
+    <h3>Envoyer vos réponses</h3>
+    <div class="chip" id="chip"><i></i>Vérification de la connexion…</div>
+    <p class="hint">Trois options, au choix. Si l'envoi direct échoue, utilisez le téléchargement : le fichier contient toutes vos réponses.</p>
+    <div class="opts" style="gap:10px">
+      <button type="button" class="btn p" id="send">Envoyer à Wouree</button>
+      <button type="button" class="btn s" id="dl">Télécharger mes réponses (.json)</button>
+      <button type="button" class="btn s" id="copy">Copier le récapitulatif</button>
+      <button type="button" class="btn s" id="print">Imprimer / PDF</button>
+    </div>
+    <p class="hint" id="sendmsg" style="margin-top:14px"></p>
+  </div>
+</section>
+
+</form>
+
+<div class="navbar">
+  <button type="button" class="btn s" id="prev">← Précédent</button>
+  <button type="button" class="btn p" id="next">Suivant →</button>
+  <div class="sp"></div>
+  <div class="prog"><i id="bar"></i></div>
+  <span class="progtxt" id="ptxt"></span>
+  <button type="button" class="btn g" id="save">Enregistrer le brouillon</button>
+  <label class="btn g" style="margin:0">Reprendre un brouillon
+    <input type="file" id="load" accept=".json" hidden></label>
+</div>
+</main>
+
+<script>
+/* =========================================================================
+   CONFIGURATION — à compléter par Wouree
+   Renseigner l'URL du Google Apps Script fournie par Digitaall (décision 1).
+   Tant qu'elle est vide, le bouton « Envoyer » bascule automatiquement sur
+   le téléchargement du fichier + envoi WhatsApp.
+   ========================================================================= */
+var ENDPOINT   = "https://script.google.com/macros/s/AKfycbwsdhvG2tv_p8jpoIkOID7QQyeqvNz4_TK5x1pskWRJNTfddY4QqFsFA2nVN7s2RAji/exec";   /* <-- URL du déploiement Google Apps Script (.../exec) */
+var WHATSAPP   = "237692439292";
+var EMAIL_TO   = "admin@wouree.com";
+var MAX_MB     = 25;   /* doit correspondre à CONFIG.MAX_FILE_MB dans Code.gs */
+
+/* ---------- modèles de blocs répétables ---------- */
+var TPL = {
+ materiel: function(i){return `
+  <div class="row"><div class="f"><label>Marque <span class="req">*</span></label><input type="text" name="marque" required></div>
+   <div class="f"><label>Modèle <span class="req">*</span></label><input type="text" name="modele" required></div>
+   <div class="f"><label>Type</label><select name="type"><option value="">Choisir…</option>
+     <option>AC murale (wallbox)</option><option>AC sur pied</option><option>DC rapide</option><option>Borne publique multi-points</option></select></div>
+   <div class="f"><label>Puissance</label><div class="suffix"><input type="number" name="puissance" min="0" step="0.1"><span>kW</span></div></div></div>
+  <div class="row"><div class="f"><label>Connecteur(s)</label>
+     <div class="opts"><label class="opt"><input type="checkbox" name="connecteur" value="Type 2">Type 2</label>
+     <label class="opt"><input type="checkbox" name="connecteur" value="CCS2">CCS2</label>
+     <label class="opt"><input type="checkbox" name="connecteur" value="CHAdeMO">CHAdeMO</label>
+     <label class="opt"><input type="checkbox" name="connecteur" value="GB/T">GB/T</label>
+     <label class="opt"><input type="checkbox" name="connecteur" value="Prise Type 2 (câble amovible)">Prise Type 2</label></div></div></div>
+  <div class="row"><div class="f"><label>Indice de protection</label><input type="text" name="ip" placeholder="Ex. IP65 / IK10"></div>
+   <div class="f"><label>Garantie constructeur</label><div class="suffix"><input type="number" name="garantie" min="0"><span>mois</span></div></div>
+   <div class="f"><label>Pays de fabrication</label><input type="text" name="pays"></div>
+   <div class="f"><label>Statut</label><select name="statut"><option value="">Choisir…</option>
+     <option>Disponible en stock</option><option>Sur commande</option><option>En cours de sélection</option><option>Abandonné</option></select></div></div>
+  <div class="row"><div class="f"><label>Certifications détenues par ce modèle</label>
+     <div class="opts"><label class="opt"><input type="checkbox" name="certif" value="IEC 61851">IEC 61851</label>
+     <label class="opt"><input type="checkbox" name="certif" value="IEC 62196">IEC 62196</label>
+     <label class="opt"><input type="checkbox" name="certif" value="Marquage CE">Marquage CE</label>
+     <label class="opt"><input type="checkbox" name="certif" value="RoHS">RoHS</label>
+     <label class="opt"><input type="checkbox" name="certif" value="Autre">Autre</label></div></div></div>
+  <div class="row c2"><div class="f"><label>Lien vers la fiche technique</label><input type="url" name="fiche" placeholder="https://…"></div>
+   <div class="f"><label>Usage recommandé</label><input type="text" name="usage" placeholder="Ex. résidentiel, flotte, station publique"></div></div>
+  <div class="row c1"><div class="f"><label>Fonctions logicielles</label>
+     <div class="opts"><label class="opt"><input type="checkbox" name="fonctions" value="Application / supervision">Supervision</label>
+     <label class="opt"><input type="checkbox" name="fonctions" value="Gestion dynamique de charge">Gestion de charge</label>
+     <label class="opt"><input type="checkbox" name="fonctions" value="Programmation horaire">Programmation</label>
+     <label class="opt"><input type="checkbox" name="fonctions" value="Compatible solaire">Compatible solaire</label>
+     <label class="opt"><input type="checkbox" name="fonctions" value="Badge RFID">Badge RFID</label>
+     <label class="opt"><input type="checkbox" name="fonctions" value="OCPP">OCPP</label></div></div></div>`},
+
+ equipe: function(i){return `
+  <div class="row"><div class="f"><label>Nom et prénom <span class="req">*</span></label><input type="text" name="nom" required></div>
+   <div class="f"><label>Fonction <span class="req">*</span></label><input type="text" name="fonction" required></div>
+   <div class="f"><label>Années d'expérience</label><input type="number" name="experience" min="0"></div></div>
+  <div class="row"><div class="f"><label>Diplôme principal</label><input type="text" name="diplome" placeholder="Intitulé et établissement"></div>
+   <div class="f"><label>Année d'obtention</label><input type="number" name="diplome_annee" min="1950" max="2030"></div></div>
+  <div class="row"><div class="f"><label>Certification professionnelle</label><input type="text" name="certif_nom" placeholder="Intitulé exact"></div>
+   <div class="f"><label>Organisme certificateur</label><input type="text" name="certif_org"></div>
+   <div class="f"><label>Numéro de certificat</label><input type="text" name="certif_num"></div></div>
+  <div class="row"><div class="f"><label>Date d'obtention</label><input type="date" name="certif_date"></div>
+   <div class="f"><label>Date d'expiration</label><input type="date" name="certif_fin"></div>
+   <div class="f"><label>Langues parlées</label><input type="text" name="langues" placeholder="Ex. Français, Anglais"></div></div>
+  <div class="row c2">
+   <div class="f"><label>Accord écrit pour publier son nom ? <span class="req">*</span></label>
+     <div class="opts"><label class="opt"><input type="radio" name="accord_nom" value="Oui" required>Oui</label>
+     <label class="opt"><input type="radio" name="accord_nom" value="Non">Non</label>
+     <label class="opt"><input type="radio" name="accord_nom" value="À obtenir">À obtenir</label></div></div>
+   <div class="f"><label>Accord pour publier sa photo ?</label>
+     <div class="opts"><label class="opt"><input type="radio" name="accord_photo" value="Oui">Oui</label>
+     <label class="opt"><input type="radio" name="accord_photo" value="Non">Non</label>
+     <label class="opt"><input type="radio" name="accord_photo" value="À obtenir">À obtenir</label></div></div></div>`},
+
+ station: function(i){return `
+  <div class="row"><div class="f"><label>Nom de la station <span class="req">*</span>
+     <span class="sub">Tel qu'il apparaîtra sur la carte.</span></label><input type="text" name="nom" required placeholder="Ex. MRS Bonapriso"></div>
+   <div class="f"><label>Ville <span class="req">*</span></label><input type="text" name="ville" required></div>
+   <div class="f"><label>Quartier ou axe routier</label><input type="text" name="quartier"></div></div>
+  <div class="row c1"><div class="f"><label>Adresse complète</label><input type="text" name="adresse"></div></div>
+  <div class="row c2"><div class="f"><label>Coordonnées GPS <span class="sub">Latitude, longitude — depuis Google Maps</span></label>
+     <input type="text" name="gps" placeholder="Ex. 4.0511, 9.7679"></div>
+   <div class="f"><label>Statut réel aujourd'hui <span class="req">*</span></label>
+     <select name="statut" required><option value="">Choisir…</option>
+       <option>Ouverte — bornes en service</option>
+       <option>Installation en cours</option>
+       <option>Annoncée — accord ferme, travaux non démarrés</option>
+       <option>En étude — faisabilité en cours</option></select></div></div>
+  <div class="row"><div class="f"><label>Date de mise en service prévue ou effective</label><input type="date" name="date_service"></div>
+   <div class="f"><label>Places dédiées à la recharge</label><input type="number" name="places" min="0"></div>
+   <div class="f"><label>Points de charge prévus</label><input type="number" name="points" min="0"></div>
+   <div class="f"><label>Puissance électrique disponible</label><div class="suffix"><input type="number" name="kva" min="0"><span>kVA</span></div></div></div>
+  <div class="row"><div class="f"><label>Bornes prévues sur ce site</label><input type="text" name="bornes" placeholder="Marque, modèle, puissance"></div>
+   <div class="f"><label>Horaires d'accès</label><input type="text" name="horaires" placeholder="Ex. 24h/24, ou 06h–22h"></div></div>
+  <div class="row c1"><div class="f"><label>Équipements et services sur place</label>
+     <div class="opts">
+      <label class="opt"><input type="checkbox" name="services" value="Solaire existant">Solaire existant</label>
+      <label class="opt"><input type="checkbox" name="services" value="Gardiennage 24h">Gardiennage 24h</label>
+      <label class="opt"><input type="checkbox" name="services" value="Vidéosurveillance">Vidéosurveillance</label>
+      <label class="opt"><input type="checkbox" name="services" value="Éclairage nocturne">Éclairage</label>
+      <label class="opt"><input type="checkbox" name="services" value="Boutique">Boutique</label>
+      <label class="opt"><input type="checkbox" name="services" value="Restauration">Restauration</label>
+      <label class="opt"><input type="checkbox" name="services" value="Sanitaires">Sanitaires</label>
+      <label class="opt"><input type="checkbox" name="services" value="Abri / auvent">Abri</label></div></div></div>
+  <div class="row c1"><div class="f"><label>Moyens de paiement qui seront activés sur ce site</label>
+     <div class="opts">
+      <label class="opt"><input type="checkbox" name="paiement" value="Orange Money">Orange Money</label>
+      <label class="opt"><input type="checkbox" name="paiement" value="MoMo (MTN)">MoMo (MTN)</label>
+      <label class="opt"><input type="checkbox" name="paiement" value="VISA">VISA</label>
+      <label class="opt"><input type="checkbox" name="paiement" value="MasterCard">MasterCard</label></div></div></div>
+  <div class="row c1"><div class="f"><label>Peut-on publier cette station sur le site dès maintenant ? <span class="req">*</span></label>
+     <div class="opts"><label class="opt"><input type="radio" name="publier" value="Oui, avec son statut réel" required>Oui, avec son statut réel</label>
+     <label class="opt"><input type="radio" name="publier" value="Non, confidentiel">Non, confidentiel pour l'instant</label></div></div></div>
+  <div class="row c1"><div class="f"><label>Remarques sur ce site</label><textarea name="notes"></textarea></div></div>`}
+};
+var LABEL={materiel:'Modèle',equipe:'Personne',station:'Station'};
+
+/* ---------- construction des blocs répétables ---------- */
+var UID=0;
+function baseName(el){ return el.name.split('__')[0]; }
+function addBlock(kind, focus){
+  var host=document.getElementById('rep-'+kind);
+  var n=host.children.length+1, uid='u'+(++UID);
+  var d=document.createElement('div');
+  d.className='rep'; d.dataset.kind=kind; d.dataset.uid=uid;
+  d.innerHTML='<div class="rephead"><h4>'+LABEL[kind]+' <span class="idx">'+n+'</span></h4>'+
+    '<button type="button" class="btn g" data-del>Supprimer</button></div>'+
+    '<div class="repbody">'+TPL[kind](n)+'</div>';
+  /* Les boutons radio sont groupes par 'name' a l'echelle du formulaire.
+     Sans suffixe unique, cocher « Oui » sur la station 2 decocherait la station 1. */
+  [].forEach.call(d.querySelectorAll('input[type=radio][name]'),function(r){ r.name=r.name+'__'+uid; });
+  host.appendChild(d); renumber(kind);
+  if(focus){ var f=d.querySelector('input'); if(f) f.focus(); }
+}
+function renumber(kind){
+  var host=document.getElementById('rep-'+kind);
+  [].forEach.call(host.children,function(c,i){ c.querySelector('.idx').textContent=i+1; });
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-add]');
+  if(a){ addBlock(a.dataset.add,true); return; }
+  var d=e.target.closest('[data-del]');
+  if(d){ var rep=d.closest('.rep'), k=rep.dataset.kind; rep.remove(); renumber(k); }
+});
+['materiel','equipe','station'].forEach(function(k){ addBlock(k,false); });
+
+/* ---------- état visuel des options ---------- */
+document.addEventListener('change',function(e){
+  var i=e.target;
+  if(i.type==='checkbox'){ i.closest('.opt') && i.closest('.opt').classList.toggle('sel',i.checked); }
+  if(i.type==='radio'){
+    var scope=i.closest('.rep')||i.closest('.row')||document;
+    [].forEach.call(scope.querySelectorAll('input[type=radio][name="'+i.name+'"]'),function(r){
+      r.closest('.opt') && r.closest('.opt').classList.toggle('sel',r.checked);
+    });
+  }
+  i.classList.remove('bad');
+});
+
+/* ---------- navigation ---------- */
+var steps=[].slice.call(document.querySelectorAll('.step'));
+var tabs=document.getElementById('tabs');
+steps.forEach(function(s,i){
+  var b=document.createElement('button');
+  b.type='button'; b.className='steptab'; b.innerHTML='<b>'+i+'</b>'+s.dataset.title;
+  b.onclick=function(){ go(i); };
+  tabs.appendChild(b);
+});
+var cur=0, seen={0:true};
+function go(i){
+  if(i===steps.length-1) buildRecap();
+  cur=Math.max(0,Math.min(steps.length-1,i)); seen[cur]=true;
+  steps.forEach(function(s,k){ s.classList.toggle('on',k===cur); });
+  [].forEach.call(tabs.children,function(b,k){
+    b.classList.toggle('on',k===cur); b.classList.toggle('done',!!seen[k]&&k!==cur);
+  });
+  document.getElementById('prev').disabled=(cur===0);
+  document.getElementById('next').disabled=(cur===steps.length-1);
+  var p=Math.round(cur/(steps.length-1)*100);
+  document.getElementById('bar').style.width=p+'%';
+  document.getElementById('ptxt').textContent='Étape '+(cur+1)+' / '+steps.length;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('prev').onclick=function(){ go(cur-1); };
+document.getElementById('next').onclick=function(){ go(cur+1); };
+go(0);
+
+/* ---------- collecte ---------- */
+function readScope(scope){
+  var o={};
+  [].forEach.call(scope.querySelectorAll('input[name],select[name],textarea[name]'),function(el){
+    if(el.closest('.rep') && !scope.classList.contains('rep')) return;
+    var n=baseName(el);
+    if(el.type==='checkbox'){ if(el.checked){ (o[n]=o[n]||[]).push(el.value); } }
+    else if(el.type==='radio'){ if(el.checked) o[n]=el.value; }
+    else if(el.value.trim()!=='') o[n]=el.value.trim();
+  });
+  return o;
+}
+function collect(){
+  var data={_meta:{formulaire:'ORION Energy — Questionnaire technique et commercial',
+    version:'1.0', genere:new Date().toISOString()}};
+  data.reponses=readScope(document.getElementById('form'));
+  ['materiel','equipe','station'].forEach(function(k){
+    data[k]=[].map.call(document.getElementById('rep-'+k).children,function(r){ return readScope(r); })
+              .filter(function(o){ return Object.keys(o).length; });
+  });
+  return data;
+}
+
+/* ---------- champs obligatoires manquants ---------- */
+function missing(){
+  var out=[];
+  steps.forEach(function(s,i){
+    if(i===steps.length-1) return;
+    var bad=0, seenRadio={};
+    [].forEach.call(s.querySelectorAll('[required]'),function(el){
+      if(el.type==='radio'){
+        if(seenRadio[el.name]) return;          /* un groupe radio ne compte qu'une fois */
+        seenRadio[el.name]=1;
+        var scope=el.closest('.rep')||s;         /* les radios repetes sont propres a leur bloc */
+        if(!scope.querySelector('input[name="'+el.name+'"]:checked')) bad++;
+      } else if(!el.value.trim()) bad++;
+    });
+    if(bad) out.push({step:i,title:s.dataset.title,n:bad});
+  });
+  return out;
+}
+
+/* ---------- récapitulatif ---------- */
+var TITLES={0:'Répondant',1:'Matériel',2:'Équipe technique',3:'Garantie',4:'Délais',5:'Prix',6:'MRS (Corley) et stations',7:'Confirmations'};
+function pretty(k){
+  return k.replace(/_/g,' ').replace(/^\w/,function(c){return c.toUpperCase();});
+}
+function buildRecap(){
+  var d=collect(), host=document.getElementById('recap'), m=document.getElementById('missing');
+  var miss=missing();
+  m.innerHTML = miss.length
+    ? '<div class="warnbox"><b>'+miss.reduce(function(a,x){return a+x.n;},0)+' champ(s) obligatoire(s) encore vide(s) :</b> '+
+      miss.map(function(x){return 'section « '+x.title+' »';}).join(' · ')+
+      '. Vous pouvez tout de même envoyer une réponse partielle — nous reviendrons vers vous sur les points manquants.</div>'
+    : '<div class="okbox"><b>Tous les champs obligatoires sont remplis.</b> Merci — vous pouvez envoyer.</div>';
+
+  var h='';
+  var r=d.reponses, keys=Object.keys(r);
+  if(keys.length){
+    h+='<div class="recap"><h4>Réponses générales</h4><dl>';
+    keys.forEach(function(k){
+      var v=r[k]; if(Array.isArray(v)) v=v.join(', ');
+      h+='<div><dt>'+pretty(k)+'</dt><dd>'+String(v).replace(/</g,'&lt;')+'</dd></div>';
+    });
+    h+='</dl></div>';
+  }
+  [['materiel','Modèles de bornes'],['equipe','Équipe technique'],['station','Stations MRS (Corley)']].forEach(function(p){
+    var arr=d[p[0]];
+    h+='<div class="recap" style="margin-top:16px"><h4>'+p[1]+' — '+arr.length+' fiche(s)</h4><dl>';
+    if(!arr.length){ h+='<div><dt>—</dt><dd class="empty">Aucune fiche renseignée</dd></div>'; }
+    arr.forEach(function(o,i){
+      h+='<div><dt style="font-weight:600;color:#0E1A2B">Fiche '+(i+1)+'</dt><dd>'+
+        Object.keys(o).map(function(k){
+          var v=o[k]; if(Array.isArray(v)) v=v.join(', ');
+          return '<b style="font-weight:600">'+pretty(k)+' :</b> '+String(v).replace(/</g,'&lt;');
+        }).join(' &nbsp;·&nbsp; ')+'</dd></div>';
+    });
+    h+='</dl></div>';
+  });
+  host.innerHTML=h;
+}
+
+/* ---------- texte lisible pour WhatsApp / email ---------- */
+function asText(){
+  var d=collect(), L=[];
+  L.push('ORION ENERGY — QUESTIONNAIRE TECHNIQUE ET COMMERCIAL');
+  L.push('Transmis le '+new Date().toLocaleString('fr-FR'));
+  L.push('');
+  var r=d.reponses;
+  Object.keys(r).forEach(function(k){
+    var v=r[k]; if(Array.isArray(v)) v=v.join(', ');
+    L.push(pretty(k)+' : '+v);
+  });
+  [['materiel','MODÈLES DE BORNES'],['equipe','ÉQUIPE TECHNIQUE'],['station','STATIONS MRS (CORLEY)']].forEach(function(p){
+    L.push(''); L.push('--- '+p[1]+' ('+d[p[0]].length+') ---');
+    d[p[0]].forEach(function(o,i){
+      L.push(''); L.push('  Fiche '+(i+1)+' :');
+      Object.keys(o).forEach(function(k){
+        var v=o[k]; if(Array.isArray(v)) v=v.join(', ');
+        L.push('    '+pretty(k)+' : '+v);
+      });
+    });
+  });
+  return L.join('\n');
+}
+function slug(){
+  var n=(collect().reponses.rep_nom||'orion').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  return 'orion-questionnaire-'+n+'-'+new Date().toISOString().slice(0,10);
+}
+function download(name,content,mime){
+  var b=new Blob([content],{type:mime||'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b); a.download=name; a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+}
+
+/* ---------- test de connexion a l'endpoint ---------- */
+var chip=document.getElementById('chip');
+function setChip(cls,txt){ chip.className='chip '+cls; chip.innerHTML='<i></i>'+txt; }
+(function ping(){
+  if(!ENDPOINT){
+    setChip('off','Envoi direct non encore activé — vos réponses seront téléchargées');
+    return;
+  }
+  fetch(ENDPOINT+(ENDPOINT.indexOf('?')>-1?'&':'?')+'ping=1')
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j && j.ok) setChip('ok','Connexion établie — l\'envoi direct fonctionne');
+      else setChip('off','Réponse inattendue du serveur — utilisez le téléchargement');
+    })
+    .catch(function(){
+      setChip('off','Serveur injoignable — vos réponses seront téléchargées');
+    });
+})();
+
+/* ---------- pièces jointes ---------- */
+var QUEUE=[];
+var CATS=['Fiche technique borne','Certificat de conformite','Certificat / diplôme ingénieur',
+          'Conditions de garantie','Accord MRS (Corley)','Photo de station','Photo d\'installation',
+          'Attestation d\'assurance','Autre'];
+
+function human(b){ return b<1048576 ? (b/1024).toFixed(0)+' Ko' : (b/1048576).toFixed(1)+' Mo'; }
+
+/* Les photos de téléphone font souvent 5 a 10 Mo. On les réduit avant l'envoi :
+   côté 2000 px maximum, JPEG qualité 0.82. Les PDF passent tels quels. */
+function shrink(file){
+  return new Promise(function(res){
+    if(!/^image\//.test(file.type) || file.size<1500000 || /svg/.test(file.type))
+      return res({blob:file,name:file.name,mime:file.type});
+    var img=new Image(), url=URL.createObjectURL(file);
+    img.onload=function(){
+      var s=Math.min(1,2000/Math.max(img.width,img.height));
+      if(s>=1 && file.size<4000000){ URL.revokeObjectURL(url); return res({blob:file,name:file.name,mime:file.type}); }
+      var c=document.createElement('canvas');
+      c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      c.toBlob(function(b){
+        URL.revokeObjectURL(url);
+        if(!b || b.size>=file.size) return res({blob:file,name:file.name,mime:file.type});
+        res({blob:b, name:file.name.replace(/\.[^.]+$/,'')+'.jpg', mime:'image/jpeg'});
+      },'image/jpeg',0.82);
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); res({blob:file,name:file.name,mime:file.type}); };
+    img.src=url;
+  });
+}
+function toB64(blob){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onload=function(){ res(fr.result.split(',')[1]); };
+    fr.onerror=rej; fr.readAsDataURL(blob);
+  });
+}
+function renderFiles(){
+  var host=document.getElementById('filelist');
+  host.innerHTML='';
+  QUEUE.forEach(function(q,i){
+    var d=document.createElement('div'); d.className='fitem';
+    d.innerHTML='<span class="nm">'+q.file.name.replace(/</g,'&lt;')+'</span>'+
+      '<span class="sz">'+human(q.file.size)+'</span>'+
+      '<select data-cat="'+i+'">'+CATS.map(function(c){
+        return '<option'+(c===q.cat?' selected':'')+'>'+c+'</option>'; }).join('')+'</select>'+
+      '<span class="st '+(q.state||'')+'">'+(q.msg||'En attente')+'</span>'+
+      '<button type="button" class="btn g" data-rm="'+i+'">Retirer</button>';
+    host.appendChild(d);
+  });
+}
+function addFiles(list){
+  [].forEach.call(list,function(f){
+    if(f.size>MAX_MB*1048576){
+      QUEUE.push({file:f,cat:CATS[CATS.length-1],state:'err',msg:'Trop volumineux ('+human(f.size)+')'});
+    } else {
+      QUEUE.push({file:f,cat:guessCat(f.name)});
+    }
+  });
+  renderFiles();
+}
+function guessCat(n){
+  n=n.toLowerCase();
+  if(/certificat|conformit|iec|ce\b/.test(n)) return CATS[1];
+  if(/diplôme|dipl|cv\b/.test(n))            return CATS[2];
+  if(/garantie/.test(n))                      return CATS[3];
+  if(/mrs|corley|accord|protocole|mou/.test(n)) return CATS[4];
+  if(/assurance|rc\b/.test(n))               return CATS[7];
+  if(/fiche|datasheet|technique|spec/.test(n)) return CATS[0];
+  if(/\.(jpe?g|png|heic|webp)$/.test(n))     return CATS[5];
+  return CATS[CATS.length-1];
+}
+var drop=document.getElementById('drop'), finput=document.getElementById('files');
+finput.onchange=function(e){ addFiles(e.target.files); e.target.value=''; };
+['dragenter','dragover'].forEach(function(ev){
+  drop.addEventListener(ev,function(e){ e.preventDefault(); drop.classList.add('over'); });
+});
+['dragleave','drop'].forEach(function(ev){
+  drop.addEventListener(ev,function(e){ e.preventDefault(); drop.classList.remove('over'); });
+});
+drop.addEventListener('drop',function(e){ if(e.dataTransfer&&e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+document.getElementById('filelist').addEventListener('click',function(e){
+  var b=e.target.closest('[data-rm]');
+  if(b){ QUEUE.splice(+b.dataset.rm,1); renderFiles(); }
+});
+document.getElementById('filelist').addEventListener('change',function(e){
+  var s=e.target.closest('[data-cat]');
+  if(s){ QUEUE[+s.dataset.cat].cat=s.value; }
+});
+
+/* ---------- actions ---------- */
+var msg=document.getElementById('sendmsg');
+document.getElementById('dl').onclick=function(){
+  download(slug()+'.json', JSON.stringify(collect(),null,2));
+  msg.innerHTML='Fichier téléchargé. Merci de l\'envoyér a <b>'+EMAIL_TO+'</b> ou par WhatsApp.';
+};
+document.getElementById('save').onclick=function(){
+  download(slug()+'-brouillon.json', JSON.stringify(collect(),null,2));
+};
+document.getElementById('print').onclick=function(){ window.print(); };
+document.getElementById('copy').onclick=function(){
+  var t=asText();
+  navigator.clipboard.writeText(t).then(function(){
+    msg.textContent='Récapitulatif copié. Collez-le dans WhatsApp ou dans un email.';
+  },function(){
+    download(slug()+'.txt',t,'text/plain');
+    msg.textContent='Copie impossible sur ce navigateur — le récapitulatif a été téléchargé en .txt.';
+  });
+};
+
+function post(body){
+  return fetch(ENDPOINT,{method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(body)}).then(function(r){ return r.json(); });
+}
+
+document.getElementById('send').onclick=function(){
+  var d=collect(), btn=this;
+
+  if(!ENDPOINT){
+    download(slug()+'.json', JSON.stringify(d,null,2));
+    var wa='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(
+      'Bonjour Wouree, voici le questionnaire ORION Energy rempli par '+(d.réponses.rep_nom||'—')+
+      '. Le fichier de réponses vient d\'etre téléchargé sur mon appareil, je vous le joins.');
+    msg.innerHTML='L\'envoi automatique n\'est pas encore active. Vos réponses viennent d\'etre '+
+      '<b>téléchargées</b> sur votre appareil. <a href="'+wa+'" target="_blank" rel="noopener">'+
+      'Ouvrir WhatsApp pour nous l\'envoyér</a>, ou joindre le fichier a un email adresse a <b>'+EMAIL_TO+'</b>.';
+    return;
+  }
+
+  btn.disabled=true;
+  msg.textContent='Envoi des réponses…';
+
+  post(d).then(function(res){
+    if(!res || !res.ok) throw new Error(res && res.error || 'Réponse invalide');
+    var ref=res.ref;
+    msg.innerHTML='<b style="color:#1D6B34">Réponses enregistrées.</b> Référence : <b>'+ref+'</b>.';
+
+    var pending=QUEUE.filter(function(q){ return q.state!=='ok' && q.state!=='err'; });
+    if(!pending.length){ done(ref); return; }
+
+    var i=0;
+    (function nextFile(){
+      if(i>=pending.length){ done(ref); return; }
+      var q=pending[i];
+      q.state='up'; q.msg='Envoi…'; renderFiles();
+      msg.innerHTML='Référence <b>'+ref+'</b> — envoi des pièces jointes ('+(i+1)+'/'+pending.length+')…';
+
+      shrink(q.file).then(function(s){
+        return toB64(s.blob).then(function(b64){
+          return post({action:'file',ref:ref,name:s.name,mime:s.mime,
+                       category:q.cat,data:b64});
+        });
+      }).then(function(r){
+        if(r&&r.ok){ q.state='ok'; q.msg='Envoyé'; }
+        else { q.state='err'; q.msg=(r&&r.error)||'Échec'; }
+      }).catch(function(){
+        q.state='err'; q.msg='Échec';
+      }).then(function(){
+        renderFiles(); i++; nextFile();
+      });
+    })();
+
+    function done(ref){
+      var ko=QUEUE.filter(function(q){ return q.state==='err'; }).length;
+      var ok=QUEUE.filter(function(q){ return q.state==='ok'; }).length;
+      msg.innerHTML='<b style="color:#1D6B34">Envoi terminé.</b> Référence <b>'+ref+'</b>. '+
+        ok+' pièce(s) jointe(s) transmise(s)'+(ko?', <b style="color:#C42B2B">'+ko+' en échec</b> — '+
+        'merci de nous les envoyér par WhatsApp en rappelant la référence':'')+'. '+
+        'Un accusé de réception vous a été envoyé par email. '+
+        'Nous revenons vers vous sous 2 jours ouvrés sur les points incomplets.';
+      download(slug()+'-'+ref+'.json', JSON.stringify(d,null,2));
+      btn.disabled=false;
+    }
+  }).catch(function(err){
+    btn.disabled=false;
+    download(slug()+'.json', JSON.stringify(d,null,2));
+    msg.innerHTML='<b style="color:#C42B2B">L\'envoi a échoué.</b> ('+String(err.message||err)+') '+
+      'Vos réponses ont été téléchargées — merci de nous transmettre le fichier par WhatsApp '+
+      'ou a <b>'+EMAIL_TO+'</b>.';
+  });
+};
+
+/* ---------- reprise d'un brouillon ---------- */
+document.getElementById('load').onchange=function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{
+      var d=JSON.parse(fr.result);
+      ['materiel','equipe','station'].forEach(function(k){
+        var host=document.getElementById('rep-'+k); host.innerHTML='';
+        var arr=(d[k]&&d[k].length)?d[k]:[{}];
+        arr.forEach(function(){ addBlock(k,false); });
+        [].forEach.call(host.children,function(rep,i){ fill(rep,arr[i]||{}); });
+      });
+      fill(document.getElementById('form'), d.reponses||{}, true);
+      alert('Brouillon rechargé.');
+      go(0);
+    }catch(err){ alert('Fichier illisible. Merci de sélectionner un brouillon .json généré par ce formulaire.'); }
+  };
+  fr.readAsText(f); e.target.value='';
+};
+function fill(scope,obj,skipRep){
+  [].forEach.call(scope.querySelectorAll('input[name],select[name],textarea[name]'),function(el){
+    if(skipRep && el.closest('.rep')) return;
+    var v=obj[baseName(el)]; if(v===undefined) return;
+    if(el.type==='checkbox'){ el.checked=Array.isArray(v)&&v.indexOf(el.value)>-1; }
+    else if(el.type==='radio'){ el.checked=(el.value===v); }
+    else el.value=v;
+    el.dispatchEvent(new Event('change',{bubbles:true}));
+  });
+}
+</script>
+</body>
+</html>

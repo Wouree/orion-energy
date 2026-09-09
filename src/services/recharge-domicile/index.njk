@@ -21,7 +21,7 @@ servicePage: true
         <i data-lucide="calendar" style="width:18px;height:18px;"></i>
         Réserver une visite gratuite
       </a>
-      <a href="#" class="btn btn-ghost" data-form-type="rappel">
+      <a href="{{ "rappel" | ctaHref }}" class="btn btn-ghost" data-form-type="rappel">
         <i data-lucide="phone" style="width:18px;height:18px;"></i>
         Demander un rappel
       </a>
@@ -29,11 +29,11 @@ servicePage: true
     <div class="lp-hero-trust">
       <div class="lp-hero-trust-item">
         <i data-lucide="shield-check" style="width:16px;height:16px;"></i>
-        Normes IEC 61851
+        Matériel CE et RoHS
       </div>
       <div class="lp-hero-trust-item">
-        <i data-lucide="clock" style="width:16px;height:16px;"></i>
-        Installation en 24h
+        <i data-lucide="badge-check" style="width:16px;height:16px;"></i>
+        Garantie 12 mois, pièces et main-d'œuvre
       </div>
       <div class="lp-hero-trust-item">
         <i data-lucide="sun" style="width:16px;height:16px;"></i>
@@ -102,8 +102,8 @@ servicePage: true
           <i data-lucide="wrench" style="width:28px;height:28px;"></i>
         </div>
         <h3>Installation complète</h3>
-        <p>Câblage, protection électrique, montage de la borne, raccordement et mise en service. Un chantier propre et professionnel, terminé en une journée.</p>
-        <span class="lp-process-tag">En 24 heures</span>
+        <p>Câblage, protections, montage de la borne, raccordement et mise en service. Une installation résidentielle simple se fait en une journée ; un chantier qui demande une reprise de tableau ou une tranchée en demande davantage, et nous vous le disons avant de commencer.</p>
+        <span class="lp-process-tag">Par notre équipe</span>
       </div>
 
       <div class="lp-process-connector"></div>
@@ -114,7 +114,7 @@ servicePage: true
           <i data-lucide="smartphone" style="width:28px;height:28px;"></i>
         </div>
         <h3>Formation & mise en main</h3>
-        <p>Nous vous montrons le fonctionnement de votre borne, configurons l'application de suivi et vous remettons toute la documentation technique.</p>
+        <p>Nous vous montrons le fonctionnement de votre borne et de ses indicateurs, puis vous remettons le relevé de contrôle et toute la documentation technique.</p>
         <span class="lp-process-tag">Formation incluse</span>
       </div>
 
@@ -162,7 +162,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
 
@@ -185,7 +185,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-primary btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-primary btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
 
@@ -207,7 +207,7 @@ servicePage: true
           </ul>
         </div>
         <div class="lp-tier-footer">
-          <a href="#" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
+          <a href="{{ "devis" | ctaHref }}" class="btn btn-outline btn-block" data-form-type="devis">Demander un devis</a>
         </div>
       </div>
     </div>
@@ -275,29 +275,29 @@ servicePage: true
         <div class="lp-why-icon">
           <i data-lucide="shield-check" style="width:24px;height:24px;"></i>
         </div>
-        <h3>Normes internationales</h3>
-        <p>Installations conformes aux normes IEC 61851 et NF C 15-100. Certification et garantie sur chaque installation.</p>
+        <h3>Matériel CE et RoHS</h3>
+        <p>Nos bornes portent les marquages CE et RoHS. Nous publions pour chaque modèle sa puissance, son connecteur et ses indices de protection, sans arrondir.</p>
       </div>
       <div class="lp-why-card animate">
         <div class="lp-why-icon">
           <i data-lucide="users" style="width:24px;height:24px;"></i>
         </div>
-        <h3>Ingénieurs certifiés</h3>
-        <p>Nos techniciens sont formés et certifiés pour l'installation de bornes de recharge. Pas de sous-traitance.</p>
+        <h3>Une équipe interne</h3>
+        <p>Dix personnes, aucune sous-traitance. Celui qui évalue votre installation appartient à la même équipe que celui qui la pose.</p>
       </div>
       <div class="lp-why-card animate">
         <div class="lp-why-icon">
           <i data-lucide="headphones" style="width:24px;height:24px;"></i>
         </div>
         <h3>Support dédié</h3>
-        <p>Ligne d'assistance dédiée, maintenance préventive et garantie équipement et main-d'œuvre incluses.</p>
+        <p>Assistance dédiée, maintenance préventive optionnelle, et {% claim "garantie-complete-12-12" %}. Le déplacement n'est pas couvert.</p>
       </div>
       <div class="lp-why-card animate">
         <div class="lp-why-icon">
           <i data-lucide="award" style="width:24px;height:24px;"></i>
         </div>
-        <h3>Pionnier au Cameroun</h3>
-        <p>Premier réseau dédié de recharge pour véhicules électriques au Cameroun. L'expérience qui fait la différence.</p>
+        <h3>De bout en bout</h3>
+        <p>{% claim "operateur-bout-en-bout" %}</p>
       </div>
     </div>
   </div>
@@ -331,7 +331,7 @@ servicePage: true
             <i data-lucide="calendar" style="width:18px;height:18px;"></i>
             Réserver une visite gratuite
           </a>
-          <a href="#" class="btn btn-ghost" data-form-type="rappel">
+          <a href="{{ "rappel" | ctaHref }}" class="btn btn-ghost" data-form-type="rappel">
             <i data-lucide="phone" style="width:18px;height:18px;"></i>
             Demander un rappel
           </a>

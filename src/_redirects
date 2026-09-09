@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects.
+#
+# /particuliers/recharge-domicile/ is the route named in the build brief. The page it describes already
+# exists at /services/recharge-domicile/, is live, and is indexed. Publishing a second copy would split
+# ranking between two URLs and give the site two pages to keep in step; moving the page would break every
+# inbound link to the existing URL. A 301 satisfies the route without doing either.
+/particuliers/recharge-domicile/  /services/recharge-domicile/  301
+/particuliers/recharge-domicile   /services/recharge-domicile/  301

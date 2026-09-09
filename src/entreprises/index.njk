@@ -1,0 +1,137 @@
+---
+pageTitle: "Solutions pour les entreprises"
+pageDescription: "Audit, modélisation, dossier de décision, déploiement et exploitation. Ce que la fiscalité change, et ce que la recharge exige d'un site professionnel au Cameroun."
+---
+
+<section class="lp-hero">
+  <div class="lp-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-entreprise-OrionEnergyCameroon.jpg');"></div>
+  <div class="lp-hero-overlay"></div>
+  <div class="container">
+    <div class="lp-hero-badge">
+      <i data-lucide="building-2" style="width:16px;height:16px;"></i>
+      Entreprises
+    </div>
+    <h1>L'électrification se décide<br>sur un calcul, pas sur une brochure</h1>
+    <p class="lp-hero-sub">Nous auditons votre situation, nous la modélisons avec des hypothèses que vous pouvez contester, et nous vous donnons de quoi décider. Y compris de ne rien faire.</p>
+    <div class="lp-hero-actions">
+      <a href="/entreprises/incitations-fiscales/" class="btn btn-primary btn-lg">
+        <i data-lucide="receipt" style="width:18px;height:18px;"></i>
+        Les incitations fiscales
+      </a>
+      <a href="/entreprises/methode/" class="btn btn-ghost">
+        <i data-lucide="route" style="width:18px;height:18px;"></i>
+        Notre méthode
+      </a>
+    </div>
+    <div class="lp-hero-trust">
+      <div class="lp-hero-trust-item">
+        <i data-lucide="search" style="width:16px;height:16px;"></i>
+        Audit avant proposition
+      </div>
+      <div class="lp-hero-trust-item">
+        <i data-lucide="file-text" style="width:16px;height:16px;"></i>
+        Hypothèses écrites et modifiables
+      </div>
+      <div class="lp-hero-trust-item">
+        <i data-lucide="users" style="width:16px;height:16px;"></i>
+        Équipe interne, sans sous-traitance
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ===== THE FISCAL ARGUMENT, UP FRONT ===== #}
+<section class="section">
+  <div class="container">
+    <div class="lp-split">
+      <div class="lp-split-text">
+        <span class="section-label">Le point de départ</span>
+        <h2>La fiscalité a bougé dans les deux sens</h2>
+        <p>{% claim "lf2025-abattement-50" %}.</p>
+        {{ "lf2025-abattement-50" | claimCite | safe }}
+        <p class="mt-2">L'abattement <strong>couvre les bornes de recharge</strong>, pas seulement les véhicules — c'est le point que la plupart des lectures de ce texte manquent, et celui qui compte quand on chiffre une infrastructure.</p>
+        <p>Dans le même temps, la loi de finances 2026 renchérit l'importation des véhicules d'occasion de plus de douze ans. L'écart se creuse par les deux bouts.</p>
+        <p><a href="/entreprises/incitations-fiscales/" class="btn btn-primary">Lire le détail, avec les sources</a></p>
+      </div>
+      <div class="lp-split-visual">
+        <div class="lp-visual-card">
+          <img src="{{ site.cloudinary }}/w_600,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png" alt="Recharge de flotte d'entreprise" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ===== SECTORS ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Par secteur</span>
+      <h2>Ce que la recharge exige de votre activité</h2>
+      <p>Le besoin n'est pas le même selon que vos véhicules dorment chez vous ou que vos clients s'arrêtent chez vous.</p>
+    </div>
+    <div class="card-grid">
+      {% for sector in orion.sector_solution | sortByOrder %}
+      <a href="/{{ sector.slug }}/" class="card-link animate">
+        <div class="card-body">
+          <span class="card-subtitle">{{ sector.sector }}</span>
+          <h3>{{ sector.title }}</h3>
+          <p>{{ sector.lead }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ===== METHOD SUMMARY ===== #}
+<section class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Comment nous travaillons</span>
+      <h2>Cinq étapes, dans cet ordre</h2>
+      <p>Nous ne proposons pas de matériel avant l'étape trois. C'est délibéré.</p>
+    </div>
+    <div class="process-grid">
+      <div class="lp-why-card animate"><div class="lp-why-icon"><i data-lucide="search" style="width:24px;height:24px;"></i></div><h3>1. Audit</h3><p>Vos usages réels, votre installation électrique, votre site.</p></div>
+      <div class="lp-why-card animate"><div class="lp-why-icon"><i data-lucide="calculator" style="width:24px;height:24px;"></i></div><h3>2. Modélisation</h3><p>Les scénarios chiffrés, hypothèses visibles et modifiables.</p></div>
+      <div class="lp-why-card animate"><div class="lp-why-icon"><i data-lucide="file-text" style="width:24px;height:24px;"></i></div><h3>3. Dossier de décision</h3><p>De quoi arbitrer, y compris en décidant de ne rien faire.</p></div>
+      <div class="lp-why-card animate"><div class="lp-why-icon"><i data-lucide="wrench" style="width:24px;height:24px;"></i></div><h3>4. Déploiement</h3><p>Installation par notre équipe, sans sous-traitance.</p></div>
+      <div class="lp-why-card animate"><div class="lp-why-icon"><i data-lucide="activity" style="width:24px;height:24px;"></i></div><h3>5. Exploitation</h3><p>Entretien, suivi de consommation, interventions.</p></div>
+    </div>
+    <div class="text-center mt-3">
+      <a href="/entreprises/methode/" class="btn btn-outline">Le détail de la méthode</a>
+    </div>
+  </div>
+</section>
+
+{# ===== YOU MIGHT BE A HOST ===== #}
+<section class="section section-alt">
+  <div class="container">
+    <div class="lp-split">
+      <div class="lp-split-text">
+        <span class="section-label">Une autre option</span>
+        <h2>Vous n'êtes pas obligé d'investir</h2>
+        <p>Si vous exploitez un site où des véhicules stationnent — un hôtel, un centre commercial, une station-service, un parking — vous pouvez accueillir une borne du réseau public sans rien engager.</p>
+        <p><strong>{% claim "modele-site-partenaire" %}</strong></p>
+        <p><a href="/site-partenaire/" class="btn btn-primary">Accueillir une borne</a></p>
+      </div>
+      <div class="lp-split-visual">
+        <div class="lp-visual-card">
+          <img src="{{ site.cloudinary }}/w_600,f_auto,q_auto/v1771872058/orionenergy/webimages/recharge-domicile-hero-03-OrionEnergyCameroon.png" alt="Borne accueillie sur un site partenaire" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container animate">
+    <h2>Commencer par l'audit</h2>
+    <p>Nous regardons votre situation avant de proposer quoi que ce soit.</p>
+    <div class="btn-group">
+      <a href="{{ "devis" | ctaHref }}" class="btn btn-primary" data-form-type="devis">Demander un audit</a>
+      <a href="{{ wa.href }}" class="btn btn-outline" target="_blank" rel="noopener">En parler sur WhatsApp</a>
+    </div>
+  </div>
+</section>

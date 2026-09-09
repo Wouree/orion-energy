@@ -14,7 +14,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
   <div class="container hero-content">
     <div class="hero-badge">
       <i data-lucide="zap" style="width:16px;height:16px;"></i>
-      Pionnier de la recharge électrique au Cameroun
+      {% claim "operateur-du-cameroun" %}
     </div>
     <h1>L'énergie de demain, chez vous aujourd'hui</h1>
     <p>ORION Energy installe des bornes de recharge pour véhicules électriques à votre domicile et déploie un réseau de stations publiques à travers le Cameroun. Sûr. Professionnel. Alimenté par le soleil.</p>
@@ -23,9 +23,46 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
         <i data-lucide="calendar" style="width:18px;height:18px;"></i>
         Réserver une visite
       </a>
-      <a href="#" class="btn btn-secondary" data-form-type="rappel">
+      <a href="{{ "rappel" | ctaHref }}" class="btn btn-secondary" data-form-type="rappel">
         <i data-lucide="phone" style="width:18px;height:18px;"></i>
         Demander un rappel
+      </a>
+    </div>
+  </div>
+</section>
+
+
+{# ===== SEGMENT ROUTER =====
+   The homepage's central element. The choice is stored for the session and travels as a hidden field
+   into whichever form the visitor eventually reaches — see src/js/segment-router.js. #}
+<section class="section" id="router">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="section-label">Par où commencer</span>
+      <h2>Vous êtes…</h2>
+      <p>Choisissez, et le reste du site s'adresse à vous plutôt qu'à tout le monde.</p>
+    </div>
+
+    <div class="segment-router" data-segment-router>
+      <a class="segment-card animate" href="/particuliers/" data-segment="residentiel" data-form="/demande/residentiel/">
+        <span class="segment-card-icon"><i data-lucide="home" style="width:28px;height:28px;"></i></span>
+        <h3>Un particulier</h3>
+        <p>Vous voulez recharger chez vous, ou vous vous renseignez avant d'acheter un véhicule.</p>
+      </a>
+      <a class="segment-card animate" href="/entreprises/" data-segment="entreprise" data-form="/demande/entreprise/">
+        <span class="segment-card-icon"><i data-lucide="building-2" style="width:28px;height:28px;"></i></span>
+        <h3>Une entreprise</h3>
+        <p>Vous avez une flotte à électrifier, ou un site professionnel à équiper.</p>
+      </a>
+      <a class="segment-card animate" href="/site-partenaire/" data-segment="site_partenaire" data-form="/demande/site-partenaire/">
+        <span class="segment-card-icon"><i data-lucide="map-pin" style="width:28px;height:28px;"></i></span>
+        <h3>Un site d'accueil</h3>
+        <p>Vous avez un parking et vous pouvez accueillir une borne, sans rien investir.</p>
+      </a>
+      <a class="segment-card animate" href="/demande/support/" data-segment="support" data-form="/demande/support/">
+        <span class="segment-card-icon"><i data-lucide="life-buoy" style="width:28px;height:28px;"></i></span>
+        <h3>Déjà client</h3>
+        <p>Vous avez une question sur une installation existante, ou un problème à signaler.</p>
       </a>
     </div>
   </div>
@@ -35,7 +72,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
 <section class="trust-bar">
   <div class="container">
     <div class="trust-bar-inner">
-      {% for item in trust %}
+      {% for item in trust.items %}
       <div class="trust-item">
         <i data-lucide="{{ item.icon }}" style="width:20px;height:20px;"></i>
         <span>{{ item.label }}</span>
@@ -54,7 +91,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
       <p>De votre domicile aux grands axes routiers, ORION Energy vous accompagne dans la transition vers la mobilité électrique.</p>
     </div>
     <div class="card-grid">
-      {% for service in services %}
+      {% for service in services.services %}
       <div class="card animate">
         <div class="card-image" style="background-image: url('{{ service.image }}');">
         </div>
@@ -80,7 +117,7 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
       <h2>Du premier contact à la recharge : 4 étapes simples</h2>
     </div>
     <div class="process-grid">
-      {% for step in process %}
+      {% for step in process.steps %}
       <div class="process-step animate">
         <div class="process-number">{{ step.number }}</div>
         <h3>{{ step.title }}</h3>
@@ -101,11 +138,11 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
   <div class="container">
     <div class="section-header animate">
       <span class="section-label">Pourquoi ORION</span>
-      <h2>La confiance d'une expertise certifiée</h2>
-      <p>Chaque installation ORION Energy est réalisée selon les plus hauts standards internationaux de sécurité et de qualité.</p>
+      <h2>Ce sur quoi nous nous engageons</h2>
+      <p>Une équipe interne, du matériel dont nous publions les caractéristiques exactes, et une garantie dont nous énonçons aussi les limites.</p>
     </div>
     <div class="values-grid">
-      {% for value in values %}
+      {% for value in values.values %}
       <div class="value-card animate">
         <div class="value-icon">
           <i data-lucide="{{ value.icon }}"></i>
@@ -134,10 +171,10 @@ pageDescription: "ORION Energy — Solutions de recharge pour véhicules électr
 <section class="cta-banner">
   <div class="container animate">
     <h2>Prêt à passer à l'électrique ?</h2>
-    <p>Nos experts viennent chez vous. Évaluation gratuite, sans engagement.</p>
+    <p>Nous venons chez vous. Évaluation gratuite, sans engagement.</p>
     <div class="btn-group">
       <a href="/reserver/" class="btn btn-primary" data-form-type="visite">Réserver une visite</a>
-      <a href="#" class="btn btn-outline" data-form-type="rappel">Demander un rappel</a>
+      <a href="{{ "rappel" | ctaHref }}" class="btn btn-outline" data-form-type="rappel">Demander un rappel</a>
     </div>
   </div>
 </section>

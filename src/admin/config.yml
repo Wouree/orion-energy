@@ -1,3 +1,19 @@
+# Sveltia CMS — ORION Energy
+#
+# Three defects from Lot 0 are corrected here:
+#
+#   D-04  base_url pointed at auth.orionenergycmr.com, a per-client auth host. CLAUDE.md states that
+#         auth.wouree.com is the standing shared OAuth worker for every Digitaall client site and that a
+#         per-client Worker must never be deployed.
+#   D-05  Five of six collections used a `file:` key directly on the collection. That key is invalid at
+#         collection level; it must be a `files:` array. Only `site_settings` was well-formed.
+#   D-06  Those same five wrapped their fields in a key (`values`, `steps`, `items`, …) that the
+#         underlying bare JSON arrays did not have, so the CMS would have written a shape Eleventy
+#         could not read.
+#
+# Editorial content now lives in `content/<collection>/*.md` — one file per item, outside Eleventy's
+# `src` input directory. See docs/CONTENT-MODEL.md.
+
 backend:
   name: github
   repo: Wouree/orion-energy
@@ -7,24 +23,47 @@ backend:
 media_folder: "src/images"
 public_folder: "/images"
 
+# NOTE: `publish_mode: editorial_workflow` is deliberately NOT set here. It would be a real safety
+# improvement — an approval step before anything reaches the live site, which is exactly this project's
+# concern — but it changes how the client edits their own site today, and that was not asked for.
+# Recommended in docs/RUN-REPORT.md instead, for the client to accept or decline.
+
 collections:
+  # ------------------------------------------------------------------ #
+  # Réglages
+  # ------------------------------------------------------------------ #
   - name: "site_settings"
     label: "Paramètres du site"
     files:
       - name: "general"
         label: "Informations générales"
-        file: "src/_data/site.json"
+        file: "content/site_settings/general.md"
+        # Explicit, not inferred. This file carries front matter and no body, and it is the one file
+        # whose mis-serialisation fails the entire build: src/_data/site.js throws if it cannot be read.
+        format: "yaml-frontmatter"
         fields:
+          - { label: "Identifiant", name: "slug", widget: "hidden", default: "general" }
           - { label: "Nom du site", name: "name", widget: "string" }
           - { label: "Slogan", name: "tagline", widget: "string" }
           - { label: "Description", name: "description", widget: "text" }
           - { label: "URL du site", name: "url", widget: "string" }
-          - { label: "Téléphone", name: "phone", widget: "string" }
-          - { label: "Téléphone (format international)", name: "phoneClean", widget: "string" }
-          - { label: "WhatsApp", name: "whatsapp", widget: "string" }
+          - label: "URL du formulaire (Google Apps Script)"
+            name: "form_endpoint"
+            widget: "string"
+            required: false
+            hint: >-
+              À laisser vide tant que le déploiement Apps Script dédié aux formulaires du site
+              (et sa feuille de calcul) n'a pas été fourni. Tant que ce champ est vide, les
+              formulaires affichent une erreur au lieu de faire croire à un envoi réussi.
+          - { label: "WhatsApp (format international, sans +)", name: "whatsapp", widget: "string" }
+          - label: "Téléphone (affiché)"
+            name: "phone"
+            widget: "string"
+            required: false
+            hint: "À laisser vide tant qu'aucun numéro réel n'est confirmé. Aucun lien tel: n'est affiché si ce champ est vide."
+          - { label: "Téléphone (format international)", name: "phone_clean", widget: "string", required: false }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Adresse", name: "address", widget: "string" }
-          - { label: "URL du formulaire (Google Apps Script)", name: "formEndpoint", widget: "string" }
           - label: "Réseaux sociaux"
             name: "social"
             widget: "object"
@@ -38,35 +77,383 @@ collections:
             fields:
               - { label: "Bureau", name: "office", widget: "string" }
               - { label: "Installations", name: "installations", widget: "string" }
-          - { label: "Villes desservies", name: "cities", widget: "list" }
-          - { label: "ID Google Analytics", name: "analyticsId", widget: "string", required: false }
-          - { label: "ID Facebook Pixel", name: "fbPixelId", widget: "string", required: false }
+          - { label: "Base Cloudinary", name: "cloudinary", widget: "string", required: false }
+          - { label: "ID Google Analytics", name: "analytics_id", widget: "string", required: false }
+          - { label: "ID Facebook Pixel", name: "fb_pixel_id", widget: "string", required: false }
 
-  - name: "faq"
-    label: "FAQ"
-    files:
-      - name: "faq"
-        label: "FAQ"
-        file: "src/_data/faq.json"
+  # ------------------------------------------------------------------ #
+  # Gouvernance des affirmations
+  # ------------------------------------------------------------------ #
+  - name: "claim"
+    label: "Affirmations (chiffres et superlatifs)"
+    label_singular: "Affirmation"
+    folder: "content/claim"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.text}} — {{fields.class}}"
+    description: >-
+      Toute affirmation chiffrée ou superlative publiée sur le site doit exister ici.
+      Une affirmation non approuvée ne s'affiche jamais : elle est écartée avant même
+      d'atteindre les gabarits. Ce n'est pas une convention éditoriale, c'est le comportement du build.
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Texte publié", name: "text", widget: "text" }
+      - label: "Classe"
+        name: "class"
+        widget: "select"
+        options:
+          - { label: "Fait vérifié — vérifiable sur ORION", value: "fait_verifie" }
+          - { label: "Spécification fabricant — issue de la fiche technique", value: "spec_fabricant" }
+          - { label: "Donnée externe — source publique requise", value: "donnee_externe" }
+          - { label: "Estimation — modélisée, hypothèses visibles", value: "estimation" }
+          - { label: "Ambition — intention, jamais une promesse", value: "ambition" }
+      - label: "URL de la preuve"
+        name: "evidence_url"
+        widget: "string"
+        required: false
+        hint: >-
+          Obligatoire pour fait_verifie, spec_fabricant et donnee_externe.
+          Une donnée externe exige une URL publique. Un fait sur ORION peut citer une
+          référence interne sous la forme internal:RÉFÉRENCE.
+      - { label: "Date de la preuve", name: "evidence_date", widget: "date", format: "YYYY-MM-DD", required: false }
+      - { label: "Responsable", name: "owner", widget: "string" }
+      - label: "Approuvée pour publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
+        hint: "Tant que cette case est décochée, l'affirmation n'apparaît nulle part sur le site."
+      - { label: "Valeur (chiffre)", name: "value", widget: "number", required: false }
+      - { label: "Valeur minimale", name: "value_min", widget: "number", required: false }
+      - { label: "Valeur maximale", name: "value_max", widget: "number", required: false }
+      - { label: "Unité", name: "unit", widget: "string", required: false }
+      - { label: "Note interne", name: "note", widget: "text", required: false }
+
+  # ------------------------------------------------------------------ #
+  # Catalogue
+  # ------------------------------------------------------------------ #
+  - name: "product"
+    label: "Matériel"
+    label_singular: "Modèle"
+    folder: "content/product"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.model}} — {{fields.power_kw}} kW"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Référence", name: "model", widget: "string" }
+      - { label: "Libellé", name: "label", widget: "string", required: false }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options:
+          - { label: "Borne murale AC", value: "ac_wallbox" }
+          - { label: "Borne sur pied AC", value: "ac_pedestal" }
+          - { label: "Borne rapide DC", value: "dc_rapide" }
+      - { label: "Puissance (kW)", name: "power_kw", widget: "number" }
+      - label: "Connecteur"
+        name: "connector"
+        widget: "string"
+        hint: >-
+          À indiquer factuellement. Les quatre modèles sont en GB/T, incompatible avec les
+          Type 2 et CCS2. Ne jamais écrire que la borne convient à tous les véhicules.
+      - { label: "Indice IP", name: "ip_rating", widget: "string", required: false }
+      - { label: "Indice IK", name: "ik_rating", widget: "string", required: false }
+      - { label: "Garantie (mois)", name: "warranty_months", widget: "number" }
+      - label: "Disponibilité"
+        name: "availability"
+        widget: "select"
+        options:
+          - { label: "En stock", value: "en_stock" }
+          - { label: "Sur commande", value: "sur_commande" }
+      - { label: "Délai (semaines)", name: "lead_time_weeks", widget: "number", required: false }
+      - label: "Certifications"
+        name: "certifications"
+        widget: "list"
+        required: false
+        hint: "CE et RoHS uniquement. Toute autre norme saisie ici fait échouer le build."
+      - { label: "Usage", name: "use_case", widget: "string", required: false }
+      - { label: "Origine", name: "origin", widget: "string", required: false }
+      - { label: "Fournisseur", name: "supplier", widget: "string", required: false }
+      - { label: "Ordre", name: "order", widget: "number", required: false }
+      - { label: "Description", name: "body", widget: "markdown", required: false }
+
+  # ------------------------------------------------------------------ #
+  # Réseau
+  # ------------------------------------------------------------------ #
+  - name: "station"
+    label: "Stations"
+    label_singular: "Station"
+    folder: "content/station"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.name}} — {{fields.status}} ({{fields.owner_type}})"
+    description: >-
+      Aucune station n'est publiée dans cette phase : tous les sites sont confidentiels.
+      Les champs statut et type de propriétaire existent dès maintenant pour que le partage
+      entre particuliers devienne plus tard une simple bascule, et non une migration de données.
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Nom", name: "name", widget: "string" }
+      - label: "Statut"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "Ouverte", value: "ouverte" }
+          - { label: "En installation", value: "installation" }
+          - { label: "Annoncée", value: "annoncee" }
+          - { label: "À l'étude", value: "etude" }
+      - label: "Type de propriétaire"
+        name: "owner_type"
+        widget: "select"
+        options:
+          - { label: "ORION", value: "orion" }
+          - { label: "Site partenaire", value: "partner" }
+          - { label: "Particulier (désactivé)", value: "private" }
+        hint: "Les stations de particuliers ne s'affichent jamais, quelle que soit la case « Publier »."
+      - label: "Publier"
+        name: "publish"
+        widget: "boolean"
+        default: false
+      - { label: "Ville", name: "city", widget: "string", required: false, hint: "Identifiant d'une ville existante." }
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Latitude", name: "lat", widget: "number", required: false, value_type: "float" }
+      - { label: "Longitude", name: "lng", widget: "number", required: false, value_type: "float" }
+      - label: "Connecteurs"
+        name: "connectors"
+        widget: "list"
+        required: false
         fields:
-          - label: "Sections"
-            name: "sections"
-            widget: "list"
-            fields:
-              - { label: "Titre de la section", name: "section", widget: "string" }
-              - label: "Questions"
-                name: "items"
-                widget: "list"
-                fields:
-                  - { label: "Question", name: "question", widget: "string" }
-                  - { label: "Réponse", name: "answer", widget: "text" }
+          - { label: "Type", name: "type", widget: "string" }
+          - { label: "Puissance (kW)", name: "kw", widget: "number" }
+          - { label: "Nombre", name: "count", widget: "number" }
+      - { label: "Horaires d'accès", name: "access_hours", widget: "string", required: false }
+      - { label: "Moyens de paiement", name: "payment_methods", widget: "list", required: false }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
 
-  - name: "services"
-    label: "Services"
+  - name: "city"
+    label: "Villes desservies"
+    label_singular: "Ville"
+    folder: "content/city"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.name}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Région", name: "region", widget: "string", required: false }
+      - label: "Couverture réelle"
+        name: "coverage_real"
+        widget: "boolean"
+        default: false
+        hint: "Une ville ne s'affiche que si la couverture y est réelle."
+      - { label: "Ordre", name: "order", widget: "number", required: false }
+
+  # ------------------------------------------------------------------ #
+  # Équipe et références
+  # ------------------------------------------------------------------ #
+  - name: "person"
+    label: "Équipe"
+    label_singular: "Personne"
+    folder: "content/person"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.name}} — {{fields.role}}"
+    description: >-
+      Une personne ne s'affiche que si le brouillon est désactivé ET l'accord de publication enregistré.
+      Aucune qualification ne doit être renseignée sans justificatif.
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Fonction", name: "role", widget: "string" }
+      - { label: "Années d'expérience", name: "years_experience", widget: "number", required: false }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Qualifications", name: "certifications", widget: "list", required: false }
+      - { label: "Brouillon", name: "draft", widget: "boolean", default: true }
+      - { label: "Accord de publication enregistré", name: "consent_on_file", widget: "boolean", default: false }
+      - { label: "Ordre", name: "order", widget: "number", required: false }
+      - { label: "Biographie", name: "body", widget: "markdown", required: false }
+
+  - name: "partner"
+    label: "Partenaires"
+    label_singular: "Partenaire"
+    folder: "content/partner"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.name}}"
+    description: >-
+      Un partenaire ne s'affiche que s'il est vérifié ET que l'accord écrit est enregistré.
+      Nommer un site hôte sans accord écrit est interdit.
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Type", name: "type", widget: "string", required: false }
+      - { label: "Logo", name: "logo", widget: "image", required: false }
+      - { label: "Vérifié", name: "verified", widget: "boolean", default: false }
+      - { label: "Accord écrit enregistré", name: "consent_on_file", widget: "boolean", default: false }
+
+  - name: "testimonial"
+    label: "Témoignages"
+    label_singular: "Témoignage"
+    folder: "content/testimonial"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.attribution}}"
+    description: "Un témoignage ne s'affiche que si le consentement du client est enregistré."
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Citation", name: "quote", widget: "text" }
+      - { label: "Attribution", name: "attribution", widget: "string" }
+      - { label: "Fonction", name: "role", widget: "string", required: false }
+      - { label: "Consentement enregistré", name: "consent_on_file", widget: "boolean", default: false }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD", required: false }
+
+  # ------------------------------------------------------------------ #
+  # Pages et parcours
+  # ------------------------------------------------------------------ #
+  - name: "sector_solution"
+    label: "Solutions par secteur"
+    label_singular: "Secteur"
+    folder: "content/sector_solution"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Secteur", name: "sector", widget: "string" }
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Problème", name: "problem", widget: "text", required: false }
+      - { label: "Solution", name: "solution", widget: "text", required: false }
+      - { label: "Points de preuve", name: "proof_points", widget: "list", required: false }
+      - { label: "Matériel associé", name: "related_products", widget: "list", required: false }
+      - { label: "CTA", name: "cta", widget: "string", required: false }
+      - { label: "Ordre", name: "order", widget: "number", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown", required: false }
+
+  - name: "cta"
+    label: "Appels à l'action"
+    label_singular: "Appel à l'action"
+    folder: "content/cta"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.label}} → {{fields.href}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Libellé", name: "label", widget: "string" }
+      - { label: "Destination", name: "href", widget: "string" }
+      - label: "Style"
+        name: "style"
+        widget: "select"
+        required: false
+        options: ["primary", "secondary", "outline", "ghost"]
+      - { label: "Type de formulaire", name: "form_type", widget: "string", required: false }
+      - { label: "Segment", name: "segment", widget: "string", required: false }
+      - { label: "Message WhatsApp pré-rempli", name: "whatsapp_text", widget: "text", required: false }
+
+  - name: "form_definition"
+    label: "Formulaires"
+    label_singular: "Formulaire"
+    folder: "content/form_definition"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.title}} — {{fields.segment}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - label: "Segment"
+        name: "segment"
+        widget: "select"
+        options:
+          - { label: "Résidentiel", value: "residentiel" }
+          - { label: "Entreprise", value: "entreprise" }
+          - { label: "Site partenaire", value: "site_partenaire" }
+          - { label: "Support", value: "support" }
+      - { label: "Titre", name: "title", widget: "string" }
+      - label: "Champs"
+        name: "fields"
+        widget: "list"
+        fields:
+          - { label: "Nom technique", name: "name", widget: "string" }
+          - { label: "Libellé", name: "label", widget: "string" }
+          - { label: "Type", name: "type", widget: "string" }
+          - { label: "Obligatoire", name: "required", widget: "boolean", default: false }
+          - { label: "Options", name: "options", widget: "list", required: false }
+      - label: "Message de confirmation"
+        name: "success_message"
+        widget: "text"
+        required: false
+        hint: >-
+          Aucun délai de réponse ne doit y figurer. L'engagement du client est en cours de
+          révision : toute mention d'un nombre d'heures ou de jours fait échouer le build.
+      - { label: "Clé d'endpoint", name: "endpoint_key", widget: "string", required: false }
+
+  - name: "faq_item"
+    label: "FAQ"
+    label_singular: "Question"
+    folder: "content/faq_item"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.question}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Question", name: "question", widget: "string" }
+      - { label: "Catégorie", name: "category", widget: "string" }
+      - { label: "Ordre de la catégorie", name: "category_order", widget: "number", required: false }
+      - { label: "Ordre", name: "order", widget: "number", required: false }
+      - { label: "Affirmations citées", name: "claim_refs", widget: "list", required: false }
+      - { label: "Réponse", name: "body", widget: "markdown" }
+
+  - name: "guide"
+    label: "Guides"
+    label_singular: "Guide"
+    folder: "content/guide"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Résumé", name: "summary", widget: "text", required: false }
+      - { label: "Catégorie", name: "category", widget: "string", required: false }
+      - { label: "Mis à jour le", name: "updated", widget: "date", format: "YYYY-MM-DD", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "article"
+    label: "Articles"
+    label_singular: "Article"
+    folder: "content/article"
+    create: true
+    slug: "{{fields.slug}}"
+    format: "yaml-frontmatter"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Auteur", name: "author", widget: "string", required: false, hint: "Identifiant d'une personne publiée." }
+      - { label: "Résumé", name: "summary", widget: "text", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  # ------------------------------------------------------------------ #
+  # Blocs de page hérités — migrés vers les collections ci-dessus au fil des lots
+  # ------------------------------------------------------------------ #
+  - name: "homepage_blocks"
+    label: "Blocs de la page d'accueil"
     files:
       - name: "services"
         label: "Services"
         file: "src/_data/services.json"
+        format: "json"
         fields:
           - label: "Services"
             name: "services"
@@ -77,16 +464,13 @@ collections:
               - { label: "Sous-titre", name: "subtitle", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Icône (Lucide)", name: "icon", widget: "string" }
-              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Image", name: "image", widget: "string", required: false }
               - { label: "Type de CTA", name: "ctaType", widget: "string" }
               - { label: "Texte du CTA", name: "ctaLabel", widget: "string" }
-
-  - name: "trust"
-    label: "Barre de confiance"
-    files:
       - name: "trust"
         label: "Barre de confiance"
         file: "src/_data/trust.json"
+        format: "json"
         fields:
           - label: "Éléments"
             name: "items"
@@ -94,13 +478,10 @@ collections:
             fields:
               - { label: "Texte", name: "label", widget: "string" }
               - { label: "Icône (Lucide)", name: "icon", widget: "string" }
-
-  - name: "process"
-    label: "Étapes du processus"
-    files:
       - name: "process"
         label: "Étapes du processus"
         file: "src/_data/process.json"
+        format: "json"
         fields:
           - label: "Étapes"
             name: "steps"
@@ -110,13 +491,10 @@ collections:
               - { label: "Titre", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Icône (Lucide)", name: "icon", widget: "string" }
-
-  - name: "values"
-    label: "Valeurs / Pourquoi ORION"
-    files:
       - name: "values"
         label: "Valeurs / Pourquoi ORION"
         file: "src/_data/values.json"
+        format: "json"
         fields:
           - label: "Valeurs"
             name: "values"

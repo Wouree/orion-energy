@@ -1,7 +1,24 @@
-[
-  { "label": "Ingénieurs certifiés", "icon": "award" },
-  { "label": "Normes IEC", "icon": "shield-check" },
-  { "label": "Compatible solaire", "icon": "sun" },
-  { "label": "Mar – Sam", "icon": "calendar" },
-  { "label": "Réponse sous 24h", "icon": "clock" }
-]
+{
+  "items": [
+    {
+      "label": "Matériel certifié CE et RoHS",
+      "icon": "shield-check"
+    },
+    {
+      "label": "Compatible solaire",
+      "icon": "sun"
+    },
+    {
+      "label": "Mar – Sam",
+      "icon": "calendar"
+    },
+    {
+      "label": "Garantie 12 mois matériel et installation",
+      "icon": "badge-check"
+    },
+    {
+      "label": "Équipe interne, sans sous-traitance",
+      "icon": "users"
+    }
+  ]
+}
