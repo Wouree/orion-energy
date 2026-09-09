@@ -170,6 +170,74 @@ const COLLECTIONS = {
   },
 
   site_settings: { required: ['slug'] },
+
+  /**
+   * Working hypotheses behind the calculators.
+   *
+   * Every number the revenue indicator puts on screen comes from here, so that replacing a guess with a
+   * measurement is a content edit rather than a code change. None of these values is confirmed client
+   * data; they exist to be overwritten once a site has run a quarter.
+   *
+   * The validation below is deliberately strict. These numbers drive a figure a prospective host may
+   * act on, and a silently malformed ramp — three milestones instead of four, a low above a high, a
+   * utilisation rate of 40 instead of 0.40 — would produce a plausible-looking and completely wrong
+   * band. Better to fail the build.
+   */
+  calculator_assumptions: {
+    required: [
+      'slug', 'default_tariff', 'default_electricity_cost', 'payment_fee_pct', 'efficiency_factor',
+      'default_net_share_pct', 'default_gross_share_pct', 'ramps', 'milestones', 'site_types',
+    ],
+    enums: {
+      default_ramp: ['slow', 'mid', 'fast'],
+      default_share_model: ['net', 'gross'],
+    },
+    refs: { default_product: 'product' },
+    validate(i) {
+      const pct = (v) => typeof v === 'number' && v >= 0 && v <= 100;
+      const rate = (v) => typeof v === 'number' && v >= 0 && v <= 1;
+
+      if (!rate(i.efficiency_factor)) return 'efficiency_factor must be a rate between 0 and 1';
+      if (!pct(i.payment_fee_pct)) return 'payment_fee_pct must be a percentage between 0 and 100';
+      if (!pct(i.default_net_share_pct)) return 'default_net_share_pct must be a percentage between 0 and 100';
+      if (!pct(i.default_gross_share_pct)) return 'default_gross_share_pct must be a percentage between 0 and 100';
+      if (typeof i.default_tariff !== 'number' || i.default_tariff < 0) return 'default_tariff must be a non-negative number';
+      if (typeof i.default_electricity_cost !== 'number' || i.default_electricity_cost < 0) return 'default_electricity_cost must be a non-negative number';
+
+      const milestoneCount = (i.milestones || []).length;
+      if (milestoneCount < 2) return 'milestones must list at least two horizons';
+
+      const keys = new Set();
+      for (const r of i.ramps || []) {
+        if (!r.key || !r.label) return 'every ramp needs a key and a label';
+        if (!['slow', 'mid', 'fast'].includes(r.key)) return `ramp key "${r.key}" is not one of slow | mid | fast`;
+        if (keys.has(r.key)) return `ramp key "${r.key}" is duplicated`;
+        keys.add(r.key);
+
+        const ms = r.milestones || [];
+        if (ms.length !== milestoneCount) {
+          return `ramp "${r.key}" has ${ms.length} milestones but ${milestoneCount} horizons are declared`;
+        }
+        let previousHigh = -1;
+        for (const [n, m] of ms.entries()) {
+          if (!rate(m.low) || !rate(m.high)) return `ramp "${r.key}" milestone ${n + 1}: low and high must be rates between 0 and 1 — 0.06 means 6 %, not 6`;
+          if (m.low > m.high) return `ramp "${r.key}" milestone ${n + 1}: low (${m.low}) is above high (${m.high})`;
+          // A ramp that falls back is almost certainly a typo, and would render a shrinking forecast.
+          if (m.high < previousHigh) return `ramp "${r.key}" milestone ${n + 1}: utilisation falls below the previous horizon`;
+          previousHigh = m.high;
+        }
+      }
+      if (keys.size !== 3) return `expected three ramps (slow, mid, fast), found ${keys.size}`;
+
+      for (const t of i.site_types || []) {
+        if (!t.key || !t.label) return 'every site_type needs a key and a label';
+      }
+      if (i.default_site_type && !(i.site_types || []).some((t) => t.key === i.default_site_type)) {
+        return `default_site_type "${i.default_site_type}" is not among the declared site_types`;
+      }
+      return null;
+    },
+  },
 };
 
 /* ------------------------------------------------------------------ *
@@ -300,6 +368,7 @@ for (const [name, schema] of Object.entries(COLLECTIONS)) {
 // Approved claims, keyed by slug. The {% claim %} shortcode reads only this.
 content.claimBySlug = Object.fromEntries(content.claim.map((c) => [c.slug, c]));
 content.productBySlug = Object.fromEntries(content.product.map((p) => [p.slug, p]));
+content.assumptionsBySlug = Object.fromEntries(content.calculator_assumptions.map((a) => [a.slug, a]));
 
 content._pending = Object.values(content)
   .filter(Array.isArray)

@@ -358,6 +358,92 @@ collections:
       - { label: "Segment", name: "segment", widget: "string", required: false }
       - { label: "Message WhatsApp pré-rempli", name: "whatsapp_text", widget: "text", required: false }
 
+  - name: "calculator_assumptions"
+    label: "Hypothèses des calculateurs"
+    label_singular: "Jeu d'hypothèses"
+    folder: "content/calculator_assumptions"
+    create: true
+    slug: "{{fields.slug}}"
+    # Explicit, never inferred — a mis-serialised file throws in the loader and takes the build with it.
+    format: "yaml-frontmatter"
+    # No handlebars conditionals: Decap/Sveltia render them literally.
+    summary: "{{fields.label}}"
+    description: >-
+      Toutes les valeurs chiffrées de l'indicateur de revenus. Ce sont des hypothèses de travail,
+      destinées à être remplacées par des mesures dès qu'un site aura tourné un trimestre.
+      Aucune n'est une donnée confirmée, et aucune ne doit être présentée comme une offre.
+      Les taux d'utilisation s'écrivent en fraction : 0,06 pour 6 %. Le build échoue si une valeur
+      sort de sa plage, si une trajectoire n'a pas le bon nombre d'échéances, ou si une borne basse
+      dépasse sa borne haute.
+    fields:
+      - { label: "Identifiant", name: "slug", widget: "string" }
+      - { label: "Libellé", name: "label", widget: "string" }
+      - label: "Tarif de recharge par défaut (FCFA/kWh)"
+        name: "default_tariff"
+        widget: "number"
+        value_type: "float"
+        hint: "Hypothèse illustrative. ORION fixe son tarif site par site et ne l'a pas publié."
+      - label: "Coût de l'électricité par défaut (FCFA/kWh)"
+        name: "default_electricity_cost"
+        widget: "number"
+        value_type: "float"
+        hint: "Supporté par ORION. 99 correspond à la tranche 801–2000 kWh du tarif ARSEL."
+      - { label: "Frais d'encaissement (% du CA)", name: "payment_fee_pct", widget: "number", value_type: "float" }
+      - label: "Facteur de rendement (0 à 1)"
+        name: "efficiency_factor"
+        widget: "number"
+        value_type: "float"
+        hint: "0,85 = 85 % de la puissance nominale. Doit rester entre 0 et 1."
+      - { label: "Part du site sur le net (%)", name: "default_net_share_pct", widget: "number", value_type: "float" }
+      - { label: "Part du site sur le brut (%)", name: "default_gross_share_pct", widget: "number", value_type: "float" }
+      - label: "Échéances affichées"
+        name: "milestones"
+        widget: "list"
+        hint: "Dans l'ordre. Autant d'entrées que chaque trajectoire compte de jalons."
+      - label: "Trajectoires d'utilisation"
+        name: "ramps"
+        widget: "list"
+        fields:
+          - label: "Rythme"
+            name: "key"
+            widget: "select"
+            options:
+              - { label: "Lent", value: "slow" }
+              - { label: "Modéré", value: "mid" }
+              - { label: "Rapide", value: "fast" }
+          - { label: "Libellé", name: "label", widget: "string" }
+          - label: "Jalons"
+            name: "milestones"
+            widget: "list"
+            fields:
+              - { label: "Borne basse (fraction, ex. 0,01)", name: "low", widget: "number", value_type: "float" }
+              - { label: "Borne haute (fraction, ex. 0,025)", name: "high", widget: "number", value_type: "float" }
+      - label: "Types de site"
+        name: "site_types"
+        widget: "list"
+        fields:
+          - { label: "Clé", name: "key", widget: "string" }
+          - { label: "Libellé", name: "label", widget: "string" }
+      - { label: "Type de site par défaut", name: "default_site_type", widget: "string", required: false }
+      - label: "Rythme par défaut"
+        name: "default_ramp"
+        widget: "select"
+        required: false
+        options:
+          - { label: "Lent", value: "slow" }
+          - { label: "Modéré", value: "mid" }
+          - { label: "Rapide", value: "fast" }
+      - label: "Modèle de partage par défaut"
+        name: "default_share_model"
+        widget: "select"
+        required: false
+        options:
+          - { label: "Partage du net", value: "net" }
+          - { label: "Partage du brut", value: "gross" }
+      - { label: "Points de charge par défaut", name: "default_points", widget: "number", required: false }
+      - { label: "Heures d'ouverture par défaut", name: "default_hours", widget: "number", required: false }
+      - { label: "Matériel par défaut", name: "default_product", widget: "string", required: false, hint: "Identifiant d'un modèle existant." }
+
   - name: "form_definition"
     label: "Formulaires"
     label_singular: "Formulaire"
