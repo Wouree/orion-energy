@@ -429,6 +429,16 @@
         e.preventDefault();
         run();
       });
+
+      // Print the leave-behind. The print stylesheet drops the navigation, the buttons and the email
+      // capture, and keeps the bands, the assumptions and the date stamp.
+      var printBtn = scope.querySelector('[data-print]');
+      if (printBtn) {
+        printBtn.addEventListener('click', function () {
+          if (window.orionTrack) window.orionTrack('calculator_print', { tool: name });
+          window.print();
+        });
+      }
       form.addEventListener('input', function () {
         if (panel && panel.innerHTML.trim()) run();
       });

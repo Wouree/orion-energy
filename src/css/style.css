@@ -1467,3 +1467,104 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 .rev-capture p,
 .rev-t3 p { margin-top: 0; font-size: 14px; color: var(--medium); }
 .rev-print { width: 100%; }
+
+/* ============================================
+   Impression — document à laisser
+
+   Le site n'avait aucune feuille de style d'impression. Celle-ci sert un cas précis : l'indicateur de
+   revenus imprimé et laissé à un hôte à la fin d'un rendez-vous. Le document doit porter TOUTES les
+   hypothèses, la trajectoire et la date — un chiffre sorti de son contexte est exactement ce que ce
+   projet existe pour éviter.
+
+   La capture d'email disparaît à l'impression : c'est un dispositif web, sans objet sur un papier déjà
+   remis en main propre, et une adresse à saisir au stylo n'a aucun sens.
+   ============================================ */
+@media print {
+  /* Chrome de navigation et éléments interactifs : rien de tout cela n'appartient à un document. */
+  .nav,
+  .whatsapp-float,
+  .modal-overlay,
+  .cta-banner,
+  .footer,
+  .page-hero-bg,
+  .lp-hero-bg,
+  .lp-hero-overlay,
+  .nav-toggle {
+    display: none !important;
+  }
+
+  /* La capture d'email n'est jamais imprimée. */
+  .rev-capture,
+  .rev-print,
+  [data-orion-form] button[type="submit"],
+  .calc-panel form[data-calculator] button[type="submit"] {
+    display: none !important;
+  }
+
+  @page { margin: 14mm; }
+
+  html, body {
+    background: #fff !important;
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .section { padding: 0 !important; }
+  .container { max-width: none; padding: 0; }
+
+  /* Une seule colonne : les entrées d'abord, puis le résultat, comme on lit un document. */
+  .calc-layout { display: block !important; }
+  .calc-panel {
+    padding: 0 !important;
+    border: 0 !important;
+    margin-bottom: 14mm;
+  }
+
+  .page-hero {
+    min-height: 0 !important;
+    padding: 0 0 8mm !important;
+    color: #000;
+  }
+  .page-hero h1 { font-size: 20pt; color: #000; }
+  .page-hero p { font-size: 10.5pt; color: #222; }
+  .page-hero .section-label { color: #444 !important; }
+
+  /* Les cartes de fourchette tiennent sur une ligne et ne se coupent pas. */
+  .rev-cards { grid-template-columns: repeat(4, 1fr) !important; gap: 4mm; }
+  .rev-card,
+  .rev-model,
+  .rev-assumptions,
+  .rev-detail { break-inside: avoid; page-break-inside: avoid; }
+  .rev-card-band { font-size: 13pt; color: #000; }
+  .rev-model-value { font-size: 12pt; color: #000; }
+  .rev-models { grid-template-columns: 1fr 1fr !important; }
+  .rev-model.is-selected { border-width: 2px !important; padding: 17px !important; }
+
+  /* Les hypothèses et l'horodatage sont le cœur du document, pas une note de bas de page. */
+  .rev-assumptions { break-before: auto; }
+  .rev-assumptions li { font-size: 9.5pt; color: #222; }
+  .rev-stamp {
+    font-size: 9pt;
+    color: #000;
+    border-top: 1px solid #999;
+  }
+
+  .data-table { font-size: 9pt; }
+  .data-table th { background: #f2f2f2 !important; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .data-table-wrap { overflow: visible !important; }
+
+  .claim-badge {
+    border-color: #666;
+    background: transparent;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { text-decoration: none; color: #000; }
+  .btn { display: none !important; }
+  .field-hint { font-size: 8.5pt; color: #444; }
+  .rev-footnotes { break-inside: avoid; font-size: 9.5pt; }
+  .animate { opacity: 1 !important; transform: none !important; }
+}
