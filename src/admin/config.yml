@@ -38,6 +38,9 @@ collections:
       - name: "general"
         label: "Informations générales"
         file: "content/site_settings/general.md"
+        # Explicit, not inferred. This file carries front matter and no body, and it is the one file
+        # whose mis-serialisation fails the entire build: src/_data/site.js throws if it cannot be read.
+        format: "yaml-frontmatter"
         fields:
           - { label: "Identifiant", name: "slug", widget: "hidden", default: "general" }
           - { label: "Nom du site", name: "name", widget: "string" }
@@ -88,7 +91,7 @@ collections:
     create: true
     slug: "{{fields.slug}}"
     format: "yaml-frontmatter"
-    summary: "{{fields.text}} — {{fields.class}}{{#if fields.approved}} ✓{{/if}}"
+    summary: "{{fields.text}} — {{fields.class}}"
     description: >-
       Toute affirmation chiffrée ou superlative publiée sur le site doit exister ici.
       Une affirmation non approuvée ne s'affiche jamais : elle est écartée avant même
@@ -450,6 +453,7 @@ collections:
       - name: "services"
         label: "Services"
         file: "src/_data/services.json"
+        format: "json"
         fields:
           - label: "Services"
             name: "services"
@@ -466,6 +470,7 @@ collections:
       - name: "trust"
         label: "Barre de confiance"
         file: "src/_data/trust.json"
+        format: "json"
         fields:
           - label: "Éléments"
             name: "items"
@@ -476,6 +481,7 @@ collections:
       - name: "process"
         label: "Étapes du processus"
         file: "src/_data/process.json"
+        format: "json"
         fields:
           - label: "Étapes"
             name: "steps"
@@ -488,6 +494,7 @@ collections:
       - name: "values"
         label: "Valeurs / Pourquoi ORION"
         file: "src/_data/values.json"
+        format: "json"
         fields:
           - label: "Valeurs"
             name: "values"
