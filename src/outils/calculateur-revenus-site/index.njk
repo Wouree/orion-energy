@@ -1,53 +1,123 @@
 ---
-pageTitle: "Calculateur de revenus d'un site"
-pageDescription: "Estimez l'énergie délivrée, le chiffre d'affaires et le coût de l'électricité d'une borne sur votre site. Toutes les hypothèses sont modifiables."
+pageTitle: "Ce que votre emplacement pourrait rapporter"
+pageDescription: "Un ordre de grandeur en fourchette pour un site accueillant une borne ORION : trajectoire sur douze mois, deux modèles de partage, toutes les hypothèses modifiables."
 ---
+{%- set a = orion.assumptionsBySlug["indicateur-revenus-site"] -%}
 
 <section class="page-hero">
   <div class="page-hero-bg" style="background-image: url('{{ site.cloudinary }}/w_1920,f_auto,q_auto/v1771872064/orionenergy/webimages/recharge-publique-hero-02-OrionEnergyCameroon.png');"></div>
   <div class="container">
     <span class="section-label" style="color:var(--lime);">Outils</span>
-    <h1>Ce que peut produire une borne sur votre site</h1>
-    <p>Trois nombres suffisent : combien de véhicules se branchent, combien d'énergie ils prennent, et à quel tarif. Le reste n'est qu'une multiplication.</p>
+    <h1>Ce que votre emplacement pourrait rapporter</h1>
+    <p>Un ordre de grandeur, pas un chiffre ferme. Toutes les hypothèses sont modifiables ci-dessous : ajustez-les avec nous, et le modèle se recalcule immédiatement. Les résultats sont présentés en fourchette parce que la fréquentation d'une borne au Cameroun ne se prédit pas — elle s'observe.</p>
   </div>
 </section>
+
+{# Assumptions travel from the content collection into the formula. Nothing numeric is hardcoded in this
+   template or in calculator.js — see content/calculator_assumptions/indicateur-revenus-site.md #}
+<script type="application/json" data-calculator-config="siteRevenue">{{ a | dump | safe }}</script>
 
 <section class="section">
   <div class="container">
     <div class="calc-layout">
 
       <div class="calc-panel">
-        <h2>Vos hypothèses</h2>
+        <h2>Votre site</h2>
+        <p>Ajustez ce qui ne correspond pas.</p>
+
         <form data-calculator="siteRevenue">
 
           <div class="form-group">
-            <label for="c-sessions">Sessions de recharge par jour</label>
-            <input id="c-sessions" type="number" name="sessions_per_day" value="6" min="0" step="1"
-                   data-assumption="Sessions par jour" data-unit="sessions">
-            <p class="field-hint">Combien de véhicules se branchent, un jour ordinaire. Soyez prudent : c'est l'hypothèse la plus optimiste de tout le calcul.</p>
+            <label for="r-site">Type de site</label>
+            <select id="r-site" name="site_type">
+              {% for t in a.site_types %}
+              <option value="{{ t.key }}"{% if t.key == a.default_site_type %} selected{% endif %}>{{ t.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="r-points">Points de charge</label>
+              <input id="r-points" type="number" name="points" value="{{ a.default_points }}" min="1" step="1"
+                     data-assumption="Points de charge" data-unit="">
+            </div>
+            <div class="form-group">
+              <label for="r-hours">Heures d'ouverture par jour</label>
+              <input id="r-hours" type="number" name="hours" value="{{ a.default_hours }}" min="1" max="24" step="1"
+                     data-assumption="Heures d'ouverture" data-unit="h par jour">
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="c-kwh">Énergie par session (kWh)</label>
-            <input id="c-kwh" type="number" name="kwh_per_session" value="15" min="0" step="0.5"
-                   data-assumption="Énergie par session" data-unit="kWh">
-            <p class="field-hint">Dépend de la puissance de la borne et du temps que le conducteur reste. Une recharge d'appoint de 30 minutes sur une borne de 20 kW délivre environ 10 kWh.</p>
+            <label for="r-product">Matériel envisagé</label>
+            <select id="r-product" name="product">
+              {% for p in orion.product | sortByOrder %}
+              <option value="{{ p.power_kw }}" data-model="{{ p.model }}"{% if p.slug == a.default_product %} selected{% endif %}>{{ p.model }} — {{ p.power_kw }} kW{% if p.use_case %} ({{ p.use_case | lower }}){% endif %}</option>
+              {% endfor %}
+            </select>
+            <p class="field-hint">Une borne murale de 7 kW rapporte très peu à un site hôte : elle délivre peu d'énergie par heure. Les modèles rapides changent l'ordre de grandeur.</p>
+          </div>
+
+          <h4 style="margin-top:28px;">Le modèle économique</h4>
+
+          <div class="form-group">
+            <label for="r-tariff">Tarif facturé au conducteur <span class="claim-badge">hypothèse</span></label>
+            <input id="r-tariff" type="number" name="tariff" value="{{ a.default_tariff }}" min="0" step="5"
+                   data-assumption="Tarif facturé au conducteur" data-unit="FCFA/kWh">
+            <p class="field-hint">FCFA par kWh — fixé par ORION. {{ "indicateur-tarif-recharge" | claimText }}</p>
           </div>
 
           <div class="form-group">
-            <label for="c-tariff">Tarif de recharge facturé (FCFA/kWh)</label>
-            <input id="c-tariff" type="number" name="charging_tariff" value="" min="0" step="1"
-                   placeholder="à renseigner"
-                   data-assumption="Tarif de recharge" data-unit="FCFA/kWh" data-source="valeur à renseigner — non publiée">
-            <p class="field-hint"><strong>Volontairement vide.</strong> Le tarif de recharge est fixé par ORION, site par site, et n'est pas publié. Nous ne mettrons pas de valeur par défaut ici : elle deviendrait une promesse. Saisissez l'hypothèse que vous voulez tester.</p>
+            <label for="r-cost">Coût de l'électricité <span class="claim-badge">hypothèse</span></label>
+            <input id="r-cost" type="number" name="electricity_cost" value="{{ a.default_electricity_cost }}" min="0" step="1"
+                   data-assumption="Coût de l'électricité" data-unit="FCFA/kWh">
+            <p class="field-hint">FCFA par kWh — à la charge d'ORION. {{ "tarif-electricite-bt-801-2000" | claimCite | safe }}</p>
           </div>
 
           <div class="form-group">
-            <label for="c-elec">Prix de l'électricité achetée (FCFA/kWh)</label>
-            <input id="c-elec" type="number" name="electricity_tariff" value="{{ "tarif-electricite-bt-domestique" | claimValue }}" min="0" step="1"
-                   data-assumption="Prix de l'électricité" data-unit="FCFA/kWh"
-                   data-source="ARSEL, tarif basse tension, tranche 111–400 kWh">
-            <p class="field-hint">Valeur par défaut : tarif basse tension domestique de l'ARSEL. {{ "tarif-electricite-bt-domestique" | claimCite | safe }}</p>
+            <label for="r-fees">Frais d'encaissement</label>
+            <input id="r-fees" type="number" name="payment_fee" value="{{ a.payment_fee_pct }}" min="0" max="100" step="0.5"
+                   data-assumption="Frais d'encaissement" data-unit="% du CA">
+            <p class="field-hint">% du chiffre d'affaires.</p>
+          </div>
+
+          <div class="form-group">
+            <fieldset style="border:0;padding:0;margin:0;">
+              <legend style="padding:0;">Modèle de partage</legend>
+              <div class="form-radio-group">
+                <label class="form-radio"><input type="radio" name="share_model" value="net"{% if a.default_share_model == "net" %} checked{% endif %}> Partage du net</label>
+                <label class="form-radio"><input type="radio" name="share_model" value="gross"{% if a.default_share_model == "gross" %} checked{% endif %}> Partage du brut</label>
+              </div>
+              <p class="field-hint">Les deux restent affichés dans le résultat : c'est un arbitrage, pas un choix à l'aveugle.</p>
+            </fieldset>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="r-net">Part du site sur le résultat net</label>
+              <input id="r-net" type="number" name="net_share" value="{{ a.default_net_share_pct }}" min="0" max="100" step="1"
+                     data-assumption="Part du site — net" data-unit="%">
+              <p class="field-hint">Après électricité et frais d'encaissement.</p>
+            </div>
+            <div class="form-group">
+              <label for="r-gross">Part du site sur le chiffre d'affaires</label>
+              <input id="r-gross" type="number" name="gross_share" value="{{ a.default_gross_share_pct }}" min="0" max="100" step="1"
+                     data-assumption="Part du site — brut" data-unit="%">
+              <p class="field-hint">ORION conserve le reste et supporte tous les coûts.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <fieldset style="border:0;padding:0;margin:0;">
+              <legend style="padding:0;">Rythme d'adoption</legend>
+              <div class="form-radio-group">
+                {% for r in a.ramps %}
+                <label class="form-radio"><input type="radio" name="pace" value="{{ r.key }}"{% if r.key == a.default_ramp %} checked{% endif %}> {{ r.label }}</label>
+                {% endfor %}
+              </div>
+              <p class="field-hint">Le parc de véhicules électriques au Cameroun est encore restreint. Ce réglage déplace l'ensemble de la fourchette, il ne la remplace pas par une certitude.</p>
+            </fieldset>
           </div>
 
           <button type="submit" class="btn btn-primary" style="width:100%;">Calculer</button>
@@ -55,34 +125,46 @@ pageDescription: "Estimez l'énergie délivrée, le chiffre d'affaires et le co�
       </div>
 
       <div class="calc-panel">
-        <h2>Résultat</h2>
+        <h2>Indication de revenus pour le site</h2>
         <div data-calculator-result>
-          <p class="calc-placeholder">Renseignez vos hypothèses et lancez le calcul. Le résultat apparaîtra ici, avec les valeurs qui l'ont produit.</p>
+          <p class="calc-placeholder">Renseignez votre site et lancez le calcul. Le résultat apparaît en fourchette, avec les hypothèses qui l'ont produit.</p>
         </div>
-        <div data-calculator-assumptions class="service-content"></div>
 
-        <div data-calculator-cta hidden style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
-          <h3>Confronter ce chiffre à la réalité</h3>
-          <p>Ce calcul repose sur une fréquentation que vous avez estimée. Nous pouvons la confronter à votre site : emplacement, visibilité, durée de stationnement, puissance disponible.</p>
-          <a href="/demande/site-partenaire/" class="btn btn-primary">Proposer mon site</a>
+        {# T1 capture — public context only. The print stylesheet hides this entirely. #}
+        <div data-calculator-cta hidden class="rev-followup">
+          <div class="rev-capture">
+            <h3>Recevoir cette simulation</h3>
+            <p>Nous vous envoyons ce tableau avec ses hypothèses, pour que vous puissiez le relire à froid.</p>
+            <form data-orion-form data-segment="site_partenaire">
+              <input type="hidden" name="form_type" value="indicateur-revenus">
+              <div class="form-group">
+                <label for="r-email">Votre email</label>
+                <input id="r-email" type="email" name="email" required>
+              </div>
+              <button type="submit" class="btn btn-outline" style="width:100%;">Recevoir la simulation</button>
+            </form>
+          </div>
+
+          <div class="rev-t3">
+            <h3>Confronter ce chiffre à votre site</h3>
+            <p>Ces montants reposent sur une fréquentation que vous avez estimée. Nous pouvons la confronter au terrain : emplacement, visibilité, durée de stationnement, puissance disponible.</p>
+            <a href="/demande/site-partenaire/" class="btn btn-primary">Proposer mon emplacement</a>
+          </div>
+
+          <button type="button" class="btn btn-ghost rev-print" data-print>Imprimer cette page</button>
         </div>
       </div>
 
     </div>
 
-    <div class="service-content mt-3">
+    <div class="service-content mt-3 rev-footnotes">
       <h2>Ce que ce calcul ne dit pas</h2>
       <ul>
-        <li><strong>Votre part.</strong> Le résultat est la marge avant partage entre ORION et le site. La répartition est une clause du contrat, et elle n'est pas publiée ici — nous ne l'inventerons pas pour rendre l'outil plus satisfaisant.</li>
-        <li><strong>Les coûts d'exploitation autres que l'énergie</strong> : maintenance, assurance, amortissement. Ils sont à notre charge dans le modèle site partenaire, mais ils existent et ils pèsent sur la marge.</li>
-        <li><strong>La montée en charge.</strong> Une borne neuve n'atteint pas sa fréquentation de croisière le premier mois.</li>
+        <li><strong>Ce n'est pas une offre.</strong> Les parts affichées sont des hypothèses que vous ajustez pour comparer deux modèles. Le partage réel est une clause du contrat, et il n'est pas publié ici.</li>
+        <li><strong>Les taux d'utilisation ne sont adossés à aucune source.</strong> {{ "indicateur-trajectoires-utilisation" | claimText }} — le parc camerounais est trop restreint pour qu'un taux de fréquentation soit observable aujourd'hui. Ce sont des hypothèses de travail, à réviser dès qu'un site aura tourné un trimestre.</li>
+        <li><strong>Le tarif de recharge n'est pas publié.</strong> ORION le fixe site par site. La valeur affichée est illustrative et porte le badge « hypothèse ».</li>
+        <li><strong>La montée en charge est progressive.</strong> Une borne neuve n'atteint pas sa fréquentation de croisière le premier mois, ce que la trajectoire sur douze mois reflète.</li>
       </ul>
-
-      {# PENDING_DATA: part de revenu reversée au site hôte et tarif de recharge appliqué.
-         Aucun des deux n'est confirmé. Le calculateur s'arrête donc à la marge avant partage,
-         et le champ « tarif de recharge » est délibérément sans valeur par défaut.
-         Voir docs/PENDING.md #}
-
       <p>Ce résultat n'est pas un devis. C'est un ordre de grandeur destiné à savoir s'il vaut la peine d'aller plus loin.</p>
     </div>
   </div>

@@ -43,28 +43,187 @@
     return h + ' h' + (m ? ' ' + String(m).padStart(2, '0') : '');
   }
 
-  /* ---------- 1. Site revenue ---------- */
+  /* ---------- 1. Site revenue indicator ---------- */
 
-  FORMULAS.siteRevenue = function (v) {
-    var kwhPerDay = v.sessions_per_day * v.kwh_per_session;
-    var kwhPerMonth = kwhPerDay * 30;
-    var grossPerMonth = kwhPerMonth * v.charging_tariff;
-    var energyCostPerMonth = kwhPerMonth * v.electricity_tariff;
-    var marginPerMonth = grossPerMonth - energyCostPerMonth;
+  /**
+   * What a host site could earn, as a band across four horizons.
+   *
+   * Three framing rules are structural here, not cosmetic:
+   *
+   *   NEVER A SINGLE FIGURE. Charge point usage in Cameroon cannot be predicted, only observed, so every
+   *   output is a low–high band. The mid-point appears as a secondary line, never as the headline.
+   *
+   *   BOTH SHARE MODELS STAY VISIBLE. Selecting one does not hide the other's figure — the host is
+   *   choosing between two trade-offs and needs to see both to choose.
+   *
+   *   THE SPLIT IS AN ADJUSTABLE HYPOTHESIS, NOT AN OFFER. The percentages are inputs the visitor can
+   *   move, displayed as a band and stamped "ne constitue ni une offre ni un engagement de revenus".
+   *   ORION has not published a revenue share; nothing here may read as one.
+   *
+   * All numbers come from the calculator_assumptions collection via the JSON config block.
+   */
+
+  function fmt(n) {
+    if (!isFinite(n)) return '—';
+    return Math.round(n).toLocaleString('fr-FR').replace(/\u202F|\u00A0|,/g, ' ');
+  }
+
+  function pctLabel(n) {
+    return (n * 100).toFixed(1).replace('.', ',') + ' %';
+  }
+
+  function esc(t) {
+    return String(t).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  FORMULAS.siteRevenue = function (v, form, config) {
+    if (!config) {
+      return {
+        html: '<div class="form-error" role="alert">Les hypothèses de calcul n\u2019ont pas pu être chargées. ' +
+              'Rien n\u2019est affiché plutôt qu\u2019un chiffre calculé sur des valeurs par défaut.</div>'
+      };
+    }
+
+    var mode = (form.querySelector('[name="share_model"]:checked') || {}).value || config.default_share_model || 'net';
+    var paceKey = (form.querySelector('[name="pace"]:checked') || {}).value || config.default_ramp || 'mid';
+    var ramp = (config.ramps || []).filter(function (r) { return r.key === paceKey; })[0] || config.ramps[0];
+
+    var siteSelect = form.querySelector('[name="site_type"]');
+    var siteKey = siteSelect ? siteSelect.value : config.default_site_type;
+    var siteLabel = ((config.site_types || []).filter(function (t) { return t.key === siteKey; })[0] || {}).label || '';
+
+    var productSelect = form.querySelector('[name="product"]');
+    var kw = productSelect ? parseFloat(productSelect.value) || 0 : 0;
+    var productLabel = productSelect ? productSelect.options[productSelect.selectedIndex].dataset.model || '' : '';
+
+    var i = {
+      points: Math.max(1, v.points || 1),
+      hours: Math.max(1, v.hours || 1),
+      kw: kw,
+      tariff: Math.max(0, v.tariff || 0),
+      cost: Math.max(0, v.electricity_cost || 0),
+      fees: Math.max(0, v.payment_fee || 0) / 100,
+      netShare: Math.max(0, v.net_share || 0) / 100,
+      grossShare: Math.max(0, v.gross_share || 0) / 100
+    };
+
+    var efficiency = config.efficiency_factor;
+
+    function model(util) {
+      var kwh = i.points * i.kw * i.hours * 30 * util * efficiency;
+      var revenue = kwh * i.tariff;
+      var energy = kwh * i.cost;
+      var fees = revenue * i.fees;
+      var net = revenue - energy - fees;
+      return {
+        kwh: kwh,
+        revenue: revenue,
+        net: net,
+        hostNet: Math.max(0, net * i.netShare),
+        hostGross: revenue * i.grossShare
+      };
+    }
+
+    var hostValue = function (r) { return mode === 'net' ? r.hostNet : r.hostGross; };
+    var months = config.milestones || [];
+
+    /* --- one card per horizon, always a band --- */
+    var cards = '', rows = '';
+    ramp.milestones.forEach(function (u, k) {
+      var lo = model(u.low), hi = model(u.high);
+      var vLo = hostValue(lo), vHi = hostValue(hi);
+      var mid = (vLo + vHi) / 2;
+
+      cards +=
+        '<div class="rev-card">' +
+          '<div class="rev-card-when">' + esc(months[k] || '') + '</div>' +
+          '<div class="rev-card-band">' + fmt(vLo) + ' – ' + fmt(vHi) +
+            '<span class="rev-card-unit">FCFA par mois</span></div>' +
+          '<div class="rev-card-mid">Milieu de fourchette <b>' + fmt(mid) + ' FCFA</b></div>' +
+          '<div class="rev-card-util">Utilisation ' + pctLabel(u.low) + ' à ' + pctLabel(u.high) + '</div>' +
+        '</div>';
+
+      rows +=
+        '<tr><td><b>' + esc(months[k] || '') + '</b></td>' +
+        '<td>' + pctLabel(u.low) + ' – ' + pctLabel(u.high) + '</td>' +
+        '<td>' + fmt(lo.kwh) + ' – ' + fmt(hi.kwh) + ' kWh</td>' +
+        '<td>' + fmt(lo.revenue) + ' – ' + fmt(hi.revenue) + '</td>' +
+        '<td>' + fmt(lo.net) + ' – ' + fmt(hi.net) + '</td>' +
+        '<td><b>' + fmt(vLo) + ' – ' + fmt(vHi) + '</b></td></tr>';
+    });
+
+    /* --- both models at the final horizon; the unselected one keeps showing its figure --- */
+    var last = ramp.milestones[ramp.milestones.length - 1];
+    var lastLabel = months[months.length - 1] || '';
+    var lLast = model(last.low), hLast = model(last.high);
+
+    var comparison =
+      '<div class="rev-models">' +
+        '<div class="rev-model' + (mode === 'net' ? ' is-selected' : '') + '">' +
+          '<h4>Partage du net</h4>' +
+          '<p class="rev-model-value">' + fmt(lLast.hostNet) + ' – ' + fmt(hLast.hostNet) +
+            ' <span>FCFA / mois au ' + esc(lastLabel) + '</span></p>' +
+          '<p class="rev-model-note">Électricité et frais déduits, puis partage. La part du site suit la rentabilité réelle de la borne.</p>' +
+        '</div>' +
+        '<div class="rev-model' + (mode === 'gross' ? ' is-selected' : '') + '">' +
+          '<h4>Partage du brut</h4>' +
+          '<p class="rev-model-value">' + fmt(lLast.hostGross) + ' – ' + fmt(hLast.hostGross) +
+            ' <span>FCFA / mois au ' + esc(lastLabel) + '</span></p>' +
+          '<p class="rev-model-note">Part calculée sur l\u2019encaissement total. Plus simple à vérifier : le site n\u2019a aucun coût à suivre.</p>' +
+        '</div>' +
+      '</div>';
+
+    var context =
+      i.points + ' point' + (i.points > 1 ? 's' : '') + ' de charge de ' + i.kw + ' kW, ' +
+      (siteLabel ? siteLabel.toLowerCase() + ' ' : '') + 'ouvert ' + i.hours + ' h par jour · rythme d\u2019adoption ' +
+      String(ramp.label).toLowerCase() + '.';
+
+    /* --- assumptions, rendered from the collection and printed with the leave-behind --- */
+    var share = mode === 'net'
+      ? 'partage du résultat net, ' + (i.netShare * 100) + ' % pour le site'
+      : 'partage du chiffre d\u2019affaires, ' + (i.grossShare * 100) + ' % pour le site';
+
+    var assumptions =
+      '<li>' + i.points + ' point(s) de charge de ' + i.kw + ' kW' + (productLabel ? ' (' + esc(productLabel) + ')' : '') +
+        ', ' + i.hours + ' heures d\u2019ouverture par jour, 30 jours par mois.</li>' +
+      '<li>Tarif facturé au conducteur : ' + fmt(i.tariff) + ' FCFA/kWh. <b>Hypothèse de travail</b>, à confirmer par ORION.</li>' +
+      '<li>Coût de l\u2019électricité : ' + fmt(i.cost) + ' FCFA/kWh, supporté par ORION. <b>Hypothèse de travail</b>, à confirmer sur la base du tarif applicable au site.</li>' +
+      '<li>Frais d\u2019encaissement : ' + String(i.fees * 100).replace('.', ',') + ' % du chiffre d\u2019affaires.</li>' +
+      '<li>Modèle de partage : ' + share + '.</li>' +
+      '<li>Rendement retenu : ' + (efficiency * 100) + ' % de la puissance nominale, pour tenir compte des sessions partielles et des pertes.</li>' +
+      '<li>Trajectoire d\u2019utilisation « ' + String(ramp.label).toLowerCase() + ' » : de ' +
+        pctLabel(ramp.milestones[0].low) + '–' + pctLabel(ramp.milestones[0].high) + ' au ' + esc(months[0] || '') + ' à ' +
+        pctLabel(last.low) + '–' + pctLabel(last.high) + ' au ' + esc(lastLabel) + '. ' +
+        'Aucune source externe : le parc de véhicules électriques au Cameroun est trop restreint pour que ce taux soit observable.</li>' +
+      '<li>ORION prend en charge le matériel, le génie civil, le raccordement, l\u2019électricité consommée, la maintenance, ' +
+        'l\u2019assurance et la signalétique. Le site met l\u2019emplacement à disposition.</li>';
+
+    var stamp =
+      'Simulation établie le ' +
+      new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) +
+      ' · ORION Energy · Document de travail — ne constitue ni une offre ni un engagement de revenus.';
+
+    var html =
+      '<p class="rev-context">' + esc(context) + '</p>' +
+      '<div class="rev-cards">' + cards + '</div>' +
+      comparison +
+      '<div class="rev-detail">' +
+        '<h3>Détail du modèle</h3>' +
+        '<p>Fourchette basse et haute à chaque échéance.</p>' +
+        '<div class="data-table-wrap"><table class="data-table"><thead><tr>' +
+          '<th scope="col">Échéance</th><th scope="col">Taux d\u2019utilisation</th><th scope="col">Énergie livrée</th>' +
+          '<th scope="col">Chiffre d\u2019affaires</th><th scope="col">Résultat net</th><th scope="col">Part du site</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '</div>' +
+      '<div class="rev-assumptions"><h3>Hypothèses retenues</h3><ul>' + assumptions + '</ul></div>' +
+      '<p class="rev-stamp">' + esc(stamp) + '</p>';
 
     return {
-      headline: v.charging_tariff > 0 ? fcfa(marginPerMonth) : '—',
-      headlineLabel: 'Marge mensuelle brute, avant partage',
-      rows: [
-        ['Énergie délivrée', Math.round(kwhPerMonth).toLocaleString('fr-FR') + ' kWh par mois'],
-        ['Chiffre d’affaires de la borne', v.charging_tariff > 0 ? fcfa(grossPerMonth) : '—'],
-        ['Coût de l’électricité consommée', fcfa(energyCostPerMonth)],
-        ['Marge avant partage', v.charging_tariff > 0 ? fcfa(marginPerMonth) : '—']
-      ],
-      caveat:
-        v.charging_tariff > 0
-          ? 'Ce montant est la marge <strong>avant</strong> partage entre ORION et le site. La part qui revient au site hôte est une clause du contrat, et elle n’est pas publiée sur ce site — nous ne l’inventerons pas ici. Ce calculateur vous donne la taille du gâteau, pas votre part.'
-          : 'Renseignez un tarif de recharge pour obtenir un chiffre d’affaires. Nous n’en proposons pas par défaut : le tarif est fixé par ORION site par site et n’est pas encore publié.'
+      html: html,
+      // Carried into the next form as tool_result, so a lead arrives with the scenario the host ran.
+      headline: fmt(hostValue(model(last.low))) + ' – ' + fmt(hostValue(model(last.high))) + ' FCFA'
     };
   };
 
@@ -153,7 +312,18 @@
 
   /* ---------- rendering ---------- */
 
+  /**
+   * A calculator may return `html` instead of the headline/rows pair when its output does not fit that
+   * shape — the revenue indicator renders four milestone cards, a two-model comparison and a detail
+   * table. This is additive: a formula that returns no `html` takes the original path unchanged, which
+   * is what the other three calculators do.
+   */
   function render(panel, result) {
+    if (result.html) {
+      panel.innerHTML = result.html;
+      return;
+    }
+
     var html = '';
 
     if (result.blockers && result.blockers.length) {
@@ -203,11 +373,26 @@
 
   /* ---------- wiring ---------- */
 
+  /**
+   * Assumptions reach a formula from the content collection, serialised into a JSON block beside the
+   * form. Nothing numeric is hardcoded here: change the Markdown file and the maths changes.
+   */
+  function configFor(name) {
+    var el = document.querySelector('[data-calculator-config="' + name + '"]');
+    if (!el) return null;
+    try {
+      return JSON.parse(el.textContent);
+    } catch (e) {
+      return null;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-calculator]').forEach(function (form) {
       var name = form.dataset.calculator;
       var formula = FORMULAS[name];
       if (!formula) return;
+      var config = configFor(name);
 
       // The result panel sits in a sibling column, not inside the form's own panel, so scope the lookup
       // to the shared layout container rather than to the form's parent.
@@ -224,7 +409,7 @@
           if (el.name) values[el.name] = num(el);
         });
 
-        var result = formula(values, form);
+        var result = formula(values, form, config);
         render(panel, result);
         if (assumptions) renderAssumptions(form, assumptions);
         if (cta) cta.hidden = false;
